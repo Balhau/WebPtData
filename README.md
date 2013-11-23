@@ -9,6 +9,10 @@ and other organizations with civic and public interest in general.
 
 ### List of Services to be integrated
 
-	* [Instituto Nacional de Estatística](http://www.ine.pt/)
-	* [Banco de Portugal](http://www.bportugal.pt/)
+* [Instituto Nacional de Estatística](http://www.ine.pt/)
+	Dados do instituto nacional de Estatística
+* [Banco de Portugal](http://www.bportugal.pt/)
+	Dados do Banco de Portugal
+* [Assembleia da República](http://www.parlamento.pt/Paginas/default.aspx)
+	Dados da Assembleia da República
 
