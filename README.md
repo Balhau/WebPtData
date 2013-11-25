@@ -99,5 +99,15 @@ and other organizations with civic and public interest in general.
 * [U.S. Statistics Bureau](http://www.census.gov/)
 * [União Internacional das Telecomunicações](http://www.itu.int/en/Pages/default.aspx)
 
+## Documentation
 
+### SMDX
+* [SDMX](http://sdmx.org/)
+	SDMX stands for *Statistical Data and Metadata eXchange*    
+* [SDMX Data Types xsd](http://www.sdmx.org/docs/2_0/SDMXGenericData.xsd)
+	Here are defined the datatypes used by the SDMX protocol
+* [SDMX Validation Scheme](http://sdmx.org/docs/1_0/SDMXMessage.xsd)
+	Here is defined the structure of a SDMX XML file.
+	
+	
 
