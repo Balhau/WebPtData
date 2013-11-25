@@ -17,18 +17,18 @@ public class App
 {
     public static void main( String[] args ) throws IOException
     {
-    	String url="http://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_indicadores&indOcorrCod=0006895&contexto=bd&selTab=tab2";
+    	ineTests();
+    }
+    
+    private static void ineTests() throws IOException{
+    	String url="http://www.ine.pt/bddXplorer/htdocs/bddXplorer04.jsp?indOcorrCod=0007333&contexto=bd&userLoadSave=&lang=PT";
     	Connection cn=Jsoup.connect(url);
-    	cn.header("Referer","http://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_indicadores&indOcorrCod=0006895&contexto=bd&selTab=tab2");
+    	String ref="http://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_indicadores&indOcorrCod=0007333&contexto=bd&selTab=tab2";
+    	cn.header("Referer",ref);
     	Document doc=cn.get();
     	
-    	Elements els=doc.select("body");
-    	String urlDATA="http://www.ine.pt"+els.get(0).select("iframe").get(0).attr("src");
-    	String urlNData="http://www.ine.pt/bddXplorer/htdocs/bddXplorer04.jsp?indOcorrCod=0006895&contexto=bd&userLoadSave=&lang=PT";
-    	String urlN=urlNData;
-    	System.out.println(urlN);
-    	Document docD=Jsoup.connect(urlN).get();
-    	System.out.println(docD);
-//    	System.out.println(docD.select("table"));
+    	Elements els= doc.select("table .dados");
+    	
+    	System.out.println(els);
     }
 }
