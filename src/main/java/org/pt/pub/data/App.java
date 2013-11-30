@@ -7,8 +7,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 import org.pt.pub.data.exceptions.EncodingException;
-import org.pt.pub.data.sources.ine.INEServices;
-import org.pt.pub.data.sources.ine.datatypes.INEDataSource;
+import org.pt.pub.data.sources.ine.INEDataSource;
+import org.pt.pub.data.sources.ine.datatypes.INEServices;
 
 
 

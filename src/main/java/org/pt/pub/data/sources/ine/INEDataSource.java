@@ -1,4 +1,4 @@
-package org.pt.pub.data.sources.ine.datatypes;
+package org.pt.pub.data.sources.ine;
 
 import java.io.IOException;
 
@@ -8,7 +8,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pt.pub.data.sources.AbstractDataSource;
-import org.pt.pub.data.sources.ine.INEServices;
+import org.pt.pub.data.sources.ine.datatypes.INEServices;
+import org.pt.pub.data.sources.ine.datatypes.ServiceItem;
 
 /**
  * This class 

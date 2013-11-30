@@ -1,4 +1,4 @@
-package org.pt.pub.data.sources.ine;
+package org.pt.pub.data.sources.ine.datatypes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.pt.pub.data.sources.AbstractData;
-import org.pt.pub.data.sources.ine.datatypes.ServiceItem;
 
 /**
  * Class that represent a list of services. We created this class to be able to call toString 
