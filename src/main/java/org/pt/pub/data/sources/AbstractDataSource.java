@@ -6,5 +6,4 @@ package org.pt.pub.data.sources;
  *
  */
 public abstract class AbstractDataSource  implements IDataSource{
-	//TODO add here common functionalities
 }

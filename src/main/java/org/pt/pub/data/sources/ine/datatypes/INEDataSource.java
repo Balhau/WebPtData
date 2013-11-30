@@ -1,8 +1,6 @@
-package org.pt.pub.data.sources.ine;
+package org.pt.pub.data.sources.ine.datatypes;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -10,6 +8,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pt.pub.data.sources.AbstractDataSource;
+import org.pt.pub.data.sources.ine.INEServices;
 
 /**
  * This class 
@@ -32,7 +31,7 @@ public class INEDataSource extends AbstractDataSource{
     	String url=url1;
     	INEServices services=getAvailableServices(1, 50);
     	System.out.println(services.getList().size());
-    	System.out.println(services);
+    	System.out.println(services.toJSON());
     	//ineTests(url);
 	}
 	
@@ -59,7 +58,7 @@ public class INEDataSource extends AbstractDataSource{
 	}
 	
 	
-	private void ineTests(String urlData) throws IOException{
+	public void ineTests(String urlData) throws IOException{
 	    	Connection cn=Jsoup.connect(urlData);
 	    	Document doc=cn.get();
 	    	String iUrl=doc.select("iframe").attr("src");
@@ -80,5 +79,5 @@ public class INEDataSource extends AbstractDataSource{
 	    	
 	    	System.out.println(els);
 	    	*/
-	   }
+	}
 }

@@ -3,12 +3,21 @@ package org.pt.pub.data.sources.ine;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.pt.pub.data.sources.AbstractData;
+import org.pt.pub.data.sources.ine.datatypes.ServiceItem;
+
 /**
- * Class that represent a list of services. We created this class to be able to call toString method by overloading
+ * Class that represent a list of services. We created this class to be able to call toString 
+ * method by overloading
  * @author balhau
  *
  */
-public class INEServices {
+@XmlRootElement(name="INEServices")
+public class INEServices extends AbstractData{
+	@XmlElement(type=ServiceItem.class,name="service")
 	private List<ServiceItem> items;
 	
 	public INEServices(){
@@ -23,7 +32,7 @@ public class INEServices {
 		this.items.add(serviceItem);
 	}
 	
-	public String toString(){
+	public String toJSON(){
 		StringBuilder sb=new StringBuilder();
 		sb.append("[");
 		ServiceItem item;
