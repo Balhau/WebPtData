@@ -10,14 +10,14 @@ import org.pt.pub.data.sources.AbstractData;
 
 @XmlRootElement(name="INEResultData")
 public class INEResultData extends AbstractData{
-	@XmlElement(type=INEDataRow.class,name="data")
-	private List<INEDataRow> dataRows;
 	@XmlElement(type=INEDataRow.class,name="header")
 	private List<INEDataRow> headerRows;
+	@XmlElement(type=INEDataRow.class,name="data")
+	private List<INEDataRow> dataRows;
 	
 	public INEResultData(){
-		dataRows=new ArrayList<INEDataRow>();
 		headerRows=new ArrayList<INEDataRow>();
+		dataRows=new ArrayList<INEDataRow>();
 	}
 	
 	public INEResultData(List<INEDataRow> headers,List<INEDataRow> data){
@@ -32,6 +32,5 @@ public class INEResultData extends AbstractData{
 	public List<INEDataRow> getHeaderRows() {
 		return headerRows;
 	}
-	
 	
 }

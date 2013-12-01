@@ -7,6 +7,8 @@ import javax.xml.bind.Marshaller;
 
 import org.pt.pub.data.exceptions.EncodingException;
 
+import com.google.gson.Gson;
+
 /**
  * The datatypes to be marshalled should extend this class. This has the common methods to be applied for 
  * all the datatypes.
@@ -15,12 +17,23 @@ import org.pt.pub.data.exceptions.EncodingException;
  */
 public class AbstractData implements IData{
 
+	
+	/**
+	 * The purpose of this method is able all subclass to encode his data into a JSON format
+	 * 
+	 * @return {@link String} JSON encoding of the object
+	 */
 	public String toJSON() throws EncodingException {
-		// TODO Auto-generated method stub
-		return null;
+		Gson gson=new Gson();
+		String jsonData=gson.toJson(this);
+		return jsonData;
 	}
 	
 
+	/**
+	 * This is a method that able all the subclass to encode his data into XML file format
+	 * @return {@link String} String with the data encoded as XML file format
+	 */
 	public String toXML() throws EncodingException{
 		try{
 			JAXBContext ctx= JAXBContext.newInstance(this.getClass());
