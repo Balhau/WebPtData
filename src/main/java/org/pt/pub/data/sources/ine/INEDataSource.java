@@ -122,8 +122,8 @@ public class INEDataSource extends AbstractDataSource{
 	    	Connection cn=Jsoup.connect(urlData);
 	    	Document doc=cn.get();
 	    	String iUrl=doc.select("iframe").attr("src");
-	    	System.out.println(INE_BASE+iUrl);
-	    	cn=Jsoup.connect(INE_BASE+iUrl);
+	    	System.out.println(iUrl);
+	    	cn=Jsoup.connect(iUrl);
 	    	cn.timeout(5000);
 	    	cn.header("Referer", urlData);
 	    	doc=cn.get();
