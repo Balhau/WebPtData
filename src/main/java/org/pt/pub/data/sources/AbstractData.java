@@ -44,6 +44,7 @@ public class AbstractData implements IData{
 			sw.close();
 			return sw.toString();
 		}catch (Exception e) {
+			System.out.println(e.getMessage());
 			throw new EncodingException(e.getMessage());
 		}
 	}

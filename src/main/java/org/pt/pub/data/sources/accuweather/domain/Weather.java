@@ -10,7 +10,7 @@ import org.pt.pub.data.sources.ine.datatypes.INEDataRow;
 public class Weather extends AbstractData{
 	
 	private int humidity;
-	private int pressure;
+	private float pressure;
 	private int uvindex;
 	private int cloudCover;
 	private int ceiling;
@@ -25,10 +25,10 @@ public class Weather extends AbstractData{
 	public void setHumidity(int humidity) {
 		this.humidity = humidity;
 	}
-	public int getPressure() {
+	public float getPressure() {
 		return pressure;
 	}
-	public void setPressure(int pressure) {
+	public void setPressure(float pressure) {
 		this.pressure = pressure;
 	}
 	public int getUvindex() {
