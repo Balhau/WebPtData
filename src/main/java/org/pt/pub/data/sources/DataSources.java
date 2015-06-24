@@ -18,10 +18,10 @@ public enum DataSources {
 	
 	/**
 	 * Create, through reflection the respective instance of {@link IDataSource}
-	 * @return {@link IDataSource}
-	 * @throws ClassNotFoundException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * @return IDataSource
+	 * @throws ClassNotFoundException Classloading problems
+	 * @throws InstantiationException Instatiation problems
+	 * @throws IllegalAccessException Invocation problems
 	 */
 	public IDataSource buildInstance() throws ClassNotFoundException, InstantiationException, IllegalAccessException{
 		Class<IDataSource> cls=(Class<IDataSource>)Class.forName(this.className);

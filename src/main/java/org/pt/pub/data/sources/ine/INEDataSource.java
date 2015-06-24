@@ -31,6 +31,7 @@ public class INEDataSource extends AbstractDataSource{
 	public INEDataSource(){
 	}
 	
+	
 	public void INETests() throws IOException{
 		String url1 ="http://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_indicadores&indOcorrCod=0007333&contexto=bd&selTab=tab2";
     	String url2 ="http://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_indicadores&indOcorrCod=0005878&contexto=bd&selTab=tab2";
@@ -47,7 +48,7 @@ public class INEDataSource extends AbstractDataSource{
 	 * @param pageNumber {@link int} Number of the page
 	 * @param itemPerpage {@link int} NUmber items per page
 	 * @return {@link INEServices} Object with a list of services available for you to feed into the {@link getDataFromService} method
-	 * @throws IOException
+	 * @throws IOException IO problems
 	 */
 	public INEServices getAvailableServices(int pageNumber,int itemPerpage) throws IOException{
 		String sURL="http://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_base_dados&bdpagenumber="+pageNumber+"&bdind_por_pagina="+itemPerpage;
