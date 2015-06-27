@@ -6,9 +6,9 @@ import java.util.Iterator;
 public class StringUtils {
 	/**
 	 * Utility method to join collections of strings
-	 * @param strings
-	 * @param separator
-	 * @return
+	 * @param strings {@link Collection} A collection of strings
+	 * @param separator {@link String} The separator used in join operation
+	 * @return {@link String} The result of the join over the collection of strings
 	 */
 	public static String join(Collection<String> strings,String separator){
 		StringBuilder sb=new StringBuilder();

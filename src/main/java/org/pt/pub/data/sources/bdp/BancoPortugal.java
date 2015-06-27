@@ -1,11 +1,12 @@
 package org.pt.pub.data.sources.bdp;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
 
-import org.codehaus.groovy.util.StringUtil;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -34,6 +35,7 @@ public class BancoPortugal extends AbstractDataSource{
 	public static final String CATEGORIES_INDEX_PATTERN="var tvwCategsClientData =";
 	public static final String SERIES_INDEX_PATTERN="var tvwSeriesClientData =";
 	public static final String SERIES_CONTROLLER_DATA=HOST+"/EstatisticasWeb/ServerSESGrid.aspx?ClientDateStart=31-03-1996&ClientDateEnd=%1$2s&ClientSeriesList=%2$2s&ClientNObs=0&HasSamePeriods=False";
+	public static final int HTTP_TIMEOUT=10*1000;
 	
 	public TableData getCategories() throws Exception{
 		Connection cn=Jsoup.connect(CATEGORIES_URL);
@@ -58,11 +60,58 @@ public class BancoPortugal extends AbstractDataSource{
 		return cl;
 	}
 	
-	private String buildSeriesDataURL(List<String> seriesIdList,String endDate){
+	private String buildSeriesDataURL(List<String> seriesIdList, Date endDate){
 		StringBuilder sb=new StringBuilder();
 		Formatter f =new Formatter(sb, Locale.US);
-		StringUtils.join(seriesIdList, ",");
-		return sb.toString();
+		SimpleDateFormat dateFormat=new SimpleDateFormat("dd-MM-yyyy");
+		String strIdsList=StringUtils.join(seriesIdList, ",");
+		String out=f.format(SERIES_CONTROLLER_DATA, dateFormat.format(endDate),strIdsList).toString();
+		f.close();
+		return out;
+	}
+	
+	/**
+	 * Method to retrieve data for set of series
+	 * @param seriesList {@link List} List of string with the ids for the series
+	 * @param endDate {@link Date} Date with the end of the series
+	 * @return {@link TableData} with the data for the series
+	 * @throws Exception
+	 */
+	public List<TableData> getDataForSeries(List<String> seriesList,Date endDate) throws Exception {
+		List<TableData> ldata=new ArrayList<TableData>();
+		TableData mtadata=new TableData();
+		TableData data=new TableData();
+		TableRow row;
+		String url=buildSeriesDataURL(seriesList, endDate);
+		Connection cn=Jsoup.connect(url);
+		cn.timeout(HTTP_TIMEOUT);
+		Document doc=cn.get();
+		Elements series=doc.getElementsByTag("serie");
+		Elements metadataRows=doc.getElementsByTag("mdata");
+		
+		//Get the metadata
+		for(Element metadata:metadataRows){
+			row=new TableRow();
+			Elements cells = metadata.getAllElements();
+			for(Element cell : cells){
+				row.getData().add(cell.text());
+			}
+			mtadata.getRows().add(row);
+		}
+		
+		//Get the data
+		for(Element serie:series){
+			row=new TableRow();
+			Elements cells=serie.getAllElements();
+			for(Element cell : cells){
+				row.getData().add(cell.text());
+			}
+			data.getRows().add(row);
+		}
+		
+		ldata.add(mtadata);
+		ldata.add(data);
+		return ldata;
 	}
 	
 	public TableData getSeriesForCategorie(String categorieID) throws Exception{

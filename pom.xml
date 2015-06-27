@@ -16,11 +16,11 @@
   </parent>
   
   <properties>
-  	<spock.version>0.6-groovy-1.8</spock.version>
+  	<spock.version>1.0-groovy-2.4</spock.version>
   	<gson.version>2.2.4</gson.version>
   	<jaxb.version>2.0</jaxb.version>
   	<jsoup.version>1.7.3</jsoup.version>
-  	<groovy.version>1.8.6</groovy.version>
+  	<groovy.version>2.4.3</groovy.version>
   	<maven.compiler.plugin>2.3.1</maven.compiler.plugin>
   </properties>
   

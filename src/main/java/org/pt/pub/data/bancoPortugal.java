@@ -1,5 +1,7 @@
 package org.pt.pub.data;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
@@ -22,9 +24,17 @@ public class bancoPortugal {
 	public static void main(String[] args) throws Exception{
 		BancoPortugal bp=new BancoPortugal();
 		TableData categories=bp.getCategories();
-		StringBuilder sb=new StringBuilder();
-		Formatter f =new Formatter(sb, Locale.US);
-		System.out.println(f.format(BancoPortugal.SERIES_CONTROLLER_DATA, "123","333"));
+		//System.out.println(categories.toXML());
+		TableData series=bp.getSeriesForCategorie(categories.getRows().get(0).getData().get(2));
+		//System.out.println(series.toXML());
+		List<String> idSerie=new ArrayList<String>();
+		idSerie.add("2031463");
+		idSerie.add("2027392");
+		List<TableData> seriesDataO=bp.getDataForSeries(idSerie, new Date());
+		TableData metadataForSeries=seriesDataO.get(0);
+		TableData seriesData=seriesDataO.get(1);
+		System.out.println(metadataForSeries.toJSON());
+		System.out.println(seriesData.toJSON());
 		/*System.out.println(categories.toXML());
 		System.out.println(categories.getRows().size());
 		System.out.println(bp.getSeriesForCategorie(categories.getRows().get(0).getData().get(2)).toXML());
