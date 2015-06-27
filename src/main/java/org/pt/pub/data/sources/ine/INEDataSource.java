@@ -75,8 +75,7 @@ public class INEDataSource extends AbstractDataSource{
 	public INEResultData getDataFromService(String urlData) throws IOException{
 		Connection cn=Jsoup.connect(urlData);
     	Document doc=cn.get();
-    	String iUrl=doc.select("iframe").attr("src");
-    	System.out.println(INE_BASE+iUrl);
+    	String iUrl=doc.select("iframe").get(1).attr("src");
     	cn=Jsoup.connect(INE_BASE+iUrl);
     	cn.timeout(5000);
     	cn.header("Referer", urlData);
@@ -123,14 +122,14 @@ public class INEDataSource extends AbstractDataSource{
 	    	Connection cn=Jsoup.connect(urlData);
 	    	Document doc=cn.get();
 	    	String iUrl=doc.select("iframe").attr("src");
-	    	System.out.println(iUrl);
-	    	cn=Jsoup.connect(iUrl);
+	    	System.out.println(INE_BASE+iUrl);
+	    	cn=Jsoup.connect(INE_BASE+iUrl);
 	    	cn.timeout(5000);
 	    	cn.header("Referer", urlData);
 	    	doc=cn.get();
 	    	Elements els=doc.select(".dados");
-	    	Elements th=els.get(0).select("tr").get(0).select("th");
-	    	System.out.println(th);
+	    	//Elements th=els.get(0).select("tr").get(0).select("th");
+	    	//System.out.println(th);
 	    	/**
 	    	String ref="http://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_indicadores&indOcorrCod=0007333&contexto=bd&selTab=tab2";
 	    	cn.header("Referer",ref);

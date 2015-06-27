@@ -26,8 +26,12 @@ public class App
     	INEDataSource ine=new INEDataSource();
     	INEServices ineS=ine.getAvailableServices(1, 25);
     	String serviceURL="http://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_indicadores&indOcorrCod=0001687&contexto=bd&selTab=tab2";
-    	ine.ineTests(serviceURL);
-    	INEResultData data=ine.getDataFromService(serviceURL);
+    	String s1="http://www.ine.pt/xportal/xmain?xpid=INE&amp;xpgid=ine_indicadores&amp;indOcorrCod=0001699&amp;contexto=bd&amp;selTab=tab2";
+    	//ine.ineTests(ineS.getList().get(0).getUrl());
+    	String s0=ineS.getList().get(0).getUrl();
+    	System.out.println(s0);
+    	System.out.println(s1);
+    	INEResultData data=ine.getDataFromService(s1);
     	System.out.println(data.toJSON());
 //    	System.out.println(ineS.toString());
 //    	System.out.println(ineS.toJSON());
