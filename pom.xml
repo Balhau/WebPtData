@@ -22,6 +22,7 @@
   	<jsoup.version>1.7.3</jsoup.version>
   	<groovy.version>2.4.3</groovy.version>
   	<maven.compiler.plugin>2.3.1</maven.compiler.plugin>
+  	<balhau.snapshot>1.0-SNAPSHOT</balhau.snapshot>
   </properties>
   
   
@@ -38,6 +39,12 @@
 		<groupId>javax.xml</groupId>
 		<artifactId>jaxb-api</artifactId>
 		<version>${jaxb.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>com.balhau</groupId>
+		<artifactId>utils</artifactId>
+		<version>${balhau.snapshot}</version>
 	</dependency>
 	
 	<dependency>

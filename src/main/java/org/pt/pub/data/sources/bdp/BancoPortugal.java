@@ -16,8 +16,8 @@ import org.pt.pub.data.sources.AbstractDataSource;
 import org.pt.pub.data.sources.bdp.domain.TableRow;
 import org.pt.pub.data.sources.bdp.domain.TableData;
 import org.pt.pub.global.configs.HtmlTag;
-import org.pt.pub.global.utils.StringUtils;
 
+import com.balhau.utils.StringUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
