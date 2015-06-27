@@ -10,10 +10,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pt.pub.data.sources.AbstractDataSource;
-import org.pt.pub.data.sources.ine.datatypes.INEDataRow;
-import org.pt.pub.data.sources.ine.datatypes.INEResultData;
-import org.pt.pub.data.sources.ine.datatypes.INEServices;
-import org.pt.pub.data.sources.ine.datatypes.ServiceItem;
+import org.pt.pub.data.sources.ine.domain.INEDataRow;
+import org.pt.pub.data.sources.ine.domain.INEResultData;
+import org.pt.pub.data.sources.ine.domain.INEServices;
+import org.pt.pub.data.sources.ine.domain.ServiceItem;
 
 /**
  * This class is the main interface for the INE data. Here we load, parse and store in datastructures the data retrieved from

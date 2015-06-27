@@ -1,4 +1,4 @@
-package org.pt.pub.data.sources.ine.datatypes;
+package org.pt.pub.data.sources.ine.domain;
 
 
 
