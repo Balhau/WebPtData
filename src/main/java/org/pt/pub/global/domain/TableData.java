@@ -1,4 +1,4 @@
-package org.pt.pub.data.sources.bdp.domain;
+package org.pt.pub.global.domain;
 
 import java.util.ArrayList;
 import java.util.List;

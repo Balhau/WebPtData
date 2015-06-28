@@ -12,7 +12,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pt.pub.data.sources.bdp.BancoPortugal;
-import org.pt.pub.data.sources.bdp.domain.TableData;
+import org.pt.pub.global.domain.TableData;
 
 public class bancoPortugal {
 	public static final String HOST="http://www.bportugal.pt";

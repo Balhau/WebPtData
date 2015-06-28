@@ -13,9 +13,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pt.pub.data.sources.AbstractDataSource;
-import org.pt.pub.data.sources.bdp.domain.TableRow;
-import org.pt.pub.data.sources.bdp.domain.TableData;
 import org.pt.pub.global.configs.HtmlTag;
+import org.pt.pub.global.domain.TableData;
+import org.pt.pub.global.domain.TableRow;
 
 import com.balhau.utils.StringUtils;
 import com.google.gson.JsonArray;

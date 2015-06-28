@@ -9,9 +9,12 @@ public class ipma {
 	private static final String OVERVIEW_PT=HOST+"/resources.www/internal.user/ww_overview_pt.xml";
 	private static final String REFERER_SWF_HOST=HOST+"/opencms/bin/flash/vrs1.1/prev.meteo.sam.portugal.swf";
 	private static final String FORECAST_DAY_0=HOST+"/resources.www/internal.user/wp_d0_pt.xml";
+	private static final String SEA_STATUS=HOST+"/pt/maritima/costeira/";
+	
 	public static void main(String[] args) throws Exception{
 		Connection cn1=Jsoup.connect(OVERVIEW_PT);
 		Connection cn2=Jsoup.connect(FORECAST_DAY_0);
+		Connection cn3=Jsoup.connect(SEA_STATUS);
 		Document overview=cn1
 				.header("Referer", REFERER_SWF_HOST)
 				.get();
@@ -19,8 +22,10 @@ public class ipma {
 		Document forecast0=cn2
 				.header("Referer", REFERER_SWF_HOST)
 				.get();
+		
+		Document seaforecast=cn3.get();
 	
-		System.out.println(forecast0);
+		System.out.println(seaforecast);
 
 	}
 }
