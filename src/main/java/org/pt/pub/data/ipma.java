@@ -1,8 +1,12 @@
 package org.pt.pub.data;
 
+import java.util.List;
+
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.pt.pub.data.sources.ipma.Ipma;
+import org.pt.pub.global.domain.TableData;
 
 public class ipma {
 	private static final String HOST="http://www.ipma.pt";
@@ -25,7 +29,12 @@ public class ipma {
 		
 		Document seaforecast=cn3.get();
 	
-		System.out.println(seaforecast);
+		Ipma ipm=new Ipma();
+		List<TableData> sdata=ipm.getSeaInformation();
+		
+		for(TableData td : sdata){
+			System.out.println(td.toJSON());
+		}
 
 	}
 }

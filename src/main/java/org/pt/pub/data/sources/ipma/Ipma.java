@@ -1,8 +1,18 @@
 package org.pt.pub.data.sources.ipma;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.pt.pub.global.configs.HtmlTag;
 import org.pt.pub.global.domain.TableData;
+import org.pt.pub.global.domain.TableRow;
+import org.pt.pub.global.utils.DomUtils;
+
 
 /**
  * This class holds several querying methods to retrieve data from Instituto português do mar e da atmosfera also
@@ -35,9 +45,33 @@ public class Ipma {
 	public Ipma(){
 	}
 	
-	public TableData getSeaInformation(){
+	/**
+	 * This method will return a list of {@link TableData} objects. Each of the elements represents
+	 * the forecast for the sea in a specific day
+	 * @return
+	 * @throws Exception
+	 */
+	public List<TableData> getSeaInformation() throws Exception{
+		List<TableData> forecast=new ArrayList<TableData>();
 		Connection sea=Jsoup.connect(SEA_STATUS);
-		return null;
+		Document doc=sea.get();
+		Elements days=doc.getElementsByClass("tablelist");
+		forecast.add(getSeaInformationHeaders(days.get(0)));
+		for(Element day : days){
+			forecast.add(DomUtils.tableElementToTableData(day));
+		}
+		return forecast;
+	}
+	
+	private TableData getSeaInformationHeaders(Element day){
+		TableData tdata=new TableData();
+		TableRow theaders=new TableRow();
+		Elements headers=day.getElementsByTag(HtmlTag.TH);
+		for(Element header : headers){
+			theaders.getData().add(header.text());
+		}
+		tdata.getRows().add(theaders);
+		return tdata;
 	}
 	
 }
