@@ -1,4 +1,6 @@
 package org.pt.pub.data.sources.ipma.domain;
+import javax.xml.bind.annotation.XmlElement;
+
 import org.pt.pub.data.sources.AbstractData;
 
 
@@ -9,18 +11,17 @@ import org.pt.pub.data.sources.AbstractData;
  * @param <T>
  */
 public abstract class GeoWeather<T> extends AbstractData{
-	private T properties;
 	private int fullmapshow;
 	private double latitude;
 	private double longitude;
 	private int localId;
 	private String name;
 	private int periodId;
-
-	public T getProperties() {
-		return properties;
-	}
 	
+	
+
+	public abstract T getData();
+	public abstract void setData(T props);
 	
 
 	public int getFullmapshow() {
@@ -29,10 +30,6 @@ public abstract class GeoWeather<T> extends AbstractData{
 
 	public void setFullmapshow(int fullmapshow) {
 		this.fullmapshow = fullmapshow;
-	}
-
-	public void setProperties(T properties) {
-		this.properties = properties;
 	}
 
 	public double getLatitude() {

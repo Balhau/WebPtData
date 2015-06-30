@@ -9,7 +9,7 @@ import org.pt.pub.data.sources.AbstractData;
  * @author balhau
  *
  */
-@XmlRootElement(name="LandWeather")
+@XmlRootElement(name="Land")
 public class Land extends AbstractData{
 	private int min_temperature;
 	private int max_temperature;

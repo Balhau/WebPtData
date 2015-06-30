@@ -1,32 +1,36 @@
 package org.pt.pub.data.sources.ipma.domain;
 
-import java.util.Date;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.pt.pub.data.sources.AbstractData;
 
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name="Uv")
 public class Uv extends AbstractData{
-	private Date startDate;
-	private Date endDate;
+	private String startDate;
+	private String endDate;
 	private float iuv;
 	private String iuvHour;
 	
 	public Uv(){
-		
 	}
 
-	public Date getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 
