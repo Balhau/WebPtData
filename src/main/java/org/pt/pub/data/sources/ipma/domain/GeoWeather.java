@@ -9,15 +9,16 @@ import org.pt.pub.data.sources.AbstractData;
  *
  * @param <T>
  */
-public class Land<T> extends AbstractData{
+public class GeoWeather<T> extends AbstractData{
 	private T properties;
+	private int fullmapshow;
 	private double latitude;
 	private double longitude;
 	private int localId;
 	private String name;
 	private int periodId;
 	
-	public Land(){
+	public GeoWeather(){
 		
 	}
 

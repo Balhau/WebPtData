@@ -6,5 +6,10 @@ package org.pt.pub.data.sources.ipma.domain;
  *
  */
 public class LandWeather {
-
+	private int min_temperature;
+	private int max_temperature;
+	private int weather_symbolid;
+	private String weatherDescription;
+	
+	
 }
