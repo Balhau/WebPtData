@@ -28,13 +28,11 @@ public class ipma {
 				.get();
 		
 		Document seaforecast=cn3.get();
+		
+		System.out.println(forecast0);
 	
 		Ipma ipm=new Ipma();
 		List<TableData> sdata=ipm.getSeaInformation();
-		
-		for(TableData td : sdata){
-			System.out.println(td.toJSON());
-		}
 
 	}
 }

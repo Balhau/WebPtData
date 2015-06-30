@@ -63,6 +63,11 @@ public class Ipma {
 		return forecast;
 	}
 	
+	/**
+	 * This will return the sea information headers
+	 * @param day
+	 * @return
+	 */
 	private TableData getSeaInformationHeaders(Element day){
 		TableData tdata=new TableData();
 		TableRow theaders=new TableRow();
