@@ -6,6 +6,7 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.pt.pub.data.sources.ipma.Ipma;
+import org.pt.pub.data.sources.ipma.domain.GeoWeather;
 import org.pt.pub.global.domain.TableData;
 
 public class ipma {
@@ -33,6 +34,8 @@ public class ipma {
 	
 		Ipma ipm=new Ipma();
 		List<TableData> sdata=ipm.getSeaInformation();
+		GeoWeather<String> ola=new GeoWeather<String>();
+		System.out.println(ola.toXML());
 
 	}
 }
