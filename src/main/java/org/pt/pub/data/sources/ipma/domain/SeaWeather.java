@@ -2,7 +2,12 @@ package org.pt.pub.data.sources.ipma.domain;
 
 import java.util.Date;
 
-public class SeaWeather {
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.pt.pub.data.sources.AbstractData;
+
+@XmlRootElement(name="SeaWeather")
+public class SeaWeather extends AbstractData{
 	private Date startDate;
 	private Date endDate;
 	private int waterTemperature;

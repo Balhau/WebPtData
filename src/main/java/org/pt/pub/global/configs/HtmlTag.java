@@ -1,5 +1,10 @@
 package org.pt.pub.global.configs;
 
+/**
+ * Dictionary of html tags
+ * @author vitorfernandes
+ *
+ */
 public class HtmlTag {
 	public static final String SCRIPT="script";
 	public static final String TABLE="table";

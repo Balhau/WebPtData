@@ -2,7 +2,9 @@ package org.pt.pub.data.sources.ipma.domain;
 
 import java.util.Date;
 
-public class UvWeather {
+import org.pt.pub.data.sources.AbstractData;
+
+public class UvWeather extends AbstractData{
 	private Date startDate;
 	private Date endDate;
 	private float iuv;
