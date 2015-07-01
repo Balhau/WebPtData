@@ -10,12 +10,12 @@ import org.pt.pub.data.sources.AbstractData;
  *
  */
 @XmlRootElement(name="Land")
-public class Land extends AbstractData{
+public class Land extends BaseInfo{
 	private int min_temperature;
 	private int max_temperature;
 	private int weatherSymbol;
 	private String weatherDescription;
-	private String windSymbol;
+	private int windSymbolId;
 	private String windDirectionDescription;
 	private String windDirection;
 	private String windSpeed;
@@ -56,12 +56,12 @@ public class Land extends AbstractData{
 		this.weatherDescription = weatherDescription;
 	}
 
-	public String getWindSymbol() {
-		return windSymbol;
+	public int getWindSymbol() {
+		return windSymbolId;
 	}
 
-	public void setWindSymbol(String windSymbol) {
-		this.windSymbol = windSymbol;
+	public void setWindSymbol(int windSymbol) {
+		this.windSymbolId = windSymbol;
 	}
 
 	public String getWindDirectionDescription() {

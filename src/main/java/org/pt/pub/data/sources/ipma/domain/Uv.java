@@ -9,30 +9,13 @@ import org.pt.pub.data.sources.AbstractData;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name="Uv")
-public class Uv extends AbstractData{
-	private String startDate;
-	private String endDate;
+public class Uv extends BaseInfo{
 	private float iuv;
 	private String iuvHour;
 	
 	public Uv(){
 	}
 
-	public String getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-
-	public String getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
 
 	public float getIuv() {
 		return iuv;

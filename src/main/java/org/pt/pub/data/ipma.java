@@ -35,7 +35,7 @@ public class ipma {
 		System.out.println(forecast0);
 	
 		Ipma ipm=new Ipma();
-		List<TableData> sdata=ipm.getSeaInformation();
+		List<GeoWeather<?>> sdata=ipm.getSeaInformation();
 		LandWeather ola=new LandWeather();
 		System.out.println(ola.toXML());
 
