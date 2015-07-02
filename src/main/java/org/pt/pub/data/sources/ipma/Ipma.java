@@ -12,6 +12,7 @@ import org.pt.pub.data.sources.ipma.domain.BaseInfo;
 import org.pt.pub.data.sources.ipma.domain.GeoWeather;
 import org.pt.pub.data.sources.ipma.domain.Land;
 import org.pt.pub.data.sources.ipma.domain.LandWeather;
+import org.pt.pub.data.sources.ipma.domain.Sea;
 import org.pt.pub.data.sources.ipma.domain.SeaWeather;
 import org.pt.pub.data.sources.ipma.domain.UvWeather;
 import org.pt.pub.global.configs.HtmlTag;
@@ -57,10 +58,12 @@ public class Ipma {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<GeoWeather<?>> getSeaInformation() throws Exception{
+	public List<GeoWeather<?>> getForecastDayZero() throws Exception{
 		List<GeoWeather<?>> forecast = new ArrayList<GeoWeather<?>>();
-		Connection seac=Jsoup.connect(SEA_STATUS);
-		Document doc=seac.get();
+		Connection seac=Jsoup.connect(FORECAST_DAY_0);
+		Document doc=seac
+				.header("Referer", REFERER_SWF_HOST)
+				.get();
 		Element land=doc.getElementsByTag("land").get(0);
 		Element sea=doc.getElementsByTag("sea").get(0);
 		Element uv=doc.getElementsByTag("uv").get(0);
@@ -76,7 +79,7 @@ public class Ipma {
 		weather.setLocalId(Integer.parseInt(el.attr("localid")));
 		weather.setLongitude(Double.parseDouble(el.attr("lon")));
 		weather.setName(el.attr("name"));
-		weather.setPeriodId(Integer.parseInt("periodid"));
+		weather.setPeriodId(Integer.parseInt(el.attr("periodid")));
 	}
 	
 	private void decorateBaseInfoFromElement(BaseInfo bi,Element el){
@@ -110,12 +113,38 @@ public class Ipma {
 		return lw;
 	}
 	
+	private List<Element> getElementsByTag(Element node,String ...tags){
+		List<Element> els=new ArrayList<>();
+		for(String tag : tags){
+			els.add(node.getElementsByTag(tag).get(0));
+		}
+		return els;
+	}
+	
 	private SeaWeather getSeaWeather(Element parentElement){
-		return null;
+		SeaWeather sw=new SeaWeather();
+		decorateWeatherFromElement(sw, parentElement);
+		Sea sea=new Sea();
+		Element seaEl=parentElement.getElementsByTag("seaweather").get(0);
+		decorateBaseInfoFromElement(sea, seaEl);
+		
+		List<Element> els=getElementsByTag(parentElement,
+				"watertemp","wavehigh","wavehighdesc","wavedir","wavedirdesc","wavedirresume"
+				);
+		
+		sea.setWaterTemperature(Integer.parseInt(els.get(0).text()));
+		sea.setWaveHighId(Integer.parseInt(els.get(1).attr("wavehighid")));
+		sea.setWaveHighDesc(els.get(2).text());
+		sea.setWaveDirId(Integer.parseInt(els.get(3).attr("wavedirid")));
+		sea.setWaveDirDesc(els.get(4).text());
+		sea.setWaveDirSymb(els.get(5).text());
+		sw.setData(sea);
+		return sw;
 	}
 	
 	private UvWeather getUVWeather(Element parentElement){
-		return null;
+		UvWeather uvw=new UvWeather();
+		return uvw;
 	}
 	
 }

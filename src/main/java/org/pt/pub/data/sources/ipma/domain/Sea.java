@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.pt.pub.data.sources.AbstractData;
 
-@XmlRootElement(name="SeaWeather")
+@XmlRootElement
 public class Sea extends BaseInfo{
 	private int waterTemperature;
 	private int waveHighId;

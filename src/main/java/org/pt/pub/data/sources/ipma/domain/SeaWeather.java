@@ -1,5 +1,8 @@
 package org.pt.pub.data.sources.ipma.domain;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class SeaWeather extends GeoWeather<Sea>{
 	private Sea properties;
 	public SeaWeather(){
