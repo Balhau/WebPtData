@@ -4,19 +4,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class SeaWeather extends GeoWeather<Sea>{
-	private Sea properties;
 	public SeaWeather(){
 		
 	}
-	@Override
+
 	public Sea getData() {
 		// TODO Auto-generated method stub
-		return properties;
+		return this.data;
 	}
-	@Override
-	public void setData(Sea properties) {
-		this.properties=properties;
-	}
+
+	public void setData(Sea data) {
+		this.data=data;
+	}	
 	
 	
 }

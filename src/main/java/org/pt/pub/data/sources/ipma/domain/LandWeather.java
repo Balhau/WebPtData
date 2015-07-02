@@ -8,19 +8,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class LandWeather extends GeoWeather<Land>{
-	private Land properties;
 	
 	public LandWeather(){
 	}
 
-	@Override
 	public Land getData() {
-		// TODO Auto-generated method stub
-		return properties;
+		return data;
 	}
 
-	@Override
-	public void setData(Land properties) {
-		this.properties=properties;
+	public void setData(Land data) {
+		this.data=data;
 	}
+	
 }

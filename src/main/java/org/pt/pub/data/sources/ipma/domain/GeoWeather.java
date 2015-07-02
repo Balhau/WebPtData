@@ -17,11 +17,8 @@ public abstract class GeoWeather<T> extends AbstractData{
 	private int localId;
 	private String name;
 	private int periodId;
+	protected T data;
 	
-	
-
-	public abstract T getData();
-	public abstract void setData(T props);
 	
 
 	public int getFullmapshow() {

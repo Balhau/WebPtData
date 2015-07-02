@@ -14,6 +14,7 @@ import org.pt.pub.data.sources.ipma.domain.Land;
 import org.pt.pub.data.sources.ipma.domain.LandWeather;
 import org.pt.pub.data.sources.ipma.domain.Sea;
 import org.pt.pub.data.sources.ipma.domain.SeaWeather;
+import org.pt.pub.data.sources.ipma.domain.Uv;
 import org.pt.pub.data.sources.ipma.domain.UvWeather;
 import org.pt.pub.global.configs.HtmlTag;
 import org.pt.pub.global.domain.TableData;
@@ -144,6 +145,15 @@ public class Ipma {
 	
 	private UvWeather getUVWeather(Element parentElement){
 		UvWeather uvw=new UvWeather();
+		Uv uv = new Uv();
+		decorateWeatherFromElement(uvw, parentElement);
+		List<Element> els=getElementsByTag(parentElement,
+				"uvforecast","iuv","iuvhora"
+		);
+		decorateBaseInfoFromElement(uv, els.get(0));
+		uv.setIuv(Float.parseFloat(els.get(1).text()));
+		uv.setIuvHour(els.get(2).text());
+		uvw.setData(uv);
 		return uvw;
 	}
 	
