@@ -11,18 +11,22 @@ import org.pt.pub.data.sources.AbstractData;
  */
 @XmlRootElement
 public class BeachEntry extends AbstractData{
-	private String url;
+	private int idBeach;
 	private String name;
 	
 	public BeachEntry(){}
-
-	public String getUrl() {
-		return url;
+	
+	
+	public int getIdBeach() {
+		return idBeach;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setIdBeach(int idBeach) {
+		this.idBeach = idBeach;
 	}
+
+
+
 
 	public String getName() {
 		return name;

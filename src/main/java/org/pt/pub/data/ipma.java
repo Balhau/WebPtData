@@ -29,9 +29,8 @@ public class ipma {
 		Document seaforecast=cn3.get();
 		
 		
-		System.out.println(seaforecast);
 		
-		System.out.println(new Ipma().getBeachEntries());
+		System.out.println(new Ipma().getBeachInfo(254));
 	
 		/**Ipma ipm=new Ipma();
 		List<GeoWeather<?>> sdata=ipm.getForecastDayZero();
