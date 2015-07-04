@@ -1,6 +1,7 @@
 package org.pt.pub.data.sources.ipma;
 
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.List;
 
 import org.jsoup.Connection;
@@ -9,6 +10,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pt.pub.data.sources.ipma.domain.BaseInfo;
+import org.pt.pub.data.sources.ipma.domain.BeachEntry;
 import org.pt.pub.data.sources.ipma.domain.GeoWeather;
 import org.pt.pub.data.sources.ipma.domain.Land;
 import org.pt.pub.data.sources.ipma.domain.LandWeather;
@@ -44,7 +46,9 @@ public class Ipma {
 	/**
 	 * Day 0 weather information url
 	 */
-	private static final String FORECAST_DAY_0=HOST+"/resources.www/internal.user/wp_d0_pt.xml";
+	private static final String FORECAST_DAY_PATTERN=HOST+"/resources.www/internal.user/wp_d%s_pt.xml";
+	
+	private static final String BEACH_URL_PATTERN=HOST+"/pt/maritima/costeira/index.jsp?selLocal=ID&idLocal=ID";
 	/**
 	 * Information about the sea
 	 */
@@ -59,9 +63,9 @@ public class Ipma {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<GeoWeather<?>> getForecastDayZero() throws Exception{
+	public List<GeoWeather<?>> getForecastDay(int dayNumber) throws Exception{
 		List<GeoWeather<?>> forecast = new ArrayList<GeoWeather<?>>();
-		Connection seac=Jsoup.connect(FORECAST_DAY_0);
+		Connection seac=Jsoup.connect(String.format(FORECAST_DAY_PATTERN,dayNumber));
 		Document doc=seac
 				.header("Referer", REFERER_SWF_HOST)
 				.get();
@@ -73,6 +77,26 @@ public class Ipma {
 		forecast.add(getUVWeather(uv));
 		return forecast;
 	}
+	
+	public List<BeachEntry> getBeachEntries() throws Exception{
+		Connection con=Jsoup.connect(SEA_STATUS);
+		Document doc=con.header("Referer",REFERER_SWF_HOST).get();
+		return parseBeachEntries(doc.getElementById("selLocal"));
+	}
+	
+	private List<BeachEntry> parseBeachEntries(Element selectionElement){
+		List<BeachEntry> l=new ArrayList<BeachEntry>();
+		Elements els=selectionElement.getElementsByTag(HtmlTag.OPTION);
+		for(Element el:els){
+			BeachEntry be=new BeachEntry();
+			be.setName(el.text());
+			String id=el.attr("value");
+			be.setUrl(BEACH_URL_PATTERN.replaceAll("ID", id));
+			l.add(be);
+		}
+		return l;
+	}
+	
 	
 	private void decorateWeatherFromElement(GeoWeather<?> weather,Element el){
 		weather.setFullmapshow(Integer.parseInt(el.attr("fullmapshow")));

@@ -29,6 +29,15 @@ public class AbstractData implements IData{
 		return jsonData;
 	}
 	
+	@Override
+	public String toString(){
+		try{
+			return this.toXML();
+		}catch(Exception ex){
+			return ex.getMessage();
+		}
+	}
+	
 
 	/**
 	 * This is a method that able all the subclass to encode his data into XML file format

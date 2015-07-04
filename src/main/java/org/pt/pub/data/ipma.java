@@ -1,15 +1,11 @@
 package org.pt.pub.data;
 
-import java.util.List;
+
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.pt.pub.data.sources.ipma.Ipma;
-import org.pt.pub.data.sources.ipma.domain.GeoWeather;
-import org.pt.pub.data.sources.ipma.domain.LandWeather;
-import org.pt.pub.data.sources.ipma.domain.UvWeather;
-import org.pt.pub.global.domain.TableData;
 
 public class ipma {
 	private static final String HOST="http://www.ipma.pt";
@@ -32,13 +28,16 @@ public class ipma {
 		
 		Document seaforecast=cn3.get();
 		
-		System.out.println(forecast0);
+		
+		System.out.println(seaforecast);
+		
+		System.out.println(new Ipma().getBeachEntries());
 	
-		Ipma ipm=new Ipma();
+		/**Ipma ipm=new Ipma();
 		List<GeoWeather<?>> sdata=ipm.getForecastDayZero();
 		LandWeather ola=new LandWeather();
 		System.out.println(sdata.get(0).toXML());
 	    System.out.println(sdata.get(1).toXML());
-		System.out.println(sdata.get(2).toXML());
+		System.out.println(sdata.get(2).toXML());*/
 	}
 }
