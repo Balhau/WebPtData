@@ -28,6 +28,7 @@ public class ipma {
 		
 		Document seaforecast=cn3.get();
 		
+		System.out.println(seaforecast);
 		
 		
 		System.out.println(new Ipma().getBeachInfo(254));

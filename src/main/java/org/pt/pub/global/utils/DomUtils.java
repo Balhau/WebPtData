@@ -22,7 +22,8 @@ public class DomUtils {
 		TableData tb=new TableData();
 		Elements rows=table.getElementsByTag(HtmlTag.TR);
 		for(Element row : rows){
-			Elements cols=row.getElementsByTag(HtmlTag.TD);
+			Elements aux=row.getElementsByTag(HtmlTag.TD);
+			Elements cols=aux.size()==0?row.getElementsByTag(HtmlTag.TH):aux;
 			TableRow trow=new TableRow();
 			for(Element col : cols){
 				trow.getData().add(col.text());

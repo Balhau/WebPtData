@@ -11,7 +11,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pt.pub.data.sources.ipma.domain.BaseInfo;
 import org.pt.pub.data.sources.ipma.domain.BeachEntry;
-import org.pt.pub.data.sources.ipma.domain.BeachInfo;
 import org.pt.pub.data.sources.ipma.domain.GeoWeather;
 import org.pt.pub.data.sources.ipma.domain.Land;
 import org.pt.pub.data.sources.ipma.domain.LandWeather;
@@ -85,20 +84,15 @@ public class Ipma {
 		return parseBeachEntries(doc.getElementById("selLocal"));
 	}
 	
-	public List<BeachInfo> getBeachInfo(int idBeach) throws Exception{
-		List<BeachInfo> beachInfoList = new ArrayList<BeachInfo>();
+	public List<TableData> getBeachInfo(int idBeach) throws Exception{
+		List<TableData> beachInfoList = new ArrayList<TableData>();
 		Connection con=Jsoup.connect(BEACH_URL_PATTERN.replaceAll("ID", ""+idBeach));
 		Document doc=con.get();
 		Elements tables=doc.getElementsByTag(HtmlTag.TABLE);
 		for(Element table : tables){
-			beachInfoList.add(getBeachInfoFromTable(table));
+			beachInfoList.add(DomUtils.tableElementToTableData(table));
 		}
 		return beachInfoList;
-	}
-	
-	private BeachInfo getBeachInfoFromTable(Element table){
-		BeachInfo bi=new BeachInfo();
-		return bi;
 	}
 	
 	private List<BeachEntry> parseBeachEntries(Element selectionElement){
