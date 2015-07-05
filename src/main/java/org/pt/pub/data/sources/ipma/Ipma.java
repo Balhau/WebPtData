@@ -1,6 +1,9 @@
 package org.pt.pub.data.sources.ipma;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Formatter;
 import java.util.List;
 
@@ -49,6 +52,8 @@ public class Ipma {
 	private static final String FORECAST_DAY_PATTERN=HOST+"/resources.www/internal.user/wp_d%s_pt.xml";
 	
 	private static final String BEACH_URL_PATTERN=HOST+"/pt/maritima/costeira/index.jsp?selLocal=ID&idLocal=ID";
+	
+	private static final String SYSMOLOGY_URL=HOST+"/pt/geofisica/sismologia/";
 	/**
 	 * Information about the sea
 	 */
@@ -78,12 +83,53 @@ public class Ipma {
 		return forecast;
 	}
 	
+	/**
+	 * This method returns the seismic activities found since a provided {@link Date}
+	 * @param date {@link Date} From which we want the list of seismic activities
+	 * @return {@link List} Of {@link TableData} elements
+	 */
+	public List<TableData> getSeismicActivity(Date date) throws Exception{
+		List<TableData> seismic=new ArrayList<TableData>();
+		Connection con=Jsoup.connect(SYSMOLOGY_URL);
+		Calendar cal=Calendar.getInstance();
+		cal.setTime(date);
+		Document doc=con.data(
+				"year",cal.get(Calendar.YEAR)+"",
+				"month",cal.get(Calendar.MONTH)+"",
+				"day",cal.get(Calendar.DAY_OF_MONTH)+""
+		)
+		.header("Referer", SYSMOLOGY_URL)
+		.get();
+	
+		Element portugalDiv=doc.getElementById("divID0");
+		Element islandsDiv=doc.getElementById("divID1");
+		Element restOfWorld=doc.getElementById("divID2");
+		
+		
+		seismic.add(DomUtils.tableElementToTableData(portugalDiv.getElementsByTag(HtmlTag.TABLE).get(0)));
+		seismic.add(DomUtils.tableElementToTableData(islandsDiv.getElementsByTag(HtmlTag.TABLE).get(0)));
+		seismic.add(DomUtils.tableElementToTableData(restOfWorld.getElementsByTag(HtmlTag.TABLE).get(0)));
+		return seismic;
+	}
+	
+	/**
+	 * This method returns a list of entries we can then use to fetch beach information 
+	 * @return {@link List} of {@link BeachEntry} elements
+	 * @throws Exception
+	 */
 	public List<BeachEntry> getBeachEntries() throws Exception{
 		Connection con=Jsoup.connect(SEA_STATUS);
 		Document doc=con.header("Referer",REFERER_SWF_HOST).get();
 		return parseBeachEntries(doc.getElementById("selLocal"));
 	}
 	
+	/**
+	 * This method returns information about a specific beach. 
+	 * @param idBeach {@link int} the id of the beach we want information
+	 * @return {@link List} a list of {@link TableData} elements with information regarding the beach in
+	 * question
+	 * @throws Exception
+	 */
 	public List<TableData> getBeachInfo(int idBeach) throws Exception{
 		List<TableData> beachInfoList = new ArrayList<TableData>();
 		Connection con=Jsoup.connect(BEACH_URL_PATTERN.replaceAll("ID", ""+idBeach));

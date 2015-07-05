@@ -2,6 +2,9 @@ package org.pt.pub.data;
 
 
 
+import java.util.Calendar;
+import java.util.Date;
+
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -28,10 +31,12 @@ public class ipma {
 		
 		Document seaforecast=cn3.get();
 		
-		System.out.println(seaforecast);
+		//System.out.println(seaforecast);
 		
 		
-		System.out.println(new Ipma().getBeachInfo(254));
+		Calendar c=Calendar.getInstance();
+		c.set(2000, 1, 1);
+		System.out.println(new Ipma().getSeismicActivity(c.getTime()));
 	
 		/**Ipma ipm=new Ipma();
 		List<GeoWeather<?>> sdata=ipm.getForecastDayZero();
