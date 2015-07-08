@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.pt.pub.data.sources.AbstractData;
 
 /**
- * Domain object that represents the data from indicator feature.
+ * Domain object that represents the data from a {@link RbeIndicator} entry.
  * @author balhau
  *
  */

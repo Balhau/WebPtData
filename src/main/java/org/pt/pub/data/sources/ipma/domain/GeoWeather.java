@@ -1,5 +1,4 @@
 package org.pt.pub.data.sources.ipma.domain;
-import javax.xml.bind.annotation.XmlElement;
 
 import org.pt.pub.data.sources.AbstractData;
 

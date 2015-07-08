@@ -4,6 +4,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.pt.pub.data.sources.AbstractData;
 
+
+/**
+ * Domain object with information of a statistic link for the Rede de Bibliotecas Escolares
+ * @author balhau
+ *
+ */
 @XmlRootElement
 public class RbeIndicator extends AbstractData{
 	private int categorie;

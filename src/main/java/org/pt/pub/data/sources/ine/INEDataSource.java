@@ -31,17 +31,6 @@ public class INEDataSource extends AbstractDataSource{
 	public INEDataSource(){
 	}
 	
-	
-	public void INETests() throws IOException{
-		String url1 ="http://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_indicadores&indOcorrCod=0007333&contexto=bd&selTab=tab2";
-    	String url2 ="http://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_indicadores&indOcorrCod=0005878&contexto=bd&selTab=tab2";
-    	String url=url1;
-    	INEServices services=getAvailableServices(1, 50);
-    	System.out.println(services.getList().size());
-    	System.out.println(services.toJSON());
-    	//ineTests(url);
-	}
-	
 	/**
 	 * You should use this method to retrieve an object {@link INEServices} with all the services available from the INE.
 	 * This receives as argument the number of the page and the respective number of items per page
@@ -115,29 +104,5 @@ public class INEDataSource extends AbstractDataSource{
 			}
 		}
 		return hrows;
-	}
-	
-	
-	public void ineTests(String urlData) throws IOException{
-	    	Connection cn=Jsoup.connect(urlData);
-	    	Document doc=cn.get();
-	    	String iUrl=doc.select("iframe").attr("src");
-	    	System.out.println(INE_BASE+iUrl);
-	    	cn=Jsoup.connect(INE_BASE+iUrl);
-	    	cn.timeout(5000);
-	    	cn.header("Referer", urlData);
-	    	doc=cn.get();
-	    	Elements els=doc.select(".dados");
-	    	//Elements th=els.get(0).select("tr").get(0).select("th");
-	    	//System.out.println(th);
-	    	/**
-	    	String ref="http://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_indicadores&indOcorrCod=0007333&contexto=bd&selTab=tab2";
-	    	cn.header("Referer",ref);
-	    	Document doc=cn.get();
-	    	
-	    	Elements els= doc.select("table .dados");
-	    	
-	    	System.out.println(els);
-	    	*/
 	}
 }

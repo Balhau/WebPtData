@@ -2,15 +2,9 @@ package org.pt.pub.data;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Formatter;
 import java.util.List;
-import java.util.Locale;
 
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+
 import org.pt.pub.data.sources.bdp.BancoPortugal;
 import org.pt.pub.global.domain.TableData;
 
@@ -23,9 +17,9 @@ public class bancoPortugal {
 	
 	public static void main(String[] args) throws Exception{
 		BancoPortugal bp=new BancoPortugal();
-		TableData categories=bp.getCategories();
+		//TableData categories=bp.getCategories();
 		//System.out.println(categories.toXML());
-		TableData series=bp.getSeriesForCategorie(categories.getRows().get(0).getData().get(2));
+		//TableData series=bp.getSeriesForCategorie(categories.getRows().get(0).getData().get(2));
 		//System.out.println(series.toXML());
 		List<String> idSerie=new ArrayList<String>();
 		idSerie.add("2031463");

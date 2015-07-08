@@ -7,16 +7,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.pt.pub.data.sources.accuweather.AccuWeather;
 import org.pt.pub.data.sources.accuweather.domain.Weather;
 import org.pt.pub.data.sources.accuweather.domain.WeatherLocation;
 import org.pt.pub.data.sources.accuweather.domain.WeatherLocationList;
-import org.pt.pub.global.configs.GlobalConfigs;
 
 public class accuWeather {
 	

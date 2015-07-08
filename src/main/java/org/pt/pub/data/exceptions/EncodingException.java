@@ -6,6 +6,9 @@ package org.pt.pub.data.exceptions;
  *
  */
 public class EncodingException extends Exception{
+
+	private static final long serialVersionUID = 2274644232442757206L;
+
 	public EncodingException(){
 		super();
 	}

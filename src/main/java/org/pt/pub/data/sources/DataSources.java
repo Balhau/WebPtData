@@ -24,6 +24,7 @@ public enum DataSources {
 	 * @throws IllegalAccessException Invocation problems
 	 */
 	public IDataSource buildInstance() throws ClassNotFoundException, InstantiationException, IllegalAccessException{
+		@SuppressWarnings("unchecked")
 		Class<IDataSource> cls=(Class<IDataSource>)Class.forName(this.className);
 		IDataSource ds=cls.newInstance();
 		return ds;

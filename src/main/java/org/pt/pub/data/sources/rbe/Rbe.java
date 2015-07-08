@@ -3,7 +3,6 @@ package org.pt.pub.data.sources.rbe;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import javax.script.Bindings;
 import javax.script.ScriptContext;
@@ -55,10 +54,28 @@ public class Rbe {
 		se=new ScriptEngineManager().getEngineByName("JavaScript");
 	}
 	
+	/**
+	 * This private method builds the URL for the indicator with the category and serie values provided as 
+	 * parameters:<br><br>
+	 * For example<br><br>
+	 * <code>
+	 * String a=this.urlFromCategorieSerie(123,321)<br>
+	 * <b>Return:</b> a="http://rbe.mec.pt/np4/indicadores?cats=123&s=321"
+	 * </code>
+	 * @param cat {@link Integer} Category id
+	 * @param serie {@link Integer} serie id
+	 * @return {@link String} Url of the indicator
+	 */
 	private String urlFromCategorieSerie(int cat,int serie){
 		return String.format(INDICATOR_PATTERN, cat,serie);
 	}
 	
+	/**
+	 * Method that returns a {@link List} of {@link RbeIndicator} with each entry representing a statistic
+	 * that can be queried with {@link #getIndicator(int, int) getIndicator}
+	 * @return {@link List} of {@link RbeIndicator} elements
+	 * @throws Exception if error is found while parsing data
+	 */
 	public List<RbeIndicator> getIndicators() throws Exception{
 		Connection cn=Jsoup.connect(INDICATOR_HOME);
 		List<RbeIndicator> l=new ArrayList<RbeIndicator>();
@@ -95,8 +112,11 @@ public class Rbe {
 		Bindings bds=se.getBindings(ScriptContext.ENGINE_SCOPE);
 		Iterator<String> ks=bds.keySet().iterator();
 		
+		@SuppressWarnings("restriction")
 		String[] categories=DomUtils.stringArrayFromScriptObjectMirror((ScriptObjectMirror)bds.get(ks.next()));
+		@SuppressWarnings("restriction")
 		List<String[]> series=DomUtils.stringTableFromScriptObjectMirror((ScriptObjectMirror)bds.get(ks.next()));
+		@SuppressWarnings("restriction")
 		String[] seriesNames=DomUtils.stringArrayFromScriptObjectMirror((ScriptObjectMirror)bds.get(ks.next()));
 		
 		return new RbeIndicatorData(categories,series,seriesNames);

@@ -1,10 +1,7 @@
 package org.pt.pub.data.sources.ipma.domain;
 
-import java.util.Date;
-
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.pt.pub.data.sources.AbstractData;
 
 @XmlRootElement
 public class Sea extends BaseInfo{

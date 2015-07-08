@@ -1,10 +1,8 @@
 package org.pt.pub.data.sources.ipma;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Formatter;
 import java.util.List;
 
 import org.jsoup.Connection;
@@ -23,7 +21,6 @@ import org.pt.pub.data.sources.ipma.domain.Uv;
 import org.pt.pub.data.sources.ipma.domain.UvWeather;
 import org.pt.pub.global.configs.HtmlTag;
 import org.pt.pub.global.domain.TableData;
-import org.pt.pub.global.domain.TableRow;
 import org.pt.pub.global.utils.DomUtils;
 
 
@@ -41,6 +38,8 @@ public class Ipma {
 	/**
 	 * General weather information url
 	 */
+	
+	@SuppressWarnings("unused")
 	private static final String OVERVIEW_PT=HOST+"/resources.www/internal.user/ww_overview_pt.xml";
 	/**
 	 * Referer http header needed to fetch data from several services

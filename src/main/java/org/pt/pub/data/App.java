@@ -2,9 +2,6 @@ package org.pt.pub.data;
 
 import java.io.IOException;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 
 import org.pt.pub.data.exceptions.EncodingException;
 import org.pt.pub.data.sources.ine.INEDataSource;
@@ -25,7 +22,6 @@ public class App
     {
     	INEDataSource ine=new INEDataSource();
     	INEServices ineS=ine.getAvailableServices(1, 25);
-    	String serviceURL="http://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_indicadores&indOcorrCod=0001687&contexto=bd&selTab=tab2";
     	String s1="http://www.ine.pt/xportal/xmain?xpid=INE&amp;xpgid=ine_indicadores&amp;indOcorrCod=0001699&amp;contexto=bd&amp;selTab=tab2";
     	//ine.ineTests(ineS.getList().get(0).getUrl());
     	String s0=ineS.getList().get(0).getUrl();

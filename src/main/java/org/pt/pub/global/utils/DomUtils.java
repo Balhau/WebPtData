@@ -44,6 +44,7 @@ public class DomUtils {
 	 * @param scm {@link ScriptObjectMirror} Object from nashorn framework with javascript contents
 	 * @return {@link List} Of {@link String[]}
  	 */
+	@SuppressWarnings("restriction")
 	public static List<String[]> stringTableFromScriptObjectMirror(ScriptObjectMirror scm){
 		Collection<Object> vals=scm.values();
 		List<String[]> ls=new ArrayList<String[]>();
@@ -52,7 +53,12 @@ public class DomUtils {
 		}
 		return ls;
 	}
-	
+	/**
+	 * Method that extracts a {@link String[]} from a {@link ScriptObjectMirror} element
+	 * @param scm {@link ScriptObjectMirror} that represents an array of {@link String}
+	 * @return {@link String[]}
+	 */
+	@SuppressWarnings("restriction")
 	public static String[] stringArrayFromScriptObjectMirror(ScriptObjectMirror scm){
 		Collection<Object> vals=scm.values();
 		String[] l=new String[vals.size()];

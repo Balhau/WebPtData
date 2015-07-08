@@ -2,6 +2,7 @@ package org.pt.pub.data.sources.bdp;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.List;
@@ -138,7 +139,7 @@ public class BancoPortugal extends AbstractDataSource{
 	/**
 	 * Private method that return the index of the {@link Element} of the script containing the 
 	 * categories information 
-	 * @param scripts {@link Elements} contains a set of {@link Element} that can be queried
+	 * @param scripts {@link Elements} is a {@link Collection} of {@link Element} that can be queried
 	 * @return {@link Integer} offset of the wanted element
 	 */
 	private int getCategoriesScriptIndex(Elements scripts){
@@ -152,10 +153,21 @@ public class BancoPortugal extends AbstractDataSource{
 		return -1;
 	}
 	
+	/**
+	 * Private method that check if the category is a leaf of the tree
+	 * @param categorieId {@link String} with the id of the category
+	 * @return {@link Boolean} 
+	 */
 	private boolean isFinalCategorie(String categorieId){
 		return (categorieId.length() - categorieId.replaceAll("_", "").length()) == 3;
 	}
 	
+	/**
+	 * Private method that return the index of the {@link Element} of the script containing the 
+	 * series information
+	 * @param scripts {@link Elements} is a {@link Collection} of {@link Element}
+	 * @return {@link Integer} offset of the wanted element
+	 */
 	private int getSeriesScriptIndex(Elements scripts){
 		int i=0;
 		for(Element node : scripts){
