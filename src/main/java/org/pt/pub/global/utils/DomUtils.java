@@ -1,10 +1,16 @@
 package org.pt.pub.global.utils;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pt.pub.global.configs.HtmlTag;
 import org.pt.pub.global.domain.TableData;
 import org.pt.pub.global.domain.TableRow;
+
+import jdk.nashorn.api.scripting.*;
 
 /**
  * Utility class with a bunch of DOM utility methods 
@@ -33,5 +39,28 @@ public class DomUtils {
 		return tb;
 	}
 	
+	/**
+	 * Method that extracts a List of {@link String[]} elements from a {@link ScriptObjectMirror}
+	 * @param scm {@link ScriptObjectMirror} Object from nashorn framework with javascript contents
+	 * @return {@link List} Of {@link String[]}
+ 	 */
+	public static List<String[]> stringTableFromScriptObjectMirror(ScriptObjectMirror scm){
+		Collection<Object> vals=scm.values();
+		List<String[]> ls=new ArrayList<String[]>();
+		for(Object strList : vals){
+			ls.add(stringArrayFromScriptObjectMirror(((ScriptObjectMirror) strList)));
+		}
+		return ls;
+	}
 	
+	public static String[] stringArrayFromScriptObjectMirror(ScriptObjectMirror scm){
+		Collection<Object> vals=scm.values();
+		String[] l=new String[vals.size()];
+		int i=0;
+		for(Object str : vals){
+			l[i]=""+str;
+			i++;
+		}
+		return l;
+	}
 }
