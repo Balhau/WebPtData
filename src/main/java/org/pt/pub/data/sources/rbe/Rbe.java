@@ -61,10 +61,13 @@ public class Rbe {
 		Element a=el.getElementsByTag(HtmlTag.ANCHOR).get(0);
 		Elements spans=el.getElementsByTag(HtmlTag.SPAN);
 		
-		rb.setUrl(a.attr("href"));
+		String url=a.attr("href");
+		rb.setUrl(url);
 		rb.setTitle(a.text());
 		rb.setData(spans.get(0).text());
 		rb.setDescription(spans.get(1).text());
+		rb.setCategorie(Integer.parseInt(url.split("cats=")[1].split("&")[0]));
+		rb.setSerie(Integer.parseInt(url.split("&s=")[1]));
 		return rb;
 	}
 	
