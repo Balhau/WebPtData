@@ -16,6 +16,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.pt.pub.data.sources.rbe.domain.RbeIndicator;
 import org.pt.pub.global.configs.HtmlTag;
 import org.pt.pub.global.utils.DomUtils;
 
@@ -33,7 +34,7 @@ public class Rbe {
 		se=new ScriptEngineManager().getEngineByName("JavaScript");
 	}
 	
-	public void evaluateJavascript(String urlData) throws Exception{
+	public RbeIndicator evaluateJavascript(String urlData) throws Exception{
 		Connection cn=Jsoup.connect(urlData);
 		Document doc=cn.get();
 		Elements els=doc.getElementsByTag(HtmlTag.SCRIPT);
@@ -47,6 +48,6 @@ public class Rbe {
 		List<String[]> series=DomUtils.stringTableFromScriptObjectMirror((ScriptObjectMirror)bds.get(ks.next()));
 		String[] seriesNames=DomUtils.stringArrayFromScriptObjectMirror((ScriptObjectMirror)bds.get(ks.next()));
 		
-		
+		return new RbeIndicator(categories,series,seriesNames);
 	}
 }
