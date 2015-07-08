@@ -65,8 +65,9 @@ public class Ipma {
 	/**
 	 * This method will return a list of {@link TableData} objects. Each of the elements represents
 	 * the forecast for the sea in a specific day
-	 * @return
-	 * @throws Exception
+	 * @param dayNumber {@link Integer} with the offset in days for the forecast
+	 * @return {@link List} with {@link GeoWeather} entries
+	 * @throws Exception if error is found while parsing data
 	 */
 	public List<GeoWeather<?>> getForecastDay(int dayNumber) throws Exception{
 		List<GeoWeather<?>> forecast = new ArrayList<GeoWeather<?>>();
@@ -87,6 +88,7 @@ public class Ipma {
 	 * This method returns the seismic activities found since a provided {@link Date}
 	 * @param date {@link Date} From which we want the list of seismic activities
 	 * @return {@link List} Of {@link TableData} elements
+	 * @throws Exception if error found while parsing data
 	 */
 	public List<TableData> getSeismicActivity(Date date) throws Exception{
 		List<TableData> seismic=new ArrayList<TableData>();
@@ -115,7 +117,7 @@ public class Ipma {
 	/**
 	 * This method returns a list of entries we can then use to fetch beach information 
 	 * @return {@link List} of {@link BeachEntry} elements
-	 * @throws Exception
+	 * @throws Exception if error found while parsing data
 	 */
 	public List<BeachEntry> getBeachEntries() throws Exception{
 		Connection con=Jsoup.connect(SEA_STATUS);
@@ -125,10 +127,10 @@ public class Ipma {
 	
 	/**
 	 * This method returns information about a specific beach. 
-	 * @param idBeach {@link int} the id of the beach we want information
+	 * @param idBeach {@link Integer} the id of the beach we want information
 	 * @return {@link List} a list of {@link TableData} elements with information regarding the beach in
 	 * question
-	 * @throws Exception
+	 * @throws Exception if error found while parsing data
 	 */
 	public List<TableData> getBeachInfo(int idBeach) throws Exception{
 		List<TableData> beachInfoList = new ArrayList<TableData>();
@@ -141,6 +143,12 @@ public class Ipma {
 		return beachInfoList;
 	}
 	
+	
+	/**
+	 * This private method is responsible for the parsing of the beach entries in the DOM
+	 * @param selectionElement
+	 * @return {@link List} of {@link BeachEntry}
+	 */
 	private List<BeachEntry> parseBeachEntries(Element selectionElement){
 		List<BeachEntry> l=new ArrayList<BeachEntry>();
 		Elements els=selectionElement.getElementsByTag(HtmlTag.OPTION);
@@ -154,7 +162,11 @@ public class Ipma {
 		return l;
 	}
 	
-	
+	/**
+	 * This method changes the state of the GeoWeather object by setting some properties
+	 * @param weather {@link GeoWeather} Domain object representing the weather
+	 * @param el {@link Element} DOM element
+	 */
 	private void decorateWeatherFromElement(GeoWeather<?> weather,Element el){
 		weather.setFullmapshow(Integer.parseInt(el.attr("fullmapshow")));
 		weather.setLatitude(Double.parseDouble(el.attr("lat")));
@@ -164,11 +176,22 @@ public class Ipma {
 		weather.setPeriodId(Integer.parseInt(el.attr("periodid")));
 	}
 	
+	/**
+	 * Private method that changes the state of the {@link BaseInfo} object with properties extracted
+	 * from the DOM 
+	 * @param bi {@link BaseInfo} Information shared between the several weather types
+	 * @param el {@link Element} DOM element
+	 */
 	private void decorateBaseInfoFromElement(BaseInfo bi,Element el){
 		bi.setEndTime(el.attr("end-time"));
 		bi.setStartTime(el.attr("start-time"));
 	}
 	
+	/**
+	 * Private method responsible for the extraction of {@link LandWeather} from the DOM.
+	 * @param parentElement {@link Element} DOM element with the information relative to the {@link LandWeather}
+	 * @return {@link LandWeather}
+	 */
 	private LandWeather getLandWeather(Element parentElement){
 		Element land=parentElement.getElementsByTag("landweather").get(0);
 		LandWeather lw=new LandWeather();
@@ -195,6 +218,13 @@ public class Ipma {
 		return lw;
 	}
 	
+	/**
+	 * Private method responsible for the extraction of several {@link Element} from other Element provided
+	 * as parameter. Note that this method only gets the first element by tag name.
+	 * @param node {@link Element} 
+	 * @param tags {@link String[]} Vararg of strings with the tags for extraction
+	 * @return {@link List} of {@link Element}
+	 */
 	private List<Element> getElementsByTag(Element node,String ...tags){
 		List<Element> els=new ArrayList<>();
 		for(String tag : tags){
@@ -203,6 +233,11 @@ public class Ipma {
 		return els;
 	}
 	
+	/**
+	 * Private method responsible for the extraction of {@link SeaWeather} from an {@link Element} of the DOM
+	 * @param parentElement {@link Element} of the DOM
+ 	 * @return {@link SeaWeather}
+	 */
 	private SeaWeather getSeaWeather(Element parentElement){
 		SeaWeather sw=new SeaWeather();
 		decorateWeatherFromElement(sw, parentElement);
@@ -224,6 +259,12 @@ public class Ipma {
 		return sw;
 	}
 	
+	/**
+	 * Private method responsible for the extraction of {@link UvWeather} form an {@link Element} of the 
+	 * DOM
+	 * @param parentElement {@link Element} of the DOM
+	 * @return {@link UvWeather} 
+	 */
 	private UvWeather getUVWeather(Element parentElement){
 		UvWeather uvw=new UvWeather();
 		Uv uv = new Uv();

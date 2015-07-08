@@ -24,8 +24,22 @@ import org.pt.pub.global.utils.DomUtils;
 
 
 /**
- * Rede de Bibliotecas Escolares (RBE).
- * This class will be used to retrieve information from http://rbe.mec.pt/
+ * Rede de Bibliotecas Escolares (RBE).<br><br>
+ * This class will be used to retrieve information from http://rbe.mec.pt/<br>
+ * In http://rbe.mec.pt/np4/indicadores/ you find a list of indicators about the public school libraries.
+ * This class implements the methods for you retrieve the list of indicators as well the contents of each
+ * indicator.
+ * As an example you can use the following code to fetch data available here<br><br> 
+ * 
+ * <a href="http://rbe.mec.pt/np4/indicadores?cats=361&s=1241">Indicators data</a>
+ * 
+ * <br><br>
+ * <code>
+ * 	{@link Rbe} rbe=new Rbe();<br>
+ *  {@link List} lIndicators=rbe.getIndicators();<br>
+ *  {@link RbeIndicator} indicator=lIndicators.get(0);<br>
+ *  {@link RbeIndicatorData} data=rbe.getIndicator(indicator.getCategorie(),indicator.getSerie());<br>
+ * </code>
  * @author balhau 
  *
  */

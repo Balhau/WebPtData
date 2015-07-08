@@ -8,7 +8,7 @@ import org.pt.pub.data.sources.AbstractData;
  * This class will hold information for specific place regarding a generic type  
  * @author balhau
  *
- * @param <T>
+ * @param <T> Generic type that represents the specific weather type
  */
 public abstract class GeoWeather<T> extends AbstractData{
 	private int fullmapshow;

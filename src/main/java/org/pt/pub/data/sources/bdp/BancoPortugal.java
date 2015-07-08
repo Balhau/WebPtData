@@ -75,7 +75,7 @@ public class BancoPortugal extends AbstractDataSource{
 	 * @param seriesList {@link List} List of string with the ids for the series
 	 * @param endDate {@link Date} Date with the end of the series
 	 * @return {@link TableData} with the data for the series
-	 * @throws Exception
+	 * @throws Exception if error while parsing data
 	 */
 	public List<TableData> getDataForSeries(List<String> seriesList,Date endDate) throws Exception {
 		List<TableData> ldata=new ArrayList<TableData>();
@@ -135,6 +135,12 @@ public class BancoPortugal extends AbstractDataSource{
 		return data;
 	}
 	
+	/**
+	 * Private method that return the index of the {@link Element} of the script containing the 
+	 * categories information 
+	 * @param scripts {@link Elements} contains a set of {@link Element} that can be queried
+	 * @return {@link Integer} offset of the wanted element
+	 */
 	private int getCategoriesScriptIndex(Elements scripts){
 		int i=0;
 		for(Element node : scripts){
