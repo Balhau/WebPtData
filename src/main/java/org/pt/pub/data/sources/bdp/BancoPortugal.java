@@ -33,24 +33,26 @@ import com.google.gson.JsonParser;
  * a service that is available from the institution<br><br>
  * 
  * <b>Tutorial:</b><br><br>
- * <code>
- *  //Instantiate the class<br>
- * 	BancoPortugal bdp=new BancoPortugal();<br>
- *  //Fetch the categories available<br>
- *  TableData categories=bdp.getCategories();<br><br>
- *  //Get id of category<br>
- *  String catId=categories.getRows().get(0).getData().get(2));<br><br>
+ * <pre>
+ *  //Instantiate the class
+ *  BancoPortugal bdp=new BancoPortugal();
+ * 
+ *  //Fetch the categories available
+ *  TableData categories=bdp.getCategories();
  *  
- *  //Get the series for the categories selected<br>
- *  TableData series=bdp.getSeriesForCategorie(catId);<br><br>
+ *  //Get id of category
+ *  String catId=categories.getRows().get(0).getData().get(2));
  *  
- *  //Get series data for a specific series<br>
- *  List&lt;String&gt; idSeries=new ArrayList&lt;String&gt;();<br>
- *  String idSerie=series.getRows().get(0).getData().get(2));<br>
- *  idSeries.add(idSerie);<br>
- *  TableData dataForSerie=bdp.getSeriesForCategorie(idSeries,new Date());<br>
+ *  //Get the series for the categories selected
+ *  TableData series=bdp.getSeriesForCategorie(catId);
  *  
- * </code>
+ *  //Get series data for a specific series
+ *  List&lt;String&gt; idSeries=new ArrayList&lt;String&gt;();
+ *  String idSerie=series.getRows().get(0).getData().get(2));
+ *  idSeries.add(idSerie);
+ *  TableData dataForSerie=bdp.getSeriesForCategorie(idSeries,new Date());
+ *  
+ * </pre>
  * 
  * @author balhau
  *

@@ -18,7 +18,21 @@ import org.pt.pub.data.sources.ine.domain.ServiceItem;
 
 /**
  * This class is the main interface for the INE data. Here we load, parse and store in datastructures the data retrieved from
- * the INE web pages
+ * the INE web pages<br><br>
+ * 
+ * <b>Tutorial:</b><br><br>
+ * <pre>
+ * //Instantiate constructor
+ * {@link Ine} ine=new Ine();
+ * 
+ * //Get statistics in a paginated way starting from the beginning and with 25 elements by page
+ * {@link INEServices} services=ine.{@link #getAvailableServices(int, int) getAvailableServices(0,25)}
+ * 
+ * //Now get a service item and fetch the data for that service
+ * {@link ServiceItem} service=services.{@link INEServices#getList() getList()}.{@link List#get(int) get(0)}
+ * {@link String} url=service.{@link ServiceItem#getUrl() getUrl()}
+ * {@link INEResultData} data=ine.{@link #getDataFromService(String) getDataFromService(url)}
+ * </pre>
  * @author balhau
  *
  */

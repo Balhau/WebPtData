@@ -34,9 +34,9 @@ import org.pt.pub.global.utils.DomUtils;
  * 
  * As an example you can use the following code to fetch data available here<br><br> 
  * 
- * <a href="http://rbe.mec.pt/np4/indicadores?cats=361&s=1241" target="_blank">Indicators data</a>
+ * <a href="http://rbe.mec.pt/np4/indicadores?cats=361&s=1241" target="_blank">Indicators data</a><br><br>
  * 
- * <br><br>
+ * <b>Tutorial:</b><br><br>
  * <code>
  * 	{@link Rbe} rbe=new Rbe();<br>
  *  {@link List} lIndicators=rbe.getIndicators();<br>
