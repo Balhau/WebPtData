@@ -1,6 +1,10 @@
 package org.pt.pub.data.sources.accuweather;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -22,11 +26,11 @@ import org.pt.pub.global.configs.GlobalConfigs;
  * <b>Tutorial:</b><br><br>
  * 
  * <pre>
- * final AccuWeather accW=new AccuWeather();
- * WeatherLocationList weatherList=accW.getLocations("porto");
- * ExecutorService executor = Executors.newFixedThreadPool(weatherList.getWeatherLocationList().size());
- * Set&lt;Future&lt;Weather&gt;&gt; weathers=new HashSet&lt;Future&lt;Weather&gt;&gt;();
- * for(final WeatherLocation wl:weatherList.getWeatherLocationList()){
+ * final {@link AccuWeather} accW=new {@link AccuWeather#AccuWeather() AccuWeather()};
+ * {@link WeatherLocationList} weatherList=accW.{@link #getLocations(String) getLocations("porto")};
+ * {@link ExecutorService} executor = {@link Executors#newFixedThreadPool(int) Executors.newFixedThreadPool(weatherList.getWeatherLocationList().size())};
+ * {@link Set} weathers=new {@link HashSet}();
+ * for(final {@link WeatherLocation} wl:weatherList.getWeatherLocationList()){
  *    weathers.add(executor.submit(new Callable&lt;Weather&gt;() {
  *      public Weather call() throws Exception {
  * 			return accW.getLocation(wl.getLocation());

@@ -35,23 +35,22 @@ import com.google.gson.JsonParser;
  * <b>Tutorial:</b><br><br>
  * <pre>
  *  //Instantiate the class
- *  BancoPortugal bdp=new BancoPortugal();
+ *  {@link BancoPortugal} bdp=new {@link BancoPortugal#BancoPortugal() BancoPortugal()};
  * 
  *  //Fetch the categories available
- *  TableData categories=bdp.getCategories();
+ *  {@link TableData} categories=bdp.{@link #getCategories() getCategories()};
  *  
  *  //Get id of category
- *  String catId=categories.getRows().get(0).getData().get(2));
+ *  {@link String} catId=categories.{@link TableData#getRows() getRows()}.{@link List#get(int) get(0)}.{@link TableRow#getData() getData()}.{@link List#get(int) get(2)};
  *  
  *  //Get the series for the categories selected
- *  TableData series=bdp.getSeriesForCategorie(catId);
+ *  {@link TableData} series=bdp.{@link #getSeriesForCategorie(String) getSeriesForCategorie(catId)};
  *  
  *  //Get series data for a specific series
- *  List&lt;String&gt; idSeries=new ArrayList&lt;String&gt;();
- *  String idSerie=series.getRows().get(0).getData().get(2));
- *  idSeries.add(idSerie);
- *  TableData dataForSerie=bdp.getSeriesForCategorie(idSeries,new Date());
- *  
+ *  {@link List} idSeries=new {@link ArrayList#ArrayList() ArrayList()};
+ *  {@link String} idSerie=series.{@link TableData#getRows() getRows()}.{@link List#get(int) get(0)}.{@link TableRow#getData() getData()}.{@link List#get(int) get(2)};
+ *  idSeries.{@link List#add(Object) add(idSerie)};
+ *  {@link TableData} dataForSerie=bdp.{@link #getSeriesForCategorie(String) getSeriesForCategorie(idSeries,new Date())};
  * </pre>
  * 
  * @author balhau

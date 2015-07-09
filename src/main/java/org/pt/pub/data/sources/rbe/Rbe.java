@@ -37,12 +37,18 @@ import org.pt.pub.global.utils.DomUtils;
  * <a href="http://rbe.mec.pt/np4/indicadores?cats=361&s=1241" target="_blank">Indicators data</a><br><br>
  * 
  * <b>Tutorial:</b><br><br>
- * <code>
- * 	{@link Rbe} rbe=new Rbe();<br>
- *  {@link List} lIndicators=rbe.getIndicators();<br>
- *  {@link RbeIndicator} indicator=lIndicators.get(0);<br>
- *  {@link RbeIndicatorData} data=rbe.getIndicator(indicator.getCategorie(),indicator.getSerie());<br>
- * </code>
+ * <pre>
+ * 	
+ * {@link Rbe} rbe=new {@link #Rbe() Rbe()};
+ * {@link List} lIndicators=rbe.{@link #getIndicators() getIndicators()};
+ * {@link RbeIndicator} indicator=lIndicators.{@link List#get(int) get(0)};
+ * {@link RbeIndicatorData} data=
+ * rbe.{@link #getIndicator(int, int) getIndicator(
+ *  indicator.{@link RbeIndicator#getCategorie() getCategorie()},
+ *  indicator.{@link RbeIndicator#getSerie() getSerie()}
+ *  )
+ * };
+ * </pre>
  * @author balhau 
  *
  */
