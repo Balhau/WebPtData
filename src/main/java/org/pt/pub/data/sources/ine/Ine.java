@@ -2,6 +2,7 @@ package org.pt.pub.data.sources.ine;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.jsoup.Connection;
@@ -22,7 +23,8 @@ import org.pt.pub.data.sources.ine.domain.ServiceItem;
  *
  */
 public class Ine extends AbstractDataSource{
-	
+	//TODO: We should replace the domain objects here with the global domain TableData and TableRow
+	//domain objects
 	private static String INE_BASE="http://www.ine.pt";
 	
 	/**
@@ -46,6 +48,11 @@ public class Ine extends AbstractDataSource{
 		return parseTBodyServices(doc.select("table").get(1).select("tbody").get(0));
 	}
 	
+	/**
+	 * Private method that is responsible for the parsing of the DOM table with the services
+	 * @param tbody {@link Element} representing a table element
+	 * @return {@link INEServices} Domain object
+	 */
 	private INEServices parseTBodyServices(Element tbody){
 		INEServices ines=new INEServices();
 		Elements els=tbody.select("tr");
@@ -55,12 +62,23 @@ public class Ine extends AbstractDataSource{
 		return ines;
 	}
 	
+	/**
+	 * Method responsible to parse DOM rows with the elements
+	 * @param row {@link Element} tr DOM element
+	 * @return {@link ServiceItem} domain object
+	 */
 	private ServiceItem parseServiceRow(Element row){
 		Element anchor=row.select("td").get(1).select("a").get(0);
 		String url=INE_BASE+anchor.attr("href");
 		return new ServiceItem(url, anchor.text());
 	}
 	
+	/**
+	 * Method responsible to parse INE statistical data from page
+	 * @param urlData {@link String} represents the url
+	 * @return {@link INEResultData} domain object
+	 * @throws IOException in the case of error while parsing data
+	 */
 	public INEResultData getDataFromService(String urlData) throws IOException{
 		Connection cn=Jsoup.connect(urlData);
     	Document doc=cn.get();
@@ -76,6 +94,11 @@ public class Ine extends AbstractDataSource{
     	return new INEResultData(headers, data);
 	}
 	
+	/**
+	 * Responsible for the parsing of all data rows
+	 * @param rows {@link Elements} {@link Collection} of tr dom elements
+	 * @return {@link List} of {@link INEDataRow} elements
+	 */
 	private List<INEDataRow> parseContentData(Elements rows){
 		List<INEDataRow> dRows=new ArrayList<INEDataRow>();
 		for(Element row : rows){
@@ -91,6 +114,11 @@ public class Ine extends AbstractDataSource{
 		return dRows;
 	}
 	
+	/**
+	 * Method responsible for the parsing of the header 
+	 * @param rows {@link Elements} {@link Collection} of rows in the table
+	 * @return {@link List} of {@link INEDataRow}
+	 */
 	private List<INEDataRow> parseHeadersData(Elements rows){
 		List<INEDataRow> hrows=new ArrayList<INEDataRow>();
 		for(Element row : rows){

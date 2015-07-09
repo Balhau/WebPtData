@@ -1,6 +1,12 @@
 package org.pt.pub.data.sources.accuweather;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -14,7 +20,33 @@ import org.pt.pub.data.sources.accuweather.domain.WeatherLocationList;
 import org.pt.pub.global.configs.GlobalConfigs;
 
 /**
- * Implements the AccuWeather webservice
+ * Implements the <a href="http://www.accuweather.com/" target="_blank">AccuWeather</a> 
+ * that give us information about the weather. <br>
+ * This is not a Portuguese service 
+ * but it is used by many portuguese people and so we decided to include this service
+ * in this package.<br><br>
+ * <b>Tutorial:</b><br><br>
+ * 
+ * <code>
+ * final AccuWeather accW=new AccuWeather();<br>
+ * WeatherLocationList weatherList=accW.getLocations("porto");<br>
+ * ExecutorService executor = Executors.newFixedThreadPool(weatherList.getWeatherLocationList().size());<br>
+ * Set&lt;Future&lt;Weather&gt;&gt; weathers=new HashSet&lt;Future&lt;Weather&gt;&gt;();<br><br>
+ * for(final WeatherLocation wl:weatherList.getWeatherLocationList()){<br>
+ * 	weathers.add(executor.submit(new Callable&lt;Weather&gt;() {<br>
+ * 		public Weather call() throws Exception {<br>
+ * 			return accW.getLocation(wl.getLocation());<br>
+ * 			}<br>
+ * 	}));<br>
+ * }<br>
+ * int i=0;<br>
+ * for(Future&lt;Weather&gt; weather : weathers){
+ * 	System.out.println(weatherList.getWeatherLocationList().get(i).getName());
+ * 	System.out.println(weather.get().toJSON());
+ * 	i++;
+ * }
+ * executor.shutdown();
+ * </code>
  * 
  * @author balhau
  *

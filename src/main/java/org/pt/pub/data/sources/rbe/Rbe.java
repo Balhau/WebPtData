@@ -24,13 +24,17 @@ import org.pt.pub.global.utils.DomUtils;
 
 /**
  * Rede de Bibliotecas Escolares (RBE).<br><br>
- * This class will be used to retrieve information from http://rbe.mec.pt/<br>
- * In http://rbe.mec.pt/np4/indicadores/ you find a list of indicators about the public school libraries.
+ * This class will be used to retrieve information from 
+ * <a href="http://rbe.mec.pt/" target="_blank">Rede de Bibliotecas Escolares</a><br>
+ * In <a href="http://rbe.mec.pt/np4/indicadores" target="_blank">Indicadores</a> you find a list of statistical
+ * information about the public school libraries.<br>
+ * 
  * This class implements the methods for you retrieve the list of indicators as well the contents of each
- * indicator.
+ * indicator.<br>
+ * 
  * As an example you can use the following code to fetch data available here<br><br> 
  * 
- * <a href="http://rbe.mec.pt/np4/indicadores?cats=361&s=1241">Indicators data</a>
+ * <a href="http://rbe.mec.pt/np4/indicadores?cats=361&s=1241" target="_blank">Indicators data</a>
  * 
  * <br><br>
  * <code>
@@ -102,6 +106,14 @@ public class Rbe {
 		return rb;
 	}
 	
+	/**
+	 * Method that returns an {@link RbeIndicatorData} with the data presented in the
+	 * indicator represented by a category and series id.
+	 * @param cat {@link Integer} Category id
+	 * @param serie {@link Integer} Series id
+	 * @return {@link RbeIndicatorData} Data for the series
+	 * @throws Exception in case of error parsing the data
+	 */
 	public RbeIndicatorData getIndicator(int cat,int serie) throws Exception{
 		Connection cn=Jsoup.connect(urlFromCategorieSerie(cat,serie));
 		Document doc=cn.get();
