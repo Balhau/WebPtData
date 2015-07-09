@@ -4,7 +4,7 @@ import java.io.IOException;
 
 
 import org.pt.pub.data.exceptions.EncodingException;
-import org.pt.pub.data.sources.ine.INEDataSource;
+import org.pt.pub.data.sources.ine.Ine;
 import org.pt.pub.data.sources.ine.domain.INEResultData;
 import org.pt.pub.data.sources.ine.domain.INEServices;
 
@@ -20,7 +20,7 @@ public class App
 	
     public static void main( String[] args ) throws IOException, EncodingException
     {
-    	INEDataSource ine=new INEDataSource();
+    	Ine ine=new Ine();
     	INEServices ineS=ine.getAvailableServices(1, 25);
     	String s1="http://www.ine.pt/xportal/xmain?xpid=INE&amp;xpgid=ine_indicadores&amp;indOcorrCod=0001699&amp;contexto=bd&amp;selTab=tab2";
     	//ine.ineTests(ineS.getList().get(0).getUrl());

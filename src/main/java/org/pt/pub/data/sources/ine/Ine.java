@@ -21,14 +21,14 @@ import org.pt.pub.data.sources.ine.domain.ServiceItem;
  * @author balhau
  *
  */
-public class INEDataSource extends AbstractDataSource{
+public class Ine extends AbstractDataSource{
 	
 	private static String INE_BASE="http://www.ine.pt";
 	
 	/**
 	 * Default constructor
 	 */
-	public INEDataSource(){
+	public Ine(){
 	}
 	
 	/**
