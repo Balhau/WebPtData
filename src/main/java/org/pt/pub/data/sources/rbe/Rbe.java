@@ -42,12 +42,9 @@ import org.pt.pub.global.utils.DomUtils;
  * {@link Rbe} rbe=new {@link #Rbe() Rbe()};
  * {@link List} lIndicators=rbe.{@link #getIndicators() getIndicators()};
  * {@link RbeIndicator} indicator=lIndicators.{@link List#get(int) get(0)};
- * {@link RbeIndicatorData} data=
- * rbe.{@link #getIndicator(int, int) getIndicator(
- *  indicator.{@link RbeIndicator#getCategorie() getCategorie()},
- *  indicator.{@link RbeIndicator#getSerie() getSerie()}
- *  )
- * };
+ * {@link Integer} cat=indicator.{@link RbeIndicator#getCategorie() getCategorie()};
+ * {@link Integer} ser=indicator.{@link RbeIndicator#getSerie() getSerie()});
+ * {@link RbeIndicatorData} data=rbe.{@link #getIndicator(int, int) getIndicator(cat,ser)};
  * </pre>
  * @author balhau 
  *
