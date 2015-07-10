@@ -7,6 +7,8 @@ import org.pt.pub.data.sources.base.BaseQueryUtils;
 public class base {
 	public static void main(String[] args) throws Exception{
 		Base base=new Base();
-		System.out.println(BaseQueryUtils.defaultQuery());
+		int idEntry=1498876;
+		System.out.println(base.getAllResults(0, 25));
+		System.out.println(base.getEntryInformationByContractoId(idEntry));
 	}
 }

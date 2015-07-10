@@ -26,6 +26,8 @@ public class BaseQueryUtils {
 			+ "range=%s-%s"
 			+ "&type=%s&query=%s";
 	
+	public static final String QUERY_PATTERN_CONTRACT=HOST+"/Base/pt/Pesquisa/Contrato?a=";
+	
 	public static final String SUB_QUERY_PATTERN="texto=%s&tipo=%s&tipocontrato=%s"
 			+ "&cvp=%s&aqinfo=%s&adjudicante=%s&adjudicataria=%s"
 			+ "&desdeprecocontrato_false=%s&desdeprecocontrato=%s&ateprecocontrato_false=%s"
