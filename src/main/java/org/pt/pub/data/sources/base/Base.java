@@ -23,6 +23,8 @@ import org.pt.pub.global.utils.DomUtils;
  */
 public class Base{
 	
+	private static final int BASE_CONNECTION_TIMEOUT=20*1000;
+	
 	public Base(){
 		
 	}
@@ -54,7 +56,7 @@ public class Base{
 	private BaseQueryResponse getResultsByQuery(int startOffset,int endOffset,String query) throws Exception{
 		List<BaseEntry> entries=new ArrayList<BaseEntry>();
 		Connection con=Jsoup.connect(query);
-		con.timeout(5000);
+		con.timeout(BASE_CONNECTION_TIMEOUT);
 		Document doc=con.get();
 		int totalElements=Integer.parseInt(doc.getElementsByTag("span").get(2).text());
 		Elements results=doc.getElementById("resultadosContractos").getElementsByTag(HtmlTag.TR);
