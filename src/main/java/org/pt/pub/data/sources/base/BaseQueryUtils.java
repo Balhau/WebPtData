@@ -1,7 +1,5 @@
 package org.pt.pub.data.sources.base;
 
-import groovy.ui.Console;
-
 import java.net.URLEncoder;
 
 /**
@@ -69,6 +67,22 @@ public class BaseQueryUtils {
 		return queryFull(firstItem, lastItem, DEFAULT_TYPE, "", 
 				DEFAULT_TYPE2, DEFAULT_TIPO_CONTRACTO, 
 				"", "", "", "", "", "", "", "", 
+				"", "", "", "", "", "", "", "", "", "", "", "", 
+				DEFAULT_PAIS, DEFAULT_DISTRITO, DEFAULT_CONCELHO);
+	}
+	
+	public static String getByAdjudicante(int firstItem,int lastItem,String adjudicante) throws Exception{
+		return queryFull(firstItem, lastItem, DEFAULT_TYPE, "", 
+				DEFAULT_TYPE2, DEFAULT_TIPO_CONTRACTO, 
+				"", "", adjudicante, "", "", "", "", "", 
+				"", "", "", "", "", "", "", "", "", "", "", "", 
+				DEFAULT_PAIS, DEFAULT_DISTRITO, DEFAULT_CONCELHO);
+	}
+	
+	public static String getByAdjudicario(int firstItem,int lastItem,String adjudicario) throws Exception{
+		return queryFull(firstItem, lastItem, DEFAULT_TYPE, "", 
+				DEFAULT_TYPE2, DEFAULT_TIPO_CONTRACTO, 
+				"", "", "", adjudicario, "", "", "", "", 
 				"", "", "", "", "", "", "", "", "", "", "", "", 
 				DEFAULT_PAIS, DEFAULT_DISTRITO, DEFAULT_CONCELHO);
 	}

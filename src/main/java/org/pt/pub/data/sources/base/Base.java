@@ -35,8 +35,16 @@ public class Base{
 	 * @exception Exception in case error is found while parsing data
 	 */
 	public BaseQueryResponse getAllResults(int startOffset,int endOffset) throws Exception{
+		return getResultsByQuery(startOffset, endOffset, BaseQueryUtils.defaultQueryWithPagination(startOffset, endOffset));
+	}
+	
+	public BaseQueryResponse getByAdjudicante(int startOffset,int endOffset,String adjudicante) throws Exception{
+		return getResultsByQuery(startOffset, endOffset, BaseQueryUtils.getByAdjudicante(startOffset, endOffset, adjudicante));
+	}
+	
+	private BaseQueryResponse getResultsByQuery(int startOffset,int endOffset,String query) throws Exception{
 		List<BaseEntry> entries=new ArrayList<BaseEntry>();
-		Connection con=Jsoup.connect(BaseQueryUtils.defaultQueryWithPagination(startOffset, endOffset));
+		Connection con=Jsoup.connect(query);
 		con.timeout(5000);
 		Document doc=con.get();
 		int totalElements=Integer.parseInt(doc.getElementsByTag("span").get(2).text());
