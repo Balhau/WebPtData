@@ -39,7 +39,16 @@ public class Base{
 	}
 	
 	public BaseQueryResponse getByAdjudicante(int startOffset,int endOffset,String adjudicante) throws Exception{
-		return getResultsByQuery(startOffset, endOffset, BaseQueryUtils.getByAdjudicante(startOffset, endOffset, adjudicante));
+		return getResultsByQuery(startOffset, endOffset, 
+					BaseQueryUtils.getByAdjudicante(startOffset, endOffset, adjudicante)
+			);
+	}
+	
+	public BaseQueryResponse getByAjudicatario(int startOffset,int endOffset,String adjudicatario) throws Exception{
+		return getResultsByQuery(startOffset, endOffset, 
+				BaseQueryUtils.getByAdjudicario(startOffset, endOffset, 
+						adjudicatario)
+				);
 	}
 	
 	private BaseQueryResponse getResultsByQuery(int startOffset,int endOffset,String query) throws Exception{
