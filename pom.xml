@@ -48,8 +48,15 @@
 		<artifactId>utils</artifactId>
 		<version>${balhau.snapshot}</version>
 	</dependency>
-	
-	<dependency>
+
+      <dependency>
+          <groupId>com.restfb</groupId>
+          <artifactId>restfb</artifactId>
+          <version>1.15.0</version>
+      </dependency>
+
+
+      <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
       <version>${gson.version}</version>

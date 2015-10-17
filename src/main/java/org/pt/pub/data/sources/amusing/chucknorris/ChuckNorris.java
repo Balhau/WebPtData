@@ -1,6 +1,12 @@
 package org.pt.pub.data.sources.amusing.chucknorris;
 
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.pt.pub.data.sources.AbstractDataSource;
+import org.pt.pub.global.configs.GlobalConfigs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +18,8 @@ import java.util.List;
 public class ChuckNorris extends AbstractDataSource{
 
     private final String CHUCK_URL_BASE="http://www.chucknorrisfacts.com";
-    private final String SEARCH_PATH=CHUCK_URL_BASE+"search/node/%s%s";
-    private final String PAGINATED_PATH=CHUCK_URL_BASE+"all-chuck-norris-facts%s";
+    private final String SEARCH_PATH=CHUCK_URL_BASE+"/search/node/%s%s";
+    private final String PAGINATED_PATH=CHUCK_URL_BASE+"/all-chuck-norris-facts%s";
 
     public ChuckNorris(){
 
@@ -23,8 +29,16 @@ public class ChuckNorris extends AbstractDataSource{
      * Get the chuck norris facts in a paginated way
      * @param number
      */
-    public List<String> getFacts(int number){
+    public List<String> getFacts(int number) throws Exception{
         List<String> facts=new ArrayList<>();
+        String path=getPaginatedPath(number);
+        System.out.println(path);
+        Connection cn= Jsoup.connect(getPaginatedPath(number)).userAgent(GlobalConfigs.USER_AGENT);
+        Document doc=cn.get();
+        Elements items=doc.getElementsByClass("item-list").get(0).getElementsByTag("a");
+        for(Element el : items){
+            facts.add(el.text());
+        }
         return facts;
     }
 
