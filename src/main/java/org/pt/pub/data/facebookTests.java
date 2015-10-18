@@ -1,58 +1,32 @@
 package org.pt.pub.data;
 
-import com.restfb.*;
-import com.restfb.types.FacebookType;
+/*
+import facebook4j.*;
+import facebook4j.auth.AccessToken;
 
 import java.io.IOException;
-import java.util.Date;
-
+import java.net.URL;
+*/
 
 /**
  * Created by vitorfernandes on 10/17/15.
  */
 public class facebookTests {
-    public static final String ACCESS_TOKEN="CAACEdEose0cBALtrW8AgID5OsMLZBooVln5lKldtFkYBrpfJ6WkWlOk8rmnZClbCpgZCW5y4ZCnIgwOlYnMwsxDxo2XdkfJd484PHZAleZBe3SRZAzecYILue4xYw9SupDtyc1tRYg1DxIpQPVyX0hUghZAYGrRvmQPwfRMVQm4xjmDgCw3mplPJZAGOkOrhhBZCXYjZBwcJ0SU5ETGQpsQXqBI";
+    public static final String ACCESS_TOKEN="CAACEdEose0cBAIkSFJyideIYya5MYkbvYkEWYZCmt1a3lR1qZBMkvtoyTcZAq1ZCqkVLIJ3VZCsyu6eYT1aZCagjRq8VkyPONLtpsRQTHEeWeFxxJLAJoZB77jaVJN0ZCznHANRLQmHPIFk68NYFADrEawR2UdnQAAZCV2OzJ1w2POEZADEDbZBf3sneQCqnXCOZA0vl85Y6qpfZAGhePVKqGvwL9";
     public static final String APP_SECRET="1719871d76268f075ad0cafbb492c7fa";
     public static final String APP_ID="328110980599333";
-    public static FacebookClient fbClient;
-    public static void main(String[] args) throws IOException{
+    public static final String PERMISIONS="user_about_me,user_actions.books,user_actions.fitness,user_actions.music,user_actions.news,user_actions.video,user_birthday,user_education_history,user_events,user_friends,user_games_activity,user_hometown,user_likes,user_location,user_managed_groups,user_photos,user_posts,user_relationship_details,user_relationships,user_religion_politics,user_status,user_tagged_places,user_videos,user_website,user_work_history";
 
-        FacebookClient.AccessToken userTokenT = getFacebookUserToken(APP_ID,"http://git.balhau.net");
-        FacebookClient.AccessToken accessTokenT =
-                new DefaultFacebookClient().obtainAppAccessToken(APP_ID, APP_SECRET);
-        fbClient = new DefaultFacebookClient(accessTokenT.getAccessToken(),APP_SECRET,Version.VERSION_2_0);
-        publishPostAndEvent();
-    }
+    public static void main(String[] args) throws Exception {
+  /*      Facebook facebook= new FacebookFactory().getInstance();
 
-    private static FacebookClient.AccessToken getFacebookUserToken(String code, String redirectUrl) throws IOException {
-        String appId = "YOUR_APP_ID";
-        String secretKey = "YOUR_SECRET_KEY";
+        facebook.setOAuthAppId(APP_ID,APP_SECRET);
+        facebook.setOAuthPermissions(PERMISIONS);
+        facebook.setOAuthAccessToken(new AccessToken(ACCESS_TOKEN,null));
 
-        WebRequestor wr = new DefaultWebRequestor();
-        WebRequestor.Response accessTokenResponse = wr.executeGet(
-                "https://graph.facebook.com/oauth/access_token?client_id=" + appId + "&redirect_uri=" + redirectUrl
-                        + "&client_secret=" + secretKey + "&code=" + code);
+        ResponseList<Like> likes=facebook.getUserLikes();
 
-        return DefaultFacebookClient.AccessToken.fromQueryString(accessTokenResponse.getBody());
-    }
-
-    private static void publishPostAndEvent(){
-
-        FacebookType publishMessageResponse =
-                fbClient.publish("me/feed", FacebookType.class,
-                        Parameter.with("message", "Facebook message test..."));
-
-        System.out.println("Published message ID: " + publishMessageResponse.getId());
-
-// Publishing an event
-
-        Date tomorrow = new Date(System.currentTimeMillis() + 1000L * 60L * 60L * 24L);
-        Date twoDaysFromNow = new Date(System.currentTimeMillis() + 1000L * 60L * 60L * 48L);
-
-        FacebookType publishEventResponse = fbClient.publish("me/events", FacebookType.class,
-                Parameter.with("name", "Festarola"), Parameter.with("start_time", tomorrow),
-                Parameter.with("end_time", twoDaysFromNow));
-
-        System.out.println("Published event ID: " + publishEventResponse.getId());
+        facebook.postStatusMessage("Hello World from Facebook4J.");
+*/
     }
 }

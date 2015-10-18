@@ -18,6 +18,7 @@ public class BaseEntry extends AbstractData{
 	private String adjudicante;
 	private String adjudicatario;
 	private String url;
+	private int id;
 	
 	
 	public BaseEntry(){
@@ -27,7 +28,8 @@ public class BaseEntry extends AbstractData{
 	public BaseEntry(
 			String description,float price,
 			String publication,String adjudicante,String adjudicatario,
-			String url
+			String url,
+			int id
 			){
 		this.description=description;
 		this.price=price;
@@ -35,6 +37,7 @@ public class BaseEntry extends AbstractData{
 		this.adjudicante=adjudicante;
 		this.adjudicatario=adjudicatario;
 		this.url=url;
+		this.id=id;
 	}
 
 
@@ -92,5 +95,13 @@ public class BaseEntry extends AbstractData{
 
 	public void setAdjudicatario(String adjudicatario) {
 		this.adjudicatario = adjudicatario;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

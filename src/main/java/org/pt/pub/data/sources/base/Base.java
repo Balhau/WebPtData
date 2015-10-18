@@ -92,8 +92,9 @@ public class Base{
 		be.setPublication(cells.get(2).text());
 		be.setAdjudicante(cells.get(3).text());
 		be.setAdjudicatario(cells.get(4).text());
-		be.setUrl(cells.get(5).getElementsByTag(HtmlTag.ANCHOR).get(0).attr("href"));
-		
+		String url=cells.get(5).getElementsByTag(HtmlTag.ANCHOR).get(0).attr("href");
+		be.setUrl(url);
+		be.setId(Integer.parseInt(url.split("a=")[1]));
 		return be;
 	}
 	
