@@ -75,9 +75,7 @@ public class TAP {
     }
 
     private FlightDetail parseFligthDetail(Element row){
-        return new FlightDetail(
-
-        );
+        return null;
     }
 
 }
