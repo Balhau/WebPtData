@@ -18,7 +18,7 @@ class AccuWeatherTest extends Specification{
 		when:
 			WeatherLocationList weatherList=weather.getLocations("porto")
 		then:
-			weatherList.getWeatherLocationList().size() == 35
+			weatherList.getWeatherLocationList().size() > 0
 	}
 	
 	def "Find weather for countries like porto"(){
