@@ -5,35 +5,69 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.pt.pub.data.sources.anacom.domain.Tarifa;
+import org.pt.pub.data.sources.anacom.domain.TarifaInternet;
+import org.pt.pub.data.sources.anacom.domain.TarifaTelevisao;
 import org.pt.pub.global.configs.GlobalConfigs;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This class will retrieve relevant information from Anacom. <a href="http://www.anacom.pt">Anacom</a> is a portuguese
+ * entity that controls the telecomunication market
  * Created by vitorfernandes on 10/24/15.
  */
 public class Anacom {
-    public static String ANACOM_BASE="http://www.anacom.pt";
-    public static String TARIFARIOS=ANACOM_BASE+"/tarifarios/InternetResultadosConsultaTodos.do";
 
-    public List<Tarifa> getTarifarios() throws Exception{
-        List<Tarifa> tarifas=new ArrayList<>();
-        Connection con= Jsoup.connect(TARIFARIOS).userAgent(GlobalConfigs.USER_AGENT);
+    public interface LineProcessor<T>{
+        T processLine(Element line);
+    }
+
+    public static String ANACOM_BASE="http://www.anacom.pt";
+    public static String TARIFARIOS_INTERNET=ANACOM_BASE+"/tarifarios/InternetResultadosConsultaTodos.do";
+    public static String TARIFARIOS_TELEVISAO=ANACOM_BASE+"/tarifarios/TelevisaoResultadosConsultaTodos.do";
+
+    /**
+     * Return all the internet services available from the Portuguese Market
+     * @return
+     * @throws Exception
+     */
+    public List<TarifaInternet> getTarifariosInternet() throws Exception{
+        return processTable(TARIFARIOS_INTERNET, (Element line) -> getTarifaInternet(line));
+    }
+
+    public List<TarifaTelevisao> getTarifariosTelevisao() throws Exception{
+        return processTable(TARIFARIOS_TELEVISAO,(Element line)-> getTarifaTelevisao(line));
+    }
+
+
+    private <T> List<T> processTable(String url,LineProcessor<T> processor) throws Exception{
+        List<T> tarifas=new ArrayList<>();
+        Connection con= Jsoup.connect(url).userAgent(GlobalConfigs.USER_AGENT);
         Document doc=con.get();
         Elements lines=doc.getElementsByTag("tbody").get(0).getElementsByTag("tr");
 
         for(Element line : lines){
-            tarifas.add(getTarifa(line));
+            tarifas.add(processor.processLine(line));
         }
-
         return tarifas;
     }
 
-    private Tarifa getTarifa(Element element){
+    private TarifaTelevisao getTarifaTelevisao(Element element){
         Elements cells=element.getElementsByTag("td");
-        return new Tarifa(
+        return new TarifaTelevisao(
+                cells.get(1).text(),
+                cells.get(2).text(),
+                cells.get(6).text(),
+                cells.get(3).text(),
+                cells.get(4).text(),
+                cells.get(5).text()
+        );
+    }
+
+    private TarifaInternet getTarifaInternet(Element element){
+        Elements cells=element.getElementsByTag("td");
+        return new TarifaInternet(
                 cells.get(1).text(),
                 cells.get(2).text(),
                 cells.get(3).text(),
