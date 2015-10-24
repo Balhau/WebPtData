@@ -1,4 +1,4 @@
-package org.pt.pub.data.sources.amusing.chucknorris;
+package org.pt.pub.data.sources.quotes.chucknorris;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;

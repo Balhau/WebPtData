@@ -1,6 +1,6 @@
 package org.pt.pub.data;
 
-import org.pt.pub.data.sources.amusing.chucknorris.ChuckNorris;
+import org.pt.pub.data.sources.quotes.chucknorris.ChuckNorris;
 
 import static org.pt.pub.data.utilities.Functionals.call;
 
