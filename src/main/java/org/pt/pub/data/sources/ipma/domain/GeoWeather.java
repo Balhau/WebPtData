@@ -1,6 +1,6 @@
 package org.pt.pub.data.sources.ipma.domain;
 
-import org.pt.pub.data.sources.AbstractData;
+import org.pt.pub.data.sources.domain.AbstractData;
 
 
 /**

@@ -2,7 +2,7 @@ package org.pt.pub.data.sources.base.domain;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.pt.pub.data.sources.AbstractData;
+import org.pt.pub.data.sources.domain.AbstractData;
 
 /**
  * This class represents an row on a response of base query.

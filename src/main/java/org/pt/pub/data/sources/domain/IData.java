@@ -1,4 +1,4 @@
-package org.pt.pub.data.sources;
+package org.pt.pub.data.sources.domain;
 
 import org.pt.pub.data.exceptions.EncodingException;
 

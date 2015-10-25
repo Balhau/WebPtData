@@ -11,7 +11,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.pt.pub.data.sources.AbstractDataSource;
+import org.pt.pub.data.sources.domain.AbstractDataSource;
 import org.pt.pub.data.sources.accuweather.domain.Weather;
 import org.pt.pub.data.sources.accuweather.domain.WeatherLocation;
 import org.pt.pub.data.sources.accuweather.domain.WeatherLocationList;

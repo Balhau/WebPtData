@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.pt.pub.data.sources.AbstractData;
+import org.pt.pub.data.sources.domain.AbstractData;
 
 @XmlRootElement(name="tableData")
 public class TableData extends AbstractData{

@@ -1,4 +1,4 @@
-package org.pt.pub.data.sources;
+package org.pt.pub.data.sources.domain;
 
 /**
  * Enumerate that holds the several data sources provided by project
@@ -7,7 +7,7 @@ package org.pt.pub.data.sources;
  */
 public enum DataSources {
 	
-	INE("org.pt.pub.data.sources.AbstractDataSource.INEDataSource")
+	INE("org.pt.pub.data.sources.domain.AbstractDataSource.INEDataSource")
 	;
 	
 	private String className;

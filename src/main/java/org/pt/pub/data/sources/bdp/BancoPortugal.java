@@ -13,7 +13,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.pt.pub.data.sources.AbstractDataSource;
+import org.pt.pub.data.sources.domain.AbstractDataSource;
 import org.pt.pub.global.configs.HtmlTag;
 import org.pt.pub.global.domain.TableData;
 import org.pt.pub.global.domain.TableRow;

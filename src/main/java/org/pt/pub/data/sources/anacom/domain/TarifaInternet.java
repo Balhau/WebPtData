@@ -1,7 +1,5 @@
 package org.pt.pub.data.sources.anacom.domain;
 
-import org.pt.pub.data.sources.AbstractData;
-
 /**
  * This represents the description of a ISP contract.
  * Created by vitorfernandes on 10/24/15.

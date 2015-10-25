@@ -1,6 +1,6 @@
 package org.pt.pub.data.sources.ipma.domain;
 
-import org.pt.pub.data.sources.AbstractData;
+import org.pt.pub.data.sources.domain.AbstractData;
 
 public abstract class BaseInfo extends AbstractData{
 	protected String endTime;

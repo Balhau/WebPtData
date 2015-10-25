@@ -2,7 +2,7 @@ package org.pt.pub.data.sources.accuweather.domain;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.pt.pub.data.sources.AbstractData;
+import org.pt.pub.data.sources.domain.AbstractData;
 
 @XmlRootElement(name="Weather")
 public class Weather extends AbstractData{

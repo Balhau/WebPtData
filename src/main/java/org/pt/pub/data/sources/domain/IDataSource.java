@@ -1,4 +1,4 @@
-package org.pt.pub.data.sources;
+package org.pt.pub.data.sources.domain;
 
 /**
  * Interface to be implemented by all the data source clients

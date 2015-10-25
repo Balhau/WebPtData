@@ -10,7 +10,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.pt.pub.data.sources.AbstractDataSource;
+import org.pt.pub.data.sources.domain.AbstractDataSource;
 import org.pt.pub.data.sources.ine.domain.INEDataRow;
 import org.pt.pub.data.sources.ine.domain.INEResultData;
 import org.pt.pub.data.sources.ine.domain.INEServices;

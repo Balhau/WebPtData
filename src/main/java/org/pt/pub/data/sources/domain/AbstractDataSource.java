@@ -1,4 +1,4 @@
-package org.pt.pub.data.sources;
+package org.pt.pub.data.sources.domain;
 
 /**
  * Abstract class that holds methods used by all or at least most of the {@link IDataSource} 

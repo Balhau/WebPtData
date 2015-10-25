@@ -1,6 +1,6 @@
 package org.pt.pub.data.sources.anacom.domain;
 
-import org.pt.pub.data.sources.AbstractData;
+import org.pt.pub.data.sources.domain.AbstractData;
 
 /**
  * Created by vitorfernandes on 10/24/15.
