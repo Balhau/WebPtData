@@ -6,7 +6,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pt.pub.data.sources.domain.Quote;
+import org.pt.pub.data.sources.domain.QuoteService;
 import org.pt.pub.data.sources.quotes.brainyquote.domain.Topic;
+import org.pt.pub.data.utilities.Utils;
 import org.pt.pub.global.configs.GlobalConfigs;
 
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ import java.util.List;
  * Service that will fetch information from brainyquote site
  * Created by vitorfernandes on 10/24/15.
  */
-public class BrainyQuote {
+public class BrainyQuote implements QuoteService{
     public static String BRAINY_QUOTE_BASE="http://www.brainyquote.com";
     public static String BRAINY_TOPICS=BRAINY_QUOTE_BASE+"/quotes/topics.html";
 
@@ -64,6 +66,13 @@ public class BrainyQuote {
             }
         }
         return null;
+    }
+
+    public Quote getQuote() throws Exception{
+        List<Topic> topics=getTopics();
+        Topic topic = Utils.pickRandom(topics);
+        List<Quote> quotes=getQuotes(topic.getName(),(int)(Math.random()*40));
+        return Utils.pickRandom(quotes);
     }
 
     private List<Topic> getTopicsFromTables(Elements tables){

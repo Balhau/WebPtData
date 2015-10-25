@@ -8,6 +8,7 @@ import org.jsoup.select.Elements;
 import org.pt.pub.data.sources.domain.AbstractDataSource;
 import org.pt.pub.data.sources.domain.Quote;
 import org.pt.pub.data.sources.domain.QuoteService;
+import org.pt.pub.data.utilities.Utils;
 import org.pt.pub.global.configs.GlobalConfigs;
 
 import java.util.ArrayList;
@@ -44,9 +45,9 @@ public class ChuckNorris extends AbstractDataSource implements QuoteService{
         return facts;
     }
 
-    public Quote getQuote(){
-
-        return null;
+    public Quote getQuote() throws Exception{
+        List<Quote> pageFacts=getFacts((int) Math.floor(Math.random() * 20));
+        return Utils.pickRandom(pageFacts);
     }
 
     public List<Quote> getFacts(String searchKey,int number){

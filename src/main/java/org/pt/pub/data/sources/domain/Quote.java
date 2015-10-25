@@ -18,4 +18,8 @@ public class Quote {
     public String getAuthor() {
         return author;
     }
+
+    public String toString(){
+        return String.format("{quote=%s,author=%s}",quote,author);
+    }
 }

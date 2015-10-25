@@ -6,5 +6,5 @@ package org.pt.pub.data.sources.domain;
  * Created by vitorfernandes on 10/25/15.
  */
 public interface QuoteService {
-    Quote getQuote();
+    Quote getQuote() throws Exception;
 }
