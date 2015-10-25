@@ -1,7 +1,6 @@
 package org.pt.pub.data.sources.tap;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -9,12 +8,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pt.pub.data.sources.tap.domain.Destination;
 import org.pt.pub.data.sources.tap.domain.FlightDetail;
+import org.pt.pub.data.sources.tap.domain.FlightSegment;
 import org.pt.pub.global.configs.GlobalConfigs;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * API for the Transportes Aéreos Portugueses or TAP until recently a public institution that operates
@@ -44,8 +41,7 @@ public class TAP {
             "&market=PT\n" +
             "&cabinClass=Y\n" +
             "&currency=\n" +
-            "&searchType=fixed\n" +
-            "&";
+            "&searchType=fixed\n";
 
     private String buildSearchPath(
             String origin,
@@ -101,34 +97,76 @@ public class TAP {
         return destinations;
     }
 
-    public List<FlightDetail> getFlights(String origin,
+    public Map<String,List<FlightDetail>> getFlights(String origin,
                                          String destination,
                                          String departDate,
                                          String returnDate,
                                          String adults) throws Exception{
-        List<FlightDetail> flightDetails=new ArrayList<>();
+        Map<String,List<FlightDetail>> flightWithReturn=new HashMap<>();
         String url=buildSearchPath(origin, destination, departDate, returnDate, adults);
-        Connection con = Jsoup.connect(url).userAgent(GlobalConfigs.USER_AGENT);
+        Connection con = Jsoup.connect(url)
+                .userAgent(GlobalConfigs.USER_AGENT)
+                .timeout(GlobalConfigs.CONNECTION_TIMEOUT);
 
         Document doc=con.get();
 
-        Element table=doc.getElementById("tableBodyContent");
+        Elements tables=doc.getElementsByClass("ffTable");
+        List<FlightDetail> departures=parseTableFlightDetail(tables.get(0));
+        List<FlightDetail> returns=parseTableFlightDetail(tables.get(1));
 
-        Elements rows=table.getAllElements();
+        flightWithReturn.put("departures",departures);
+        flightWithReturn.put("returns",returns);
+
+        return flightWithReturn;
+    }
+
+    private List<FlightDetail> parseTableFlightDetail(Element table){
+        Elements rows=table.getElementsByTag("tr");
+        List<FlightDetail> flights=new ArrayList<>();
         int i=0;
         for(Element row : rows){
-            if(i!=0){ //Skip first row
-
+            if(i!=0){} //Skip first row
+            else{
+                flights.add(parseFligthDetail(row));
             }
             i+=1;
         }
-
-        return flightDetails;
+        return flights;
     }
 
     private FlightDetail parseFligthDetail(Element row){
-        row.getAllElements();
-        return null;
+        List<FlightSegment> segments=new ArrayList<>();
+        Element fligthDetails=row.getElementsByClass("flightInfo").get(0);
+        Elements segmentRows=fligthDetails.getElementsByTag("tr");
+        if(segmentRows.size()==2){//one segment
+            segments.add(parseSegment(segmentRows.get(0)));
+        }else if(segmentRows.size()==3) {//two segments
+            segments.add(parseSegment(segmentRows.get(0)));
+            segments.add(parseSegment(segmentRows.get(2)));
+        }else{//need to be studied more than two segments
+            return null;
+        }
+
+        Elements eprices=row.getElementsByClass("farePrice");
+        Elements labels;
+        String[] prices=new String[eprices.size()];
+        int i=0;
+        for(Element price : eprices){
+            labels=price.getElementsByTag("label");
+            prices[i]=labels.size()!=0?labels.get(0).text():"NA";
+            i++;
+        }
+        return new FlightDetail(segments,prices[0],prices[1],prices[2],prices[3],prices[4]);
+    }
+
+    private FlightSegment parseSegment(Element row){
+        Elements cells=row.getAllElements();
+        return new FlightSegment(
+                cells.get(0).getAllElements().get(0).text(),
+                cells.get(1).getAllElements().get(0).attr("class").split("availCarrier")[1],
+                cells.get(2).getAllElements().get(0).text(),
+                cells.get(3).getAllElements().get(0).text()
+        );
     }
 
 }

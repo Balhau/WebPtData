@@ -25,6 +25,6 @@ public class Utils {
      * @return String representation
      */
     public static String formatDateForTAP(Date date){
-        return new SimpleDateFormat("yyyy-MM-dd").format(date);
+        return new SimpleDateFormat("dd.MM.yyyy").format(date);
     }
 }
