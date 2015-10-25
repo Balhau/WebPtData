@@ -1,15 +1,20 @@
 package org.pt.pub.data.sources.tap;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.pt.pub.data.sources.tap.domain.Destination;
 import org.pt.pub.data.sources.tap.domain.FlightDetail;
 import org.pt.pub.global.configs.GlobalConfigs;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * API for the Transportes Aéreos Portugueses or TAP until recently a public institution that operates
@@ -19,7 +24,12 @@ import java.util.List;
  */
 public class TAP {
 
-    public static String TAP_SEARCH_PATH="http://book.flytap.com/r3air/TAPPT/PoweredAvailabilityBP.aspx?\n" +
+    public static final String TAP_BASE="http://www.flytap.com/";
+    public static final String TAP_BOOK_BASE="http://book.flytap.com";
+    public static final String TAP_SEARCH_LOCATION=TAP_BASE+"/getAptMatch.php?language=enus&term=%s";
+    public static final String TAP_SEARCH_DESTINATIONS=TAP_BASE+"/loadOriginDestination.php?language=en&getDestinations=%s";
+
+    public static final String TAP_SEARCH_PATH=TAP_BOOK_BASE+"/r3air/TAPPT/PoweredAvailabilityBP.aspx?\n" +
             "flightType=return\n" +
             "&_a=FTPTPT\n" +
             "&adt=%s\n" +
@@ -49,6 +59,48 @@ public class TAP {
         ).replace("\n","");
     }
 
+    public List<Destination> searchDeparture(String keyword) throws Exception{
+        Connection con=Jsoup
+                .connect(String.format(TAP_SEARCH_LOCATION, keyword))
+                .userAgent(GlobalConfigs.USER_AGENT)
+                .timeout(GlobalConfigs.CONNECTION_TIMEOUT);
+
+        Document doc=con.get();
+        Map[] departures=new Gson().fromJson(doc.text(),Map[].class);
+        return mapsToDeparture(departures);
+    }
+
+    public List<Destination> findPossibleDestinations(String departureCode) throws Exception{
+        Connection con = Jsoup.connect(String.format(TAP_SEARCH_DESTINATIONS,departureCode))
+                .userAgent(GlobalConfigs.USER_AGENT)
+                .timeout(GlobalConfigs.CONNECTION_TIMEOUT);
+
+        Document doc=con.get();
+        Map departures=new Gson().fromJson(doc.text(),Map.class);
+        return mapToDeparture(departures);
+    }
+
+    private List<Destination> mapToDeparture(Map map){
+        List<Destination> destinations = new ArrayList<>();
+        String value;
+        Set<String> keys = map.keySet();
+        for(String key : keys){
+            value=(String)map.get(key);
+            destinations.add(new Destination(key,value));
+        }
+        return destinations;
+    }
+
+    private List<Destination> mapsToDeparture(Map[] maps){
+        List<Destination> destinations=new ArrayList<>();
+        Destination aux;
+        for(Map m : maps){
+            aux=new Destination((String)m.get("id"),(String)m.get("label"));
+            destinations.add(aux);
+        }
+        return destinations;
+    }
+
     public List<FlightDetail> getFlights(String origin,
                                          String destination,
                                          String departDate,
@@ -75,6 +127,7 @@ public class TAP {
     }
 
     private FlightDetail parseFligthDetail(Element row){
+        row.getAllElements();
         return null;
     }
 
