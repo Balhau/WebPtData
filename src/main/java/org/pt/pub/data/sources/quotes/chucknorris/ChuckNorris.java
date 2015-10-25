@@ -34,8 +34,6 @@ public class ChuckNorris extends AbstractDataSource implements QuoteService{
      */
     public List<Quote> getFacts(int number) throws Exception{
         List<Quote> facts=new ArrayList<>();
-        String path=getPaginatedPath(number);
-        System.out.println(path);
         Connection cn= Jsoup.connect(getPaginatedPath(number)).userAgent(GlobalConfigs.USER_AGENT);
         Document doc=cn.get();
         Elements items=doc.getElementsByClass("item-list").get(0).getElementsByTag("a");
