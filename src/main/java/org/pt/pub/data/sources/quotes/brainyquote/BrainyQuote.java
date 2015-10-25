@@ -33,6 +33,13 @@ public class BrainyQuote implements QuoteService{
         return getTopicsFromTables(tables);
     }
 
+    /**
+     * This will retrieve a list of quotes based on the topic and a page number you provide
+     * @param topic This is the topic by which you want your quotes
+     * @param page The number of the page
+     * @return A List of Quote objects with all the quotes that are stored in the page
+     * @throws Exception
+     */
     public List<Quote> getQuotes(String topic,int page) throws Exception{
         List<Quote> quotes=new ArrayList<>();
         List<Topic> topics=getTopics();
@@ -88,12 +95,5 @@ public class BrainyQuote implements QuoteService{
             }
         }
         return topics;
-    }
-
-    public static void main(String[] args) throws Exception{
-        BrainyQuote bq=new BrainyQuote();
-        List<Topic> topics=bq.getTopics();
-        bq.getQuotes(topics.get(0).getName(),2);
-        topics.size();
     }
 }
