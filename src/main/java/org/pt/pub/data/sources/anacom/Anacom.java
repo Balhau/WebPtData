@@ -55,7 +55,7 @@ public class Anacom {
 
     private <T> List<T> processTable(String url,LineProcessor<T> processor) throws Exception{
         List<T> tarifas=new ArrayList<>();
-        Connection con= Jsoup.connect(url).userAgent(GlobalConfigs.USER_AGENT);
+        Connection con= Jsoup.connect(url).userAgent(GlobalConfigs.USER_AGENT).timeout(GlobalConfigs.CONNECTION_TIMEOUT);
         Document doc=con.get();
         Elements lines=doc.getElementsByTag("tbody").get(0).getElementsByTag("tr");
 

@@ -2,6 +2,7 @@ package org.pub.data.test.quotes.brainyquotes
 
 import org.pt.pub.data.sources.domain.Quote
 import org.pt.pub.data.sources.quotes.brainyquote.BrainyQuote
+import org.pt.pub.data.sources.quotes.brainyquote.domain.Author
 import org.pt.pub.data.sources.quotes.brainyquote.domain.Topic
 import spock.lang.Specification
 
@@ -38,6 +39,12 @@ class BrainyQuotesTest extends Specification{
         then:
             def e = thrown(Exception)
             e!=null
+    }
 
+    def "Get brainyquote author list"(){
+        when:
+            List<Author> authors = brainyQuote.getAuthors()
+        then:
+            authors != null && authors.size() > 0
     }
 }

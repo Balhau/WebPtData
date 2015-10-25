@@ -19,6 +19,7 @@ import org.pt.pub.data.sources.ipma.domain.Sea;
 import org.pt.pub.data.sources.ipma.domain.SeaWeather;
 import org.pt.pub.data.sources.ipma.domain.Uv;
 import org.pt.pub.data.sources.ipma.domain.UvWeather;
+import org.pt.pub.global.configs.GlobalConfigs;
 import org.pt.pub.global.configs.HtmlTag;
 import org.pt.pub.global.domain.TableData;
 import org.pt.pub.global.utils.DomUtils;
@@ -91,7 +92,7 @@ public class Ipma {
 	 */
 	public List<TableData> getSeismicActivity(Date date) throws Exception{
 		List<TableData> seismic=new ArrayList<TableData>();
-		Connection con=Jsoup.connect(SYSMOLOGY_URL);
+		Connection con=Jsoup.connect(SYSMOLOGY_URL).timeout(GlobalConfigs.CONNECTION_TIMEOUT);
 		Calendar cal=Calendar.getInstance();
 		cal.setTime(date);
 		Document doc=con.data(

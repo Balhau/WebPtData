@@ -7,6 +7,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pt.pub.data.sources.domain.Quote;
 import org.pt.pub.data.sources.domain.QuoteService;
+import org.pt.pub.data.sources.quotes.brainyquote.domain.Author;
 import org.pt.pub.data.sources.quotes.brainyquote.domain.Topic;
 import org.pt.pub.data.utilities.Utils;
 import org.pt.pub.global.configs.GlobalConfigs;
@@ -21,6 +22,7 @@ import java.util.List;
 public class BrainyQuote implements QuoteService{
     public static String BRAINY_QUOTE_BASE="http://www.brainyquote.com";
     public static String BRAINY_TOPICS=BRAINY_QUOTE_BASE+"/quotes/topics.html";
+    public static String BRAINY_AUTHORS=BRAINY_QUOTE_BASE+"/quotes/favorites.html";
 
     public List<Topic> getTopics() throws Exception{
         Connection con= Jsoup.connect(BRAINY_TOPICS).userAgent(GlobalConfigs.USER_AGENT);
@@ -33,6 +35,18 @@ public class BrainyQuote implements QuoteService{
         return getTopicsFromTables(tables);
     }
 
+    public List<Author> getAuthors() throws Exception{
+        List<Author> authors=new ArrayList<>();
+        Connection con = Jsoup.connect(BRAINY_AUTHORS).userAgent(GlobalConfigs.USER_AGENT);
+        Document doc = con.get();
+        Elements eAuthors=doc.getElementsByClass("bqLn");
+        for(Element eauth : eAuthors){
+            Element anchor=eauth.getAllElements().get(0);
+            authors.add(new Author(anchor.text(),anchor.attr("href")));
+        }
+        return authors;
+    }
+
     /**
      * This will retrieve a list of quotes based on the topic and a page number you provide
      * @param topic This is the topic by which you want your quotes
@@ -43,7 +57,7 @@ public class BrainyQuote implements QuoteService{
     public List<Quote> getQuotes(String topic,int page) throws Exception{
         List<Quote> quotes=new ArrayList<>();
         List<Topic> topics=getTopics();
-        String url=buildTopicPageURL(topics,topic,page);
+        String url=buildTopicPageURL(topics, topic, page);
         System.out.println(url);
         Connection con = Jsoup.connect(url).userAgent(GlobalConfigs.USER_AGENT);
         Document doc = con.get();

@@ -10,6 +10,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pt.pub.data.sources.base.domain.BaseEntry;
 import org.pt.pub.data.sources.base.domain.BaseQueryResponse;
+import org.pt.pub.global.configs.GlobalConfigs;
 import org.pt.pub.global.configs.HtmlTag;
 import org.pt.pub.global.domain.TableData;
 import org.pt.pub.global.utils.DomUtils;
@@ -22,8 +23,6 @@ import org.pt.pub.global.utils.DomUtils;
  *
  */
 public class Base{
-	
-	private static final int BASE_CONNECTION_TIMEOUT=20*1000;
 	
 	public Base(){
 		
@@ -56,7 +55,7 @@ public class Base{
 	private BaseQueryResponse getResultsByQuery(int startOffset,int endOffset,String query) throws Exception{
 		List<BaseEntry> entries=new ArrayList<BaseEntry>();
 		Connection con=Jsoup.connect(query);
-		con.timeout(BASE_CONNECTION_TIMEOUT);
+		con.timeout(GlobalConfigs.CONNECTION_TIMEOUT);
 		Document doc=con.get();
 		int totalElements=Integer.parseInt(doc.getElementsByTag("span").get(2).text());
 		Elements results=doc.getElementById("resultadosContractos").getElementsByTag(HtmlTag.TR);
