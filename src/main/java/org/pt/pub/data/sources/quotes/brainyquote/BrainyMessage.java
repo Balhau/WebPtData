@@ -5,8 +5,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.pt.pub.data.sources.domain.Quote;
-import org.pt.pub.data.sources.domain.QuoteService;
+import org.pt.pub.data.sources.domain.Message;
+import org.pt.pub.data.sources.domain.MessageService;
 import org.pt.pub.data.sources.quotes.brainyquote.domain.Author;
 import org.pt.pub.data.sources.quotes.brainyquote.domain.Topic;
 import org.pt.pub.data.utilities.Utils;
@@ -19,7 +19,7 @@ import java.util.List;
  * Service that will fetch information from brainyquote site
  * Created by vitorfernandes on 10/24/15.
  */
-public class BrainyQuote implements QuoteService{
+public class BrainyMessage implements MessageService {
     public static String BRAINY_QUOTE_BASE="http://www.brainyquote.com";
     public static String BRAINY_TOPICS=BRAINY_QUOTE_BASE+"/quotes/topics.html";
     public static String BRAINY_AUTHORS=BRAINY_QUOTE_BASE+"/quotes/favorites.html";
@@ -51,11 +51,11 @@ public class BrainyQuote implements QuoteService{
      * This will retrieve a list of quotes based on the topic and a page number you provide
      * @param topic This is the topic by which you want your quotes
      * @param page The number of the page
-     * @return A List of Quote objects with all the quotes that are stored in the page
+     * @return A List of Message objects with all the quotes that are stored in the page
      * @throws Exception
      */
-    public List<Quote> getQuotes(String topic,int page) throws Exception{
-        List<Quote> quotes=new ArrayList<>();
+    public List<Message> getQuotes(String topic,int page) throws Exception{
+        List<Message> messages =new ArrayList<>();
         List<Topic> topics=getTopics();
         String url=buildTopicPageURL(topics, topic, page);
         System.out.println(url);
@@ -64,12 +64,12 @@ public class BrainyQuote implements QuoteService{
         Elements entries=doc.getElementsByClass("boxyPaddingBig");
         for(Element entry : entries){
             Elements anchors=entry.getElementsByTag("a");
-            quotes.add(new Quote(
+            messages.add(new Message(
                     anchors.get(0).text(),
                     anchors.get(1).text()
             ));
         }
-        return quotes;
+        return messages;
     }
 
     private String buildTopicPageURL(List<Topic> topics,String topic,int page){
@@ -89,11 +89,11 @@ public class BrainyQuote implements QuoteService{
         return null;
     }
 
-    public Quote getQuote() throws Exception{
+    public Message getMessage() throws Exception{
         List<Topic> topics=getTopics();
         Topic topic = Utils.pickRandom(topics);
-        List<Quote> quotes=getQuotes(topic.getName(),(int)(Math.random()*40));
-        return Utils.pickRandom(quotes);
+        List<Message> messages =getQuotes(topic.getName(),(int)(Math.random()*40));
+        return Utils.pickRandom(messages);
     }
 
     private List<Topic> getTopicsFromTables(Elements tables){

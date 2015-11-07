@@ -21,4 +21,11 @@ class HistoricalEventsTest extends Specification{
             events.size() > 0
     }
 
+    def "Get Birthdays for 1 December"(){
+        when:
+            List<HistoricalEvent> birthdays=historicalEvents.getBirthdaysByDay(12,1);
+        then:
+            birthdays.size() > 0
+    }
+
 }

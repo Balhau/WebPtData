@@ -1,7 +1,7 @@
 package org.pub.data.test.quotes.brainyquotes
 
-import org.pt.pub.data.sources.domain.Quote
-import org.pt.pub.data.sources.quotes.brainyquote.BrainyQuote
+import org.pt.pub.data.sources.domain.Message
+import org.pt.pub.data.sources.quotes.brainyquote.BrainyMessage
 import org.pt.pub.data.sources.quotes.brainyquote.domain.Author
 import org.pt.pub.data.sources.quotes.brainyquote.domain.Topic
 import spock.lang.Specification
@@ -11,10 +11,10 @@ import spock.lang.Specification
  */
 class BrainyQuotesTest extends Specification{
 
-    private BrainyQuote brainyQuote
+    private BrainyMessage brainyQuote
 
     def setup(){
-        brainyQuote=new BrainyQuote()
+        brainyQuote=new BrainyMessage()
     }
 
     def "Get brainyquote topics"(){
@@ -27,7 +27,7 @@ class BrainyQuotesTest extends Specification{
     def "Get brainyquote quotes from topic"(){
         when:
             List<Topic> topics = brainyQuote.getTopics()
-            List<Quote> quotes=brainyQuote.getQuotes(topics.get(0).name,1)
+            List<Message> quotes=brainyQuote.getQuotes(topics.get(0).name,1)
         then:
             quotes!=null && quotes.size()>0
     }
@@ -35,7 +35,7 @@ class BrainyQuotesTest extends Specification{
     def "Get brainyquote quotes and throw exception when invalid page is provided"(){
         when:
             List<Topic> topics = brainyQuote.getTopics()
-            List<Quote> quotes=brainyQuote.getQuotes(topics.get(0),-1)
+            List<Message> quotes=brainyQuote.getQuotes(topics.get(0),-1)
         then:
             def e = thrown(Exception)
             e!=null

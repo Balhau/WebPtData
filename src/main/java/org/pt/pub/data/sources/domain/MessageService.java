@@ -5,6 +5,12 @@ package org.pt.pub.data.sources.domain;
  * build sets of different services and at the same time being able to query any service for a random quote.
  * Created by vitorfernandes on 10/25/15.
  */
-public interface QuoteService {
-    Quote getQuote() throws Exception;
+public interface MessageService {
+    /**
+     * When called the service will return a random message with the data being associated of the domain
+     * of the service
+     * @return
+     * @throws Exception
+     */
+    Message getMessage() throws Exception;
 }
