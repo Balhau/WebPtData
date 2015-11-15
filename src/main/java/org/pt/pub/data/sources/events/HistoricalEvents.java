@@ -29,21 +29,15 @@ public class HistoricalEvents implements MessageService{
     };
 
 
-    public HistoricalEvents(){
-
-    }
+    public HistoricalEvents(){}
 
     public Message getMessage() throws Exception{
-        Date now=new Date();
-        Calendar cal=Calendar.getInstance();
-        cal.setTime(now);
-        int month=cal.get(Calendar.MONTH);
-        int day=cal.get(Calendar.DAY_OF_MONTH);
-        List<HistoricalEvent> events= getEventsByDay(month,day);
+        List<HistoricalEvent> events= getTodayEvents();
         HistoricalEvent event=Utils.pickRandom(events);
+        int month=event.getMonth()+1;
         return new Message(
                 event.getEvent(),
-                "Historical Event"
+                event.getYear()+"-"+month+"-"+event.getDay()
         );
     }
 
@@ -58,6 +52,23 @@ public class HistoricalEvents implements MessageService{
                 String.format(EVENTS_BY_DAY_PATTERN,MONTHS[month-1],day)
         ).userAgent(GlobalConfigs.USER_AGENT);
 
+        return parseDocument(con,month,day);
+    }
+
+    public List<HistoricalEvent> getTodayEvents() throws Exception{
+        Date now=new Date();
+        Calendar cal=Calendar.getInstance();
+        cal.setTime(now);
+        int month=cal.get(Calendar.MONTH);
+        int day=cal.get(Calendar.DAY_OF_MONTH);
+        return getEventsByDay(month,day);
+
+    }
+
+    public List<HistoricalEvent> getDeathsByDay(int month,int day) throws Exception{
+        Connection con = Jsoup.connect(
+                String.format(DEATHS_BY_DAY_PATTERN,MONTHS[month-1],day)
+        ).userAgent(GlobalConfigs.USER_AGENT);
         return parseDocument(con,month,day);
     }
 
@@ -85,7 +96,7 @@ public class HistoricalEvents implements MessageService{
     private Optional<HistoricalEvent> parseLineEventToHistoricalEvent(String line,int month,int day)
     {
         Element body=Jsoup.parseBodyFragment(line).body();
-        String[] fields=body.text().split("-");
+        String[] fields=body.text().split("-",2);
         int year;
         try {
             year=fields[0].contains("BC") ? -Integer.valueOf(fields[0].split("BC")[0].trim()) : Integer.valueOf(fields[0].trim());

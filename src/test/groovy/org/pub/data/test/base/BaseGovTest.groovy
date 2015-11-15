@@ -2,6 +2,7 @@ package org.pub.data.test.base
 
 import org.pt.pub.data.sources.base.Base
 import org.pt.pub.data.sources.base.domain.BaseQueryResponse
+import org.pt.pub.data.sources.domain.Message
 import org.pt.pub.global.domain.TableData
 import spock.lang.Specification
 
@@ -44,5 +45,13 @@ class BaseGovTest extends Specification{
             List<TableData> contractInfo=base.getEntryInformationByContractoId(baseQuery.items.get(0).id)
         then:
             contractInfo.size() > 0
+    }
+
+    def "Get message service text"(){
+        when:
+            Message message=base.getMessage();
+        then:
+            message!=null
+            message.message!=null && message.source!=null
     }
 }

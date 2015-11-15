@@ -1,5 +1,6 @@
 package org.pub.data.test.events
 
+import org.pt.pub.data.sources.domain.Message
 import org.pt.pub.data.sources.events.HistoricalEvents
 import org.pt.pub.data.sources.events.domain.HistoricalEvent
 import spock.lang.Specification
@@ -26,6 +27,30 @@ class HistoricalEventsTest extends Specification{
             List<HistoricalEvent> birthdays=historicalEvents.getBirthdaysByDay(12,1);
         then:
             birthdays.size() > 0
+    }
+
+    def "Get event message"(){
+        when:
+            Message historicalMessage = historicalEvents.getMessage()
+        then:
+            historicalMessage!=null
+            historicalMessage.message!=null
+            historicalMessage.source!=null
+
+    }
+
+    def "Get deaths for 5 of november"(){
+        when:
+            List<HistoricalEvent> deaths= historicalEvents.getDeathsByDay(11,5)
+        then:
+            deaths.size()>0
+    }
+
+    def "Get today events"(){
+        when:
+            List<HistoricalEvent> eventsToday=historicalEvents.getTodayEvents();
+        then:
+            eventsToday.size()>0
     }
 
 }
