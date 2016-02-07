@@ -7,20 +7,22 @@ import org.pt.pub.data.sources.domain.AbstractData;
  * @author balhau
  *
  */
-public class VimeoVideo extends AbstractData{
+public class VimeoVideo{
 	private String movieUrl;
 	private String title;
 	private String description;
+	private int duration;
 	/**
 	 * T
 	 * @param title {@link String} Video title
 	 * @param description {@link String} Description about the video
 	 * @param movieUrl {@link String} The url that holds the video binary
 	 */
-	public VimeoVideo(String title, String description,String movieUrl){
+	public VimeoVideo(String title, String description,String movieUrl,int duration){
 		this.movieUrl=movieUrl;
 		this.title=title;
 		this.description=description;
+		this.duration=duration;
 	}
 
 	public String getMovieUrl() {
@@ -34,6 +36,8 @@ public class VimeoVideo extends AbstractData{
 	public String getDescription() {
 		return description;
 	}
-	
-	
+
+	public int getDuration() {
+		return duration;
+	}
 }

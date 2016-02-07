@@ -16,8 +16,6 @@ import org.pt.pub.data.sources.ine.domain.INEServices;
  */
 public class App 
 {
-	
-	
     public static void main( String[] args ) throws IOException, EncodingException
     {
     	Ine ine=new Ine();
