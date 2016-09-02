@@ -35,7 +35,7 @@ class IpmaTest extends Specification{
         when:
             List<GeoWeather> weather =ipma.getForecastDay(1)
         then:
-            weather.size()==3
+            weather.size()>0
     }
 
     def "Get seismic activity for today"(){

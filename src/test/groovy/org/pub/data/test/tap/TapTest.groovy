@@ -33,7 +33,7 @@ class TapTest extends Specification{
     def "Get flights from madrid to porto"(){
         when:
             Map<String,List<FlightDetail>> flights=tap.getFlights(
-                    "MAD","OPO","25.10.2015","01.11.2015","1"
+                    "MAD","OPO","25.10.2017","01.11.2017","1"
             )
         then:
             flights.keySet().size() == 2
