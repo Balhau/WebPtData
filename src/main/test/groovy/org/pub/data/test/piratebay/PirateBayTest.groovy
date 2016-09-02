@@ -6,6 +6,7 @@ import org.pub.data.sources.piratebay.domain.TorrentInfo
 import spock.lang.Specification
 
 /**
+ * Tests for the Piratebay service
  * Created by vitorfernandes on 10/25/15.
  */
 class PirateBayTest extends Specification {
