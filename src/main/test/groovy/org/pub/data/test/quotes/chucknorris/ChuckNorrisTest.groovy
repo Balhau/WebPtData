@@ -1,4 +1,4 @@
-package org.pub.data.test.quotes.chucknorris
+package groovy.org.pub.data.test.quotes.chucknorris
 
 import org.pt.pub.data.sources.domain.Message
 import org.pt.pub.data.sources.quotes.chucknorris.ChuckNorris

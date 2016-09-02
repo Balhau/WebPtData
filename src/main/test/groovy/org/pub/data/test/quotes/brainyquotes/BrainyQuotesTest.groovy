@@ -1,4 +1,4 @@
-package org.pub.data.test.quotes.brainyquotes
+package groovy.org.pub.data.test.quotes.brainyquotes
 
 import org.pt.pub.data.sources.domain.Message
 import org.pt.pub.data.sources.quotes.brainyquote.BrainyMessage

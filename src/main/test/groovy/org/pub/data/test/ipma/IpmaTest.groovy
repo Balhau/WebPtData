@@ -1,4 +1,4 @@
-package org.pub.data.test.ipma
+package groovy.org.pub.data.test.ipma
 
 import org.pt.pub.data.sources.ipma.Ipma
 import org.pt.pub.data.sources.ipma.domain.BeachEntry

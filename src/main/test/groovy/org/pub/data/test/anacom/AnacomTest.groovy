@@ -1,4 +1,4 @@
-package org.pub.data.test.anacom
+package groovy.org.pub.data.test.anacom
 
 import org.pt.pub.data.sources.anacom.Anacom
 import org.pt.pub.data.sources.anacom.domain.TarifaFixo

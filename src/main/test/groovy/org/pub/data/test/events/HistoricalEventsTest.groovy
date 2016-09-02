@@ -1,4 +1,4 @@
-package org.pub.data.test.events
+package groovy.org.pub.data.test.events
 
 import org.pt.pub.data.sources.domain.Message
 import org.pt.pub.data.sources.events.HistoricalEvents

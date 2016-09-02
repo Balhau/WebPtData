@@ -1,4 +1,4 @@
-package org.pub.data.test.tap
+package groovy.org.pub.data.test.tap
 
 import org.pt.pub.data.sources.tap.TAP
 import org.pt.pub.data.sources.tap.domain.Destination

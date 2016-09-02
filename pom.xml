@@ -118,7 +118,7 @@
             <configuration>
 		        <sources>
 		          <fileset>
-		            <directory>${pom.basedir}/src/test/groovy</directory>
+		            <directory>${pom.basedir}/src/main/test/groovy</directory>
 		            <includes>
 		              <include>**/*.groovy</include>
 		            </includes>

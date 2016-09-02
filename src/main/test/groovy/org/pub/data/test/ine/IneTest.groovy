@@ -1,4 +1,4 @@
-package org.pub.data.test.ine
+package groovy.org.pub.data.test.ine
 
 import org.pt.pub.data.sources.ine.Ine
 import org.pt.pub.data.sources.ine.domain.INEResultData

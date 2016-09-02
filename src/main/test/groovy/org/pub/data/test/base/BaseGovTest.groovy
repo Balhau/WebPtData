@@ -1,4 +1,4 @@
-package org.pub.data.test.base
+package groovy.org.pub.data.test.base
 
 import org.pt.pub.data.sources.base.Base
 import org.pt.pub.data.sources.base.domain.BaseQueryResponse

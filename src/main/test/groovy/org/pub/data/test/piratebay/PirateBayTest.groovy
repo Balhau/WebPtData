@@ -1,7 +1,8 @@
-package org.pub.data.test.piratebay
+package groovy.org.pub.data.test.piratebay
 
 import org.pt.pub.data.sources.quotes.brainyquote.domain.Topic
 import org.pub.data.sources.piratebay.PirateBay
+import org.pub.data.sources.piratebay.domain.TorrentInfo
 import spock.lang.Specification
 
 /**
@@ -20,5 +21,12 @@ class PirateBayTest extends Specification {
             "When the app starts"
         then:
             PirateBay.PIRATEBAY_PROXY_LIST.size() > 0
+    }
+
+    def "Get results from torrents search"(){
+        when:
+            List<TorrentInfo> torrents = pirateBay.searchTorrents("Vuelta 2016",0,"99")
+        then:
+            torrents.size() > 0
     }
 }

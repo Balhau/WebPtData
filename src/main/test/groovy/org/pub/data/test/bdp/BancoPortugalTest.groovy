@@ -1,4 +1,4 @@
-package org.pub.data.test.bdp
+package groovy.org.pub.data.test.bdp
 
 import org.pt.pub.data.sources.bdp.BancoPortugal
 import org.pt.pub.global.domain.TableData
