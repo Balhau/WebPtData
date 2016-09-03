@@ -12,10 +12,10 @@ import org.pt.pub.data.sources.base.domain.BaseQueryResponse;
 import org.pt.pub.data.sources.domain.Message;
 import org.pt.pub.data.sources.domain.MessageService;
 import org.pt.pub.data.utilities.Utils;
-import pub.org.global.configs.GlobalConfigs;
-import pub.org.global.configs.HtmlTag;
-import pub.org.global.domain.TableData;
-import pub.org.global.utils.DomUtils;
+import org.pub.global.configs.GlobalConfigs;
+import org.pub.global.configs.HtmlTag;
+import org.pub.global.domain.TableData;
+import org.pub.global.utils.DomUtils;
 
 
 /**

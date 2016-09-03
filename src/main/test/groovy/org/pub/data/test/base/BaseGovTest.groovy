@@ -3,7 +3,7 @@ package groovy.org.pub.data.test.base
 import org.pt.pub.data.sources.base.Base
 import org.pt.pub.data.sources.base.domain.BaseQueryResponse
 import org.pt.pub.data.sources.domain.Message
-import pub.org.global.domain.TableData
+import org.pub.global.domain.TableData
 import spock.lang.Specification
 
 /**

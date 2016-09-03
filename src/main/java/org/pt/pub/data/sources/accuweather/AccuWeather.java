@@ -14,7 +14,7 @@ import org.pt.pub.data.sources.domain.AbstractDataSource;
 import org.pt.pub.data.sources.accuweather.domain.Weather;
 import org.pt.pub.data.sources.accuweather.domain.WeatherLocation;
 import org.pt.pub.data.sources.accuweather.domain.WeatherLocationList;
-import pub.org.global.utils.DomUtils;
+import org.pub.global.utils.DomUtils;
 
 /**
  * Implements the <a href="http://www.accuweather.com/" target="_blank">AccuWeather</a> 

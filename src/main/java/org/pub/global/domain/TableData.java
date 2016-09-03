@@ -1,4 +1,4 @@
-package pub.org.global.domain;
+package org.pub.global.domain;
 
 import java.util.ArrayList;
 import java.util.List;

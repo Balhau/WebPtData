@@ -17,8 +17,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pt.pub.data.sources.rbe.domain.RbeIndicator;
 import org.pt.pub.data.sources.rbe.domain.RbeIndicatorData;
-import pub.org.global.configs.HtmlTag;
-import pub.org.global.utils.DomUtils;
+import org.pub.global.configs.HtmlTag;
+import org.pub.global.utils.DomUtils;
 
 
 /**

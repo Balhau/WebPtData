@@ -9,7 +9,7 @@ import org.pt.pub.data.sources.domain.MessageService;
 import org.pt.pub.data.sources.quotes.brainyquote.domain.Author;
 import org.pt.pub.data.sources.quotes.brainyquote.domain.Topic;
 import org.pt.pub.data.utilities.Utils;
-import pub.org.global.utils.DomUtils;
+import org.pub.global.utils.DomUtils;
 
 import java.util.ArrayList;
 import java.util.List;

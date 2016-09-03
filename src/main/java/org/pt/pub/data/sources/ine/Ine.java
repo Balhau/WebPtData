@@ -14,7 +14,7 @@ import org.pt.pub.data.sources.ine.domain.INEDataRow;
 import org.pt.pub.data.sources.ine.domain.INEResultData;
 import org.pt.pub.data.sources.ine.domain.INEServices;
 import org.pt.pub.data.sources.ine.domain.ServiceItem;
-import pub.org.global.utils.DomUtils;
+import org.pub.global.utils.DomUtils;
 
 /**
  * This class is the main interface for the INE data. Here we load, parse and store in datastructures the data retrieved from

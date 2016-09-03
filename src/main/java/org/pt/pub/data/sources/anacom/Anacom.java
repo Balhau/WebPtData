@@ -8,8 +8,8 @@ import org.pt.pub.data.sources.anacom.domain.TarifaFixo;
 import org.pt.pub.data.sources.anacom.domain.TarifaInternet;
 import org.pt.pub.data.sources.anacom.domain.TarifaMovel;
 import org.pt.pub.data.sources.anacom.domain.TarifaTelevisao;
-import pub.org.global.configs.GlobalConfigs;
-import pub.org.global.utils.DomUtils;
+import org.pub.global.configs.GlobalConfigs;
+import org.pub.global.utils.DomUtils;
 
 import java.util.ArrayList;
 import java.util.List;

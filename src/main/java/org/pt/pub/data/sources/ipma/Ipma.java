@@ -18,9 +18,9 @@ import org.pt.pub.data.sources.ipma.domain.Sea;
 import org.pt.pub.data.sources.ipma.domain.SeaWeather;
 import org.pt.pub.data.sources.ipma.domain.Uv;
 import org.pt.pub.data.sources.ipma.domain.UvWeather;
-import pub.org.global.configs.HtmlTag;
-import pub.org.global.domain.TableData;
-import pub.org.global.utils.DomUtils;
+import org.pub.global.configs.HtmlTag;
+import org.pub.global.domain.TableData;
+import org.pub.global.utils.DomUtils;
 
 
 /**

@@ -5,7 +5,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pt.pub.data.sources.domain.AbstractDataSource;
-import pub.org.global.utils.DomUtils;
+import org.pub.global.utils.DomUtils;
 import org.pub.data.sources.piratebay.domain.TorrentInfo;
 
 import java.util.ArrayList;

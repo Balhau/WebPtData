@@ -9,8 +9,8 @@ import org.jsoup.select.Elements;
 import org.pt.pub.data.sources.tap.domain.Destination;
 import org.pt.pub.data.sources.tap.domain.FlightDetail;
 import org.pt.pub.data.sources.tap.domain.FlightSegment;
-import pub.org.global.configs.GlobalConfigs;
-import pub.org.global.utils.DomUtils;
+import org.pub.global.configs.GlobalConfigs;
+import org.pub.global.utils.DomUtils;
 
 import java.util.*;
 

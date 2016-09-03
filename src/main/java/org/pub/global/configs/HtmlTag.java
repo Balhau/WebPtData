@@ -1,4 +1,4 @@
-package pub.org.global.configs;
+package org.pub.global.configs;
 
 /**
  * Dictionary of html tags

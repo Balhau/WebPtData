@@ -1,7 +1,7 @@
 package groovy.org.pub.data.test.bdp
 
 import org.pt.pub.data.sources.bdp.BancoPortugal
-import pub.org.global.domain.TableData
+import org.pub.global.domain.TableData
 import spock.lang.Specification
 
 /**
