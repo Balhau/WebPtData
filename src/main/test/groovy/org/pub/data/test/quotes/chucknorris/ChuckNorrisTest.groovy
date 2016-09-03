@@ -1,7 +1,7 @@
 package groovy.org.pub.data.test.quotes.chucknorris
 
-import org.pt.pub.data.sources.domain.Message
-import org.pt.pub.data.sources.quotes.chucknorris.ChuckNorris
+import org.pub.pt.data.sources.domain.Message
+import org.pub.pt.data.sources.quotes.chucknorris.ChuckNorris
 import spock.lang.Specification
 
 /**

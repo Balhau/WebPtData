@@ -1,8 +1,8 @@
 package groovy.org.pub.data.test.ine
 
-import org.pt.pub.data.sources.ine.Ine
-import org.pt.pub.data.sources.ine.domain.INEResultData
-import org.pt.pub.data.sources.ine.domain.INEServices
+import org.pub.pt.data.sources.ine.Ine
+import org.pub.pt.data.sources.ine.domain.INEResultData
+import org.pub.pt.data.sources.ine.domain.INEServices
 import spock.lang.Specification
 
 /**

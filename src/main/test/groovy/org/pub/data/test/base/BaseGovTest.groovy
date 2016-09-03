@@ -1,8 +1,8 @@
 package groovy.org.pub.data.test.base
 
-import org.pt.pub.data.sources.base.Base
-import org.pt.pub.data.sources.base.domain.BaseQueryResponse
-import org.pt.pub.data.sources.domain.Message
+import org.pub.pt.data.sources.base.Base
+import org.pub.pt.data.sources.base.domain.BaseQueryResponse
+import org.pub.pt.data.sources.domain.Message
 import org.pub.global.domain.TableData
 import spock.lang.Specification
 

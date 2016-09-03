@@ -1,7 +1,5 @@
 package org.pub.data.sources.vimeo.domain;
 
-import org.pt.pub.data.sources.domain.AbstractData;
-
 /**
  * This is a container class that will hold the information about a movie in vimeo
  * @author balhau

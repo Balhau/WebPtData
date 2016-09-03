@@ -1,8 +1,8 @@
 package groovy.org.pub.data.test.ipma
 
-import org.pt.pub.data.sources.ipma.Ipma
-import org.pt.pub.data.sources.ipma.domain.BeachEntry
-import org.pt.pub.data.sources.ipma.domain.GeoWeather
+import org.pub.pt.data.sources.ipma.Ipma
+import org.pub.pt.data.sources.ipma.domain.BeachEntry
+import org.pub.pt.data.sources.ipma.domain.GeoWeather
 import org.pub.global.domain.TableData
 import spock.lang.Specification
 

@@ -2,7 +2,7 @@ package org.pub.data.sources.vimeo;
 
 import org.jsoup.Connection;
 import org.jsoup.nodes.Document;
-import org.pt.pub.data.sources.domain.AbstractDataSource;
+import org.pub.pt.data.sources.domain.AbstractDataSource;
 import org.pub.global.utils.DomUtils;
 import org.pub.data.sources.vimeo.domain.VimeoVideo;
 

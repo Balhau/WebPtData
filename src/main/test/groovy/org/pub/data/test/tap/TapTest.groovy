@@ -1,8 +1,8 @@
 package groovy.org.pub.data.test.tap
 
-import org.pt.pub.data.sources.tap.TAP
-import org.pt.pub.data.sources.tap.domain.Destination
-import org.pt.pub.data.sources.tap.domain.FlightDetail
+import org.pub.pt.data.sources.tap.TAP
+import org.pub.pt.data.sources.tap.domain.Destination
+import org.pub.pt.data.sources.tap.domain.FlightDetail
 import spock.lang.Specification
 
 /**

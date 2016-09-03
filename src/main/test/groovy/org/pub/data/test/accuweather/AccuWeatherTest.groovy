@@ -1,8 +1,8 @@
 package groovy.org.pub.data.test.accuweather
 
-import org.pt.pub.data.sources.accuweather.AccuWeather;
-import org.pt.pub.data.sources.accuweather.domain.WeatherLocation;
-import org.pt.pub.data.sources.accuweather.domain.WeatherLocationList;
+import org.pub.pt.data.sources.accuweather.AccuWeather;
+import org.pub.pt.data.sources.accuweather.domain.WeatherLocation;
+import org.pub.pt.data.sources.accuweather.domain.WeatherLocationList;
 
 import spock.lang.*;
 

@@ -1,6 +1,5 @@
 package groovy.org.pub.data.test.piratebay
 
-import org.pt.pub.data.sources.quotes.brainyquote.domain.Topic
 import org.pub.data.sources.piratebay.PirateBay
 import org.pub.data.sources.piratebay.domain.TorrentInfo
 import spock.lang.Specification

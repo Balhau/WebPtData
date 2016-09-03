@@ -1,10 +1,10 @@
 package groovy.org.pub.data.test.anacom
 
-import org.pt.pub.data.sources.anacom.Anacom
-import org.pt.pub.data.sources.anacom.domain.TarifaFixo
-import org.pt.pub.data.sources.anacom.domain.TarifaInternet
-import org.pt.pub.data.sources.anacom.domain.TarifaMovel
-import org.pt.pub.data.sources.anacom.domain.TarifaTelevisao
+import org.pub.pt.data.sources.anacom.Anacom
+import org.pub.pt.data.sources.anacom.domain.TarifaFixo
+import org.pub.pt.data.sources.anacom.domain.TarifaInternet
+import org.pub.pt.data.sources.anacom.domain.TarifaMovel
+import org.pub.pt.data.sources.anacom.domain.TarifaTelevisao
 import spock.lang.Specification
 
 /**

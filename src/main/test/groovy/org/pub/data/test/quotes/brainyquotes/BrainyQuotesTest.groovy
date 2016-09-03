@@ -1,9 +1,9 @@
 package groovy.org.pub.data.test.quotes.brainyquotes
 
-import org.pt.pub.data.sources.domain.Message
-import org.pt.pub.data.sources.quotes.brainyquote.BrainyMessage
-import org.pt.pub.data.sources.quotes.brainyquote.domain.Author
-import org.pt.pub.data.sources.quotes.brainyquote.domain.Topic
+import org.pub.pt.data.sources.domain.Message
+import org.pub.pt.data.sources.quotes.brainyquote.BrainyMessage
+import org.pub.pt.data.sources.quotes.brainyquote.domain.Author
+import org.pub.pt.data.sources.quotes.brainyquote.domain.Topic
 import spock.lang.Specification
 
 /**

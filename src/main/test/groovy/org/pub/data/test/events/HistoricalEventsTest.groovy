@@ -1,8 +1,8 @@
 package groovy.org.pub.data.test.events
 
-import org.pt.pub.data.sources.domain.Message
-import org.pt.pub.data.sources.events.HistoricalEvents
-import org.pt.pub.data.sources.events.domain.HistoricalEvent
+import org.pub.pt.data.sources.domain.Message
+import org.pub.pt.data.sources.events.HistoricalEvents
+import org.pub.pt.data.sources.events.domain.HistoricalEvent
 import spock.lang.Specification
 
 /**
