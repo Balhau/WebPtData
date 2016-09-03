@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.List;
 
 import org.jsoup.Connection;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -15,7 +14,7 @@ import org.pt.pub.data.sources.ine.domain.INEDataRow;
 import org.pt.pub.data.sources.ine.domain.INEResultData;
 import org.pt.pub.data.sources.ine.domain.INEServices;
 import org.pt.pub.data.sources.ine.domain.ServiceItem;
-import org.pt.pub.global.utils.DomUtils;
+import pub.org.global.utils.DomUtils;
 
 /**
  * This class is the main interface for the INE data. Here we load, parse and store in datastructures the data retrieved from

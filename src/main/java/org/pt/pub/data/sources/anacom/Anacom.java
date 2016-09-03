@@ -1,7 +1,6 @@
 package org.pt.pub.data.sources.anacom;
 
 import org.jsoup.Connection;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -9,8 +8,8 @@ import org.pt.pub.data.sources.anacom.domain.TarifaFixo;
 import org.pt.pub.data.sources.anacom.domain.TarifaInternet;
 import org.pt.pub.data.sources.anacom.domain.TarifaMovel;
 import org.pt.pub.data.sources.anacom.domain.TarifaTelevisao;
-import org.pt.pub.global.configs.GlobalConfigs;
-import org.pt.pub.global.utils.DomUtils;
+import pub.org.global.configs.GlobalConfigs;
+import pub.org.global.utils.DomUtils;
 
 import java.util.ArrayList;
 import java.util.List;

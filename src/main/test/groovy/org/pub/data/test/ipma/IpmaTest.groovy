@@ -3,7 +3,7 @@ package groovy.org.pub.data.test.ipma
 import org.pt.pub.data.sources.ipma.Ipma
 import org.pt.pub.data.sources.ipma.domain.BeachEntry
 import org.pt.pub.data.sources.ipma.domain.GeoWeather
-import org.pt.pub.global.domain.TableData
+import pub.org.global.domain.TableData
 import spock.lang.Specification
 
 /**

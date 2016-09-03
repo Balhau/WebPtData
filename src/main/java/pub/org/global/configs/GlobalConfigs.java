@@ -1,4 +1,4 @@
-package org.pt.pub.global.configs;
+package pub.org.global.configs;
 
 /**
  * Object holding several global configurations needed for most of the data sources implementations

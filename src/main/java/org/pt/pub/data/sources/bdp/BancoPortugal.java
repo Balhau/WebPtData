@@ -13,15 +13,15 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pt.pub.data.sources.domain.AbstractDataSource;
-import org.pt.pub.global.configs.HtmlTag;
-import org.pt.pub.global.domain.TableData;
-import org.pt.pub.global.domain.TableRow;
+import pub.org.global.configs.HtmlTag;
+import pub.org.global.domain.TableData;
+import pub.org.global.domain.TableRow;
 
 import com.balhau.utils.StringUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import org.pt.pub.global.utils.DomUtils;
+import pub.org.global.utils.DomUtils;
 
 /**
  * This class exports data/statistics from the 

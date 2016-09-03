@@ -1,14 +1,11 @@
 package org.pub.data.sources.piratebay;
 
-import com.sun.org.apache.xerces.internal.util.DOMUtil;
 import org.jsoup.Connection;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pt.pub.data.sources.domain.AbstractDataSource;
-import org.pt.pub.global.configs.GlobalConfigs;
-import org.pt.pub.global.utils.DomUtils;
+import pub.org.global.utils.DomUtils;
 import org.pub.data.sources.piratebay.domain.TorrentInfo;
 
 import java.util.ArrayList;
@@ -49,6 +46,8 @@ public class PirateBay extends AbstractDataSource{
     private static final String PIRATEBAY_PROXY_DOM_ATTRIBUTE="data-domain";
     private static final String PIRATEBAY_SEARCH_PATH="/s/?q=%s&page=%s&orderby=%s";
     private static final int THREAD_POOL_SIZE=20;
+
+    public static final String UNORDERED="99";
 
     public static final List<String> PIRATEBAY_PROXY_LIST;
     private String url;

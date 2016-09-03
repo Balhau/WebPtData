@@ -26,7 +26,7 @@ class PirateBayTest extends Specification {
 
     def "Get results from torrents search"(){
         when:
-            List<TorrentInfo> torrents = pirateBay.searchTorrents("Vuelta 2016",0,"99")
+            List<TorrentInfo> torrents = pirateBay.searchTorrents("Vuelta 2016",0,PirateBay.UNORDERED)
         then:
             torrents.size() > 0
     }

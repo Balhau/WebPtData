@@ -6,7 +6,7 @@ import java.util.List;
 
 
 import org.pt.pub.data.sources.bdp.BancoPortugal;
-import org.pt.pub.global.domain.TableData;
+import pub.org.global.domain.TableData;
 
 public class bancoPortugal {
 	public static final String HOST="http://www.bportugal.pt";

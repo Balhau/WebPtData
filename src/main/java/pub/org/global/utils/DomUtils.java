@@ -1,4 +1,4 @@
-package org.pt.pub.global.utils;
+package pub.org.global.utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,10 +8,10 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.pt.pub.global.configs.GlobalConfigs;
-import org.pt.pub.global.configs.HtmlTag;
-import org.pt.pub.global.domain.TableData;
-import org.pt.pub.global.domain.TableRow;
+import pub.org.global.configs.GlobalConfigs;
+import pub.org.global.configs.HtmlTag;
+import pub.org.global.domain.TableData;
+import pub.org.global.domain.TableRow;
 
 import jdk.nashorn.api.scripting.*;
 

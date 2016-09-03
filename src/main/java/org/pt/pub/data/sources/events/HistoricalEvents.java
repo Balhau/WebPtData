@@ -8,8 +8,7 @@ import org.pt.pub.data.sources.domain.MessageService;
 import org.pt.pub.data.sources.domain.Message;
 import org.pt.pub.data.sources.events.domain.HistoricalEvent;
 import org.pt.pub.data.utilities.Utils;
-import org.pt.pub.global.configs.GlobalConfigs;
-import org.pt.pub.global.utils.DomUtils;
+import pub.org.global.utils.DomUtils;
 
 import java.util.*;
 

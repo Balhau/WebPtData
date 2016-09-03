@@ -12,14 +12,13 @@ import javax.script.ScriptEngineManager;
 import jdk.nashorn.api.scripting.*;
 
 import org.jsoup.Connection;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pt.pub.data.sources.rbe.domain.RbeIndicator;
 import org.pt.pub.data.sources.rbe.domain.RbeIndicatorData;
-import org.pt.pub.global.configs.HtmlTag;
-import org.pt.pub.global.utils.DomUtils;
+import pub.org.global.configs.HtmlTag;
+import pub.org.global.utils.DomUtils;
 
 
 /**

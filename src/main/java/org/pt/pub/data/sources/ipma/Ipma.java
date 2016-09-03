@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.jsoup.Connection;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -19,10 +18,9 @@ import org.pt.pub.data.sources.ipma.domain.Sea;
 import org.pt.pub.data.sources.ipma.domain.SeaWeather;
 import org.pt.pub.data.sources.ipma.domain.Uv;
 import org.pt.pub.data.sources.ipma.domain.UvWeather;
-import org.pt.pub.global.configs.GlobalConfigs;
-import org.pt.pub.global.configs.HtmlTag;
-import org.pt.pub.global.domain.TableData;
-import org.pt.pub.global.utils.DomUtils;
+import pub.org.global.configs.HtmlTag;
+import pub.org.global.domain.TableData;
+import pub.org.global.utils.DomUtils;
 
 
 /**

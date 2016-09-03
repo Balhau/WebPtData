@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jsoup.Connection;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -13,10 +12,10 @@ import org.pt.pub.data.sources.base.domain.BaseQueryResponse;
 import org.pt.pub.data.sources.domain.Message;
 import org.pt.pub.data.sources.domain.MessageService;
 import org.pt.pub.data.utilities.Utils;
-import org.pt.pub.global.configs.GlobalConfigs;
-import org.pt.pub.global.configs.HtmlTag;
-import org.pt.pub.global.domain.TableData;
-import org.pt.pub.global.utils.DomUtils;
+import pub.org.global.configs.GlobalConfigs;
+import pub.org.global.configs.HtmlTag;
+import pub.org.global.domain.TableData;
+import pub.org.global.utils.DomUtils;
 
 
 /**
