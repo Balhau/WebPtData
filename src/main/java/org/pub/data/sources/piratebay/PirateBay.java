@@ -28,13 +28,20 @@ public class PirateBay extends AbstractDataSource{
 
     class TorrentCallable implements Callable<TorrentInfo>{
         private final String torrentURL;
-        public TorrentCallable(String torrentURL){
+        private final String baseUrl;
+        public TorrentCallable(String baseUrl,String torrentURL){
+            this.baseUrl=baseUrl;
             this.torrentURL=torrentURL;
         }
         @Override
         public TorrentInfo call() throws Exception {
-            DomUtils.get(torrentURL);
-            return null;
+            Document doc = DomUtils.get(torrentURL).get();
+            Elements torrentInfo = doc.getElementsByTag("dl").get(1).getElementsByTag("dd");
+            return new TorrentInfo(
+                    doc.getElementsByClass("nfo").get(0).getElementsByTag("pre").text(),
+                    baseUrl+doc.getElementsByClass("download").get(0).getElementsByTag("a").get(0).attr("href"),
+                    torrentURL,torrentInfo.get(0).text(),Integer.parseInt(torrentInfo.get(2).text()),Integer.parseInt(torrentInfo.get(3).text())
+            );
         }
     }
     /**
@@ -79,7 +86,7 @@ public class PirateBay extends AbstractDataSource{
         //Get asynchronously the torrentInfo
         for(Element torrentLine : torrentsLines){
             torrentURL=url+torrentLine.getElementsByTag("a").get(0).attr("href");
-            torrentFutures.add(pool.submit(new TorrentCallable(torrentURL)));
+            torrentFutures.add(pool.submit(new TorrentCallable(url,torrentURL)));
         }
 
         for(Future<TorrentInfo> t : torrentFutures){
