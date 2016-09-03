@@ -84,7 +84,7 @@ public class Rbe {
 	 * @throws Exception if error is found while parsing data
 	 */
 	public List<RbeIndicator> getIndicators() throws Exception{
-		Connection cn=Jsoup.connect(INDICATOR_HOME);
+		Connection cn=DomUtils.get(INDICATOR_HOME);
 		List<RbeIndicator> l=new ArrayList<RbeIndicator>();
 		Document doc=cn.get();
 		Elements lines=doc.getElementsByClass("newsInList");
@@ -118,7 +118,7 @@ public class Rbe {
 	 * @throws Exception in case of error parsing the data
 	 */
 	public RbeIndicatorData getIndicator(int cat,int serie) throws Exception{
-		Connection cn=Jsoup.connect(urlFromCategorieSerie(cat,serie));
+		Connection cn=DomUtils.get(urlFromCategorieSerie(cat,serie));
 		Document doc=cn.get();
 		Elements els=doc.getElementsByTag(HtmlTag.SCRIPT);
 		Element scdata=els.get(els.size()-1);

@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Locale;
 
 import org.jsoup.Connection;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -22,6 +21,7 @@ import com.balhau.utils.StringUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import org.pt.pub.global.utils.DomUtils;
 
 /**
  * This class exports data/statistics from the 
@@ -93,7 +93,7 @@ public class BancoPortugal extends AbstractDataSource{
 	 * @throws Exception in case error is found while parsing data
 	 */
 	public TableData getCategories() throws Exception{
-		Connection cn=Jsoup.connect(CATEGORIES_URL);
+		Connection cn= DomUtils.get(CATEGORIES_URL);
 		TableData cl=new TableData();
 		TableRow categorie;
 		Document doc=cn.get();
@@ -146,7 +146,7 @@ public class BancoPortugal extends AbstractDataSource{
 		TableData data=new TableData();
 		TableRow row;
 		String url=buildSeriesDataURL(seriesList, endDate);
-		Connection cn=Jsoup.connect(url);
+		Connection cn=DomUtils.get(url);
 		cn.timeout(HTTP_TIMEOUT);
 		Document doc=cn.get();
 		Elements series=doc.getElementsByTag("serie");
@@ -186,7 +186,7 @@ public class BancoPortugal extends AbstractDataSource{
 	public TableData getSeriesForCategorie(String categorieID) throws Exception{
 		TableData data=new TableData();
 		String url=FILTRO_SERIES+categorieID;
-		Connection cn = Jsoup.connect(url);
+		Connection cn = DomUtils.get(url);
 		Document doc=cn.get();
 		Elements scripts = doc.getElementsByTag(HtmlTag.SCRIPT);
 		Element scriptData=scripts.get(getSeriesScriptIndex(scripts));

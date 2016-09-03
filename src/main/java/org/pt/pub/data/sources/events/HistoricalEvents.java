@@ -9,6 +9,7 @@ import org.pt.pub.data.sources.domain.Message;
 import org.pt.pub.data.sources.events.domain.HistoricalEvent;
 import org.pt.pub.data.utilities.Utils;
 import org.pt.pub.global.configs.GlobalConfigs;
+import org.pt.pub.global.utils.DomUtils;
 
 import java.util.*;
 
@@ -48,9 +49,9 @@ public class HistoricalEvents implements MessageService{
      * @return List of historical events
      */
     public List<HistoricalEvent> getEventsByDay(int month,int day) throws Exception{
-        Connection con = Jsoup.connect(
+        Connection con = DomUtils.get(
                 String.format(EVENTS_BY_DAY_PATTERN,MONTHS[month-1],day)
-        ).userAgent(GlobalConfigs.USER_AGENT);
+        );
 
         return parseDocument(con,month,day);
     }
@@ -66,16 +67,16 @@ public class HistoricalEvents implements MessageService{
     }
 
     public List<HistoricalEvent> getDeathsByDay(int month,int day) throws Exception{
-        Connection con = Jsoup.connect(
+        Connection con = DomUtils.get(
                 String.format(DEATHS_BY_DAY_PATTERN,MONTHS[month-1],day)
-        ).userAgent(GlobalConfigs.USER_AGENT);
+        );
         return parseDocument(con,month,day);
     }
 
     public List<HistoricalEvent> getBirthdaysByDay(int month,int day) throws Exception{
-        Connection con = Jsoup.connect(
+        Connection con = DomUtils.get(
                 String.format(BIRTHDAY_BY_DAY_PATTERN,MONTHS[month-1],day)
-        ).userAgent(GlobalConfigs.USER_AGENT);
+        );
         return parseDocument(con,month,day);
     }
 

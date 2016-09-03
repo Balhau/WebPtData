@@ -10,6 +10,7 @@ import org.pt.pub.data.sources.domain.Message;
 import org.pt.pub.data.sources.domain.MessageService;
 import org.pt.pub.data.utilities.Utils;
 import org.pt.pub.global.configs.GlobalConfigs;
+import org.pt.pub.global.utils.DomUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class ChuckNorris extends AbstractDataSource implements MessageService {
      */
     public List<Message> getFacts(int number) throws Exception{
         List<Message> facts=new ArrayList<>();
-        Connection cn= Jsoup.connect(getPaginatedPath(number)).userAgent(GlobalConfigs.USER_AGENT);
+        Connection cn= DomUtils.get(getPaginatedPath(number));
         Document doc=cn.get();
         Elements items=doc.getElementsByClass("item-list").get(0).getElementsByTag("a");
         for(Element el : items){

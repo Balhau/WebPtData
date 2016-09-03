@@ -10,6 +10,7 @@ import org.pt.pub.data.sources.tap.domain.Destination;
 import org.pt.pub.data.sources.tap.domain.FlightDetail;
 import org.pt.pub.data.sources.tap.domain.FlightSegment;
 import org.pt.pub.global.configs.GlobalConfigs;
+import org.pt.pub.global.utils.DomUtils;
 
 import java.util.*;
 
@@ -67,7 +68,7 @@ public class TAP {
     }
 
     public List<Destination> findPossibleDestinations(String departureCode) throws Exception{
-        Connection con = Jsoup.connect(String.format(TAP_SEARCH_DESTINATIONS,departureCode))
+        Connection con = DomUtils.get(String.format(TAP_SEARCH_DESTINATIONS,departureCode))
                 .userAgent(GlobalConfigs.USER_AGENT)
                 .timeout(GlobalConfigs.CONNECTION_TIMEOUT);
 
@@ -104,9 +105,7 @@ public class TAP {
                                          String adults) throws Exception{
         Map<String,List<FlightDetail>> flightWithReturn=new HashMap<>();
         String url=buildSearchPath(origin, destination, departDate, returnDate, adults);
-        Connection con = Jsoup.connect(url)
-                .userAgent(GlobalConfigs.USER_AGENT)
-                .timeout(GlobalConfigs.CONNECTION_TIMEOUT);
+        Connection con = DomUtils.get(url);
 
         Document doc=con.get();
 

@@ -4,6 +4,7 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.pt.pub.data.sources.domain.AbstractDataSource;
+import org.pt.pub.global.utils.DomUtils;
 import org.pub.data.sources.vimeo.domain.VimeoVideo;
 
 import java.util.Arrays;
@@ -30,7 +31,7 @@ public class Vimeo extends AbstractDataSource{
 
 		@Override
 		public List<String> call() throws Exception {
-			Connection con = Jsoup.connect(this.url);
+			Connection con = DomUtils.get(this.url);
 			Document doc = con.get();
 			String description=doc.getElementsByTag("meta").get(7).attr("content");
 			return Arrays.asList(description);
@@ -46,7 +47,7 @@ public class Vimeo extends AbstractDataSource{
 
 		@Override
 		public List<String> call() throws Exception {
-			Connection con = Jsoup.connect(this.url);
+			Connection con = DomUtils.get(this.url);
 			Document doc = con.get();
 
 			//Scrapped from htmlpage

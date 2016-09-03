@@ -15,6 +15,7 @@ import org.pt.pub.data.sources.ine.domain.INEDataRow;
 import org.pt.pub.data.sources.ine.domain.INEResultData;
 import org.pt.pub.data.sources.ine.domain.INEServices;
 import org.pt.pub.data.sources.ine.domain.ServiceItem;
+import org.pt.pub.global.utils.DomUtils;
 
 /**
  * This class is the main interface for the INE data. Here we load, parse and store in datastructures the data retrieved from
@@ -52,12 +53,12 @@ public class Ine extends AbstractDataSource{
 	 * This receives as argument the number of the page and the respective number of items per page
 	 * @param pageNumber {@link int} Number of the page
 	 * @param itemPerpage {@link int} NUmber items per page
-	 * @return {@link INEServices} Object with a list of services available for you to feed into the {@link getDataFromService} method
+	 * @return {@link INEServices} Object with a list of services available
 	 * @throws IOException IO problems
 	 */
-	public INEServices getAvailableServices(int pageNumber,int itemPerpage) throws IOException{
+	public INEServices getAvailableServices(int pageNumber,int itemPerpage) throws Exception{
 		String sURL="http://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_base_dados&bdpagenumber="+pageNumber+"&bdind_por_pagina="+itemPerpage;
-		Connection cn=Jsoup.connect(sURL);
+		Connection cn= DomUtils.get(sURL);
 		Document doc=cn.get();
 		return parseTBodyServices(doc.select("table").get(1).select("tbody").get(0));
 	}
@@ -93,11 +94,11 @@ public class Ine extends AbstractDataSource{
 	 * @return {@link INEResultData} domain object
 	 * @throws IOException in the case of error while parsing data
 	 */
-	public INEResultData getDataFromService(String urlData) throws IOException{
-		Connection cn=Jsoup.connect(urlData);
+	public INEResultData getDataFromService(String urlData) throws Exception{
+		Connection cn=DomUtils.get(urlData);
     	Document doc=cn.get();
     	String iUrl=doc.select("iframe").get(1).attr("src");
-    	cn=Jsoup.connect(INE_BASE+iUrl);
+    	cn=DomUtils.get(INE_BASE+iUrl);
     	cn.timeout(5000);
     	cn.header("Referer", urlData);
     	doc=cn.get();

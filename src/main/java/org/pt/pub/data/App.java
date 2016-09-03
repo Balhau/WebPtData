@@ -16,7 +16,7 @@ import org.pt.pub.data.sources.ine.domain.INEServices;
  */
 public class App 
 {
-    public static void main( String[] args ) throws IOException, EncodingException
+    public static void main( String[] args ) throws Exception
     {
     	Ine ine=new Ine();
     	INEServices ineS=ine.getAvailableServices(1, 25);

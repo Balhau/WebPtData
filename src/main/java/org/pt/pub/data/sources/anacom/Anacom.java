@@ -10,6 +10,7 @@ import org.pt.pub.data.sources.anacom.domain.TarifaInternet;
 import org.pt.pub.data.sources.anacom.domain.TarifaMovel;
 import org.pt.pub.data.sources.anacom.domain.TarifaTelevisao;
 import org.pt.pub.global.configs.GlobalConfigs;
+import org.pt.pub.global.utils.DomUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,7 @@ public class Anacom {
 
     private <T> List<T> processTable(String url,LineProcessor<T> processor) throws Exception{
         List<T> tarifas=new ArrayList<>();
-        Connection con= Jsoup.connect(url).userAgent(GlobalConfigs.USER_AGENT).timeout(GlobalConfigs.CONNECTION_TIMEOUT);
+        Connection con= DomUtils.get(GlobalConfigs.USER_AGENT);
         Document doc=con.get();
         Elements lines=doc.getElementsByTag("tbody").get(0).getElementsByTag("tr");
 

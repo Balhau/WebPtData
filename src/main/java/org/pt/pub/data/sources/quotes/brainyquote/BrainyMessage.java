@@ -11,6 +11,7 @@ import org.pt.pub.data.sources.quotes.brainyquote.domain.Author;
 import org.pt.pub.data.sources.quotes.brainyquote.domain.Topic;
 import org.pt.pub.data.utilities.Utils;
 import org.pt.pub.global.configs.GlobalConfigs;
+import org.pt.pub.global.utils.DomUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ public class BrainyMessage implements MessageService {
     public static String BRAINY_AUTHORS=BRAINY_QUOTE_BASE+"/quotes/favorites.html";
 
     public List<Topic> getTopics() throws Exception{
-        Connection con= Jsoup.connect(BRAINY_TOPICS).userAgent(GlobalConfigs.USER_AGENT);
+        Connection con= DomUtils.get(BRAINY_TOPICS);
         Document doc=con.get();
 
         Elements tables = doc.getElementsByTag("table");
@@ -37,7 +38,7 @@ public class BrainyMessage implements MessageService {
 
     public List<Author> getAuthors() throws Exception{
         List<Author> authors=new ArrayList<>();
-        Connection con = Jsoup.connect(BRAINY_AUTHORS).userAgent(GlobalConfigs.USER_AGENT);
+        Connection con = DomUtils.get(BRAINY_AUTHORS);
         Document doc = con.get();
         Elements eAuthors=doc.getElementsByClass("bqLn");
         for(Element eauth : eAuthors){
@@ -59,7 +60,7 @@ public class BrainyMessage implements MessageService {
         List<Topic> topics=getTopics();
         String url=buildTopicPageURL(topics, topic, page);
         System.out.println(url);
-        Connection con = Jsoup.connect(url).userAgent(GlobalConfigs.USER_AGENT);
+        Connection con = DomUtils.get(url);
         Document doc = con.get();
         Elements entries=doc.getElementsByClass("boxyPaddingBig");
         for(Element entry : entries){

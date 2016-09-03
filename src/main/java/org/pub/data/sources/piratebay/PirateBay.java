@@ -1,5 +1,6 @@
 package org.pub.data.sources.piratebay;
 
+import com.sun.org.apache.xerces.internal.util.DOMUtil;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -7,6 +8,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pt.pub.data.sources.domain.AbstractDataSource;
 import org.pt.pub.global.configs.GlobalConfigs;
+import org.pt.pub.global.utils.DomUtils;
 import org.pub.data.sources.piratebay.domain.TorrentInfo;
 
 import java.util.ArrayList;
@@ -25,12 +27,13 @@ import java.util.concurrent.Future;
 public class PirateBay extends AbstractDataSource{
 
     class TorrentCallable implements Callable<TorrentInfo>{
-        private String torrentURL;
+        private final String torrentURL;
         public TorrentCallable(String torrentURL){
             this.torrentURL=torrentURL;
         }
         @Override
         public TorrentInfo call() throws Exception {
+            DomUtils.get(torrentURL);
             return null;
         }
     }
@@ -56,10 +59,9 @@ public class PirateBay extends AbstractDataSource{
     }
 
     public List<TorrentInfo> searchTorrents(String query,int page,String order) throws Exception{
-        Connection con = Jsoup.connect(buildSearchString(query,page,order)).userAgent(GlobalConfigs.USER_AGENT).timeout(GlobalConfigs.CONNECTION_TIMEOUT);
+        Connection con = DomUtils.get(buildSearchString(query, page, order));
         Document doc = con.get();
-        Element body = doc.body();
-        return null;
+        return parseTorrents(doc);
     }
 
     /**
@@ -100,7 +102,7 @@ public class PirateBay extends AbstractDataSource{
         List<String> proxyList=new ArrayList<>();
 
         try {
-            Connection con = Jsoup.connect(PIRATEBAY_PROXY_LIST_URL).userAgent(GlobalConfigs.USER_AGENT).timeout(GlobalConfigs.CONNECTION_TIMEOUT);
+            Connection con = DomUtils.get(PIRATEBAY_PROXY_LIST_URL);
             Document doc = con.get();
             Elements proxies = doc.getElementsByAttribute(PIRATEBAY_PROXY_DOM_ATTRIBUTE);
             for(Element proxy : proxies){

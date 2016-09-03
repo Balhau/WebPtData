@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.pt.pub.global.configs.GlobalConfigs;
 import org.pt.pub.global.configs.HtmlTag;
 import org.pt.pub.global.domain.TableData;
 import org.pt.pub.global.domain.TableRow;
@@ -37,6 +40,16 @@ public class DomUtils {
 			tb.getRows().add(trow);
 		}
 		return tb;
+	}
+
+	/**
+	 * Default way to establish a http connection
+	 * @param url
+	 * @return
+	 * @throws Exception
+     */
+	public static Connection get(String url) throws Exception {
+		return Jsoup.connect(url).userAgent(GlobalConfigs.USER_AGENT).timeout(GlobalConfigs.CONNECTION_TIMEOUT);
 	}
 	
 	/**

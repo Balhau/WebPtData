@@ -16,6 +16,7 @@ import org.pt.pub.data.sources.accuweather.domain.Weather;
 import org.pt.pub.data.sources.accuweather.domain.WeatherLocation;
 import org.pt.pub.data.sources.accuweather.domain.WeatherLocationList;
 import org.pt.pub.global.configs.GlobalConfigs;
+import org.pt.pub.global.utils.DomUtils;
 
 /**
  * Implements the <a href="http://www.accuweather.com/" target="_blank">AccuWeather</a> 
@@ -64,8 +65,7 @@ public class AccuWeather extends AbstractDataSource {
 	 */
 	public WeatherLocationList getLocations(String searchPattern)
 			throws Exception {
-		Connection cn = Jsoup.connect(SEARCH_WEATHER_URL).userAgent(
-				GlobalConfigs.USER_AGENT);
+		Connection cn = DomUtils.get(SEARCH_WEATHER_URL);
 
 		Document d = cn.data("s", searchPattern, "rn", "3day").post();
 		Elements els = d.getElementsByClass("articles").get(0)
@@ -99,8 +99,7 @@ public class AccuWeather extends AbstractDataSource {
 	 * @throws Exception Scrapping problems
 	 */
 	public Weather getLocation(String location) throws Exception {
-		Connection cn = Jsoup.connect(location).userAgent(
-				GlobalConfigs.USER_AGENT);
+		Connection cn = DomUtils.get(location);
 		Document doc = cn.get();
 		Element statusInfo = doc.getElementsByClass("info").get(5);
 		Elements statisticInfo = doc.getElementsByClass("stats").get(0)
