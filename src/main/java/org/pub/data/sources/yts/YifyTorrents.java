@@ -6,23 +6,22 @@ import org.jsoup.select.Elements;
 import org.pub.data.sources.piratebay.domain.TorrentInfo;
 import org.pub.data.sources.yts.domain.TorrentLink;
 import org.pub.data.sources.yts.domain.YifyTorrent;
-import org.pub.global.base.ThreadedScrapper;
+import org.pub.global.base.ScraperPool;
 import org.pub.global.utils.DomUtils;
+import org.pub.pt.data.sources.domain.AbstractDataSource;
 
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**
  * This is a scrapper for the YIFY yts.ag torrents information
  * Created by vitorfernandes on 9/4/16.
  */
-public class YifyTorrents extends ThreadedScrapper{
+public class YifyTorrents extends AbstractDataSource {
 
     class YifyTorrentCallable implements Callable<Optional<YifyTorrent>>{
         private final TorrentLink tlink;
@@ -46,7 +45,7 @@ public class YifyTorrents extends ThreadedScrapper{
     private final String BROWSE_PATTERN="/browse-movies?page=%s";
 
     public YifyTorrents(){
-        super();
+
     }
 
     private String getPageURL(int page){
@@ -102,7 +101,7 @@ public class YifyTorrents extends ThreadedScrapper{
         List<Future<Optional<YifyTorrent>>> futures=new ArrayList<>();
         List<TorrentLink> tls = getTorrentURLs(page);
         for(TorrentLink tl : tls){
-            futures.add(pool.submit(new YifyTorrentCallable(tl)));
+            futures.add(ScraperPool.getPool().submit(new YifyTorrentCallable(tl)));
         }
 
         for(Future<Optional<YifyTorrent>> f : futures){

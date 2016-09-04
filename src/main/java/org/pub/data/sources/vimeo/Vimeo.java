@@ -2,6 +2,7 @@ package org.pub.data.sources.vimeo;
 
 import org.jsoup.Connection;
 import org.jsoup.nodes.Document;
+import org.pub.global.base.ScraperPool;
 import org.pub.pt.data.sources.domain.AbstractDataSource;
 import org.pub.global.utils.DomUtils;
 import org.pub.data.sources.vimeo.domain.VimeoVideo;
@@ -60,12 +61,9 @@ public class Vimeo extends AbstractDataSource{
 	public static String BASE_URL="http://vimeo.com/";
 	private static String BASE_URL_PATTERN="http://vimeo.com/%s";
 	private static String PLAYER_URL_PATTERN="https://player.vimeo.com/video/%s";
-	private static int THREAD_POOL=2;
-
-	private ExecutorService executor;
 	
 	public Vimeo(){
-		executor= Executors.newFixedThreadPool(THREAD_POOL);
+
 	}
 
 	/**
@@ -76,8 +74,8 @@ public class Vimeo extends AbstractDataSource{
      */
 	public VimeoVideo getVideo(String url) throws Exception{
 		String fragment=extractFragment(url);
-		Future<List<String>> playerFuture=executor.submit(new PlayerVimeoScrapper(fragment));
-		Future<List<String>> pageFuture=executor.submit(new PageVimeoScrapper(fragment));
+		Future<List<String>> playerFuture= ScraperPool.getPool().submit(new PlayerVimeoScrapper(fragment));
+		Future<List<String>> pageFuture= ScraperPool.getPool().submit(new PageVimeoScrapper(fragment));
 
 		List<String> playerList=playerFuture.get();
 		List<String> pageList = pageFuture.get();

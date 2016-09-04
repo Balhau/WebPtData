@@ -4,25 +4,23 @@ import org.jsoup.Connection;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.pub.global.base.ThreadedScrapper;
-import org.pub.pt.data.sources.domain.AbstractDataSource;
+import org.pub.global.base.ScraperPool;
 import org.pub.global.utils.DomUtils;
 import org.pub.data.sources.piratebay.domain.TorrentInfo;
+import org.pub.pt.data.sources.domain.AbstractDataSource;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**
  * This will scrape the piratebay website, in search for torrent files
  * Created by vitorfernandes on 9/1/16.
  */
-public class PirateBay extends ThreadedScrapper{
+public class PirateBay extends AbstractDataSource {
 
     class TorrentCallable implements Callable<TorrentInfo>{
         private final String torrentURL;
@@ -81,7 +79,7 @@ public class PirateBay extends ThreadedScrapper{
         //Get asynchronously the torrentInfo
         for(Element torrentLine : torrentsLines){
             torrentURL=url+torrentLine.getElementsByTag("a").get(0).attr("href");
-            torrentFutures.add(pool.submit(new TorrentCallable(torrentURL)));
+            torrentFutures.add(ScraperPool.getPool().submit(new TorrentCallable(torrentURL)));
         }
 
         for(Future<TorrentInfo> t : torrentFutures){

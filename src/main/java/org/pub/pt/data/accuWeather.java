@@ -3,10 +3,9 @@ package org.pub.pt.data;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import org.pub.global.base.ScraperPool;
 import org.pub.pt.data.sources.accuweather.AccuWeather;
 import org.pub.pt.data.sources.accuweather.domain.Weather;
 import org.pub.pt.data.sources.accuweather.domain.WeatherLocation;
@@ -19,11 +18,10 @@ public class accuWeather {
 	public static void main(String[] args) throws Exception{
 		final AccuWeather accW=new AccuWeather();
 		WeatherLocationList weatherList=accW.getLocations("porto");
-		ExecutorService executor = Executors.newFixedThreadPool(weatherList.getWeatherLocationList().size());
 		Set<Future<Weather>> weathers=new HashSet<Future<Weather>>();
 
 		for(final WeatherLocation wl:weatherList.getWeatherLocationList()){
-			weathers.add(executor.submit(new Callable<Weather>() {
+			weathers.add(ScraperPool.getPool().submit(new Callable<Weather>() {
 				public Weather call() throws Exception {
 					return accW.getLocation(wl.getLocation());
 				}
@@ -35,8 +33,6 @@ public class accuWeather {
 			System.out.println(weather.get().toJSON());
 			i++;
 		}
-		
-		executor.shutdown();
 		
 		//System.out.println("A humidade em mirandela é: "+w.getHumidity());
 		//System.out.println(w.toJSON());
