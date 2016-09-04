@@ -4,6 +4,7 @@ import org.jsoup.Connection;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.pub.global.base.ThreadedScrapper;
 import org.pub.pt.data.sources.domain.AbstractDataSource;
 import org.pub.global.utils.DomUtils;
 import org.pub.data.sources.piratebay.domain.TorrentInfo;
@@ -21,7 +22,7 @@ import java.util.concurrent.Future;
  * This will scrape the piratebay website, in search for torrent files
  * Created by vitorfernandes on 9/1/16.
  */
-public class PirateBay extends AbstractDataSource{
+public class PirateBay extends ThreadedScrapper{
 
     class TorrentCallable implements Callable<TorrentInfo>{
         private final String torrentURL;
@@ -45,13 +46,11 @@ public class PirateBay extends AbstractDataSource{
     private static final String PIRATEBAY_PROXY_LIST_URL="https://thepiratebay-proxylist.org/";
     private static final String PIRATEBAY_PROXY_DOM_ATTRIBUTE="data-domain";
     private static final String PIRATEBAY_SEARCH_PATH="/s/?q=%s&page=%s&orderby=%s";
-    private static final int THREAD_POOL_SIZE=20;
 
     public static final String UNORDERED="99";
 
     public static final List<String> PIRATEBAY_PROXY_LIST;
     private String url;
-    private ExecutorService pool;
 
     static{
         PIRATEBAY_PROXY_LIST=getPirateBayProxyList();
@@ -59,7 +58,6 @@ public class PirateBay extends AbstractDataSource{
 
     public PirateBay(){
         this.url="https://"+PIRATEBAY_PROXY_LIST.get((int)Math.floor(Math.random()*PIRATEBAY_PROXY_LIST.size()));
-        this.pool= Executors.newFixedThreadPool(THREAD_POOL_SIZE);
     }
 
     public List<TorrentInfo> searchTorrents(String query,int page,String order) throws Exception{

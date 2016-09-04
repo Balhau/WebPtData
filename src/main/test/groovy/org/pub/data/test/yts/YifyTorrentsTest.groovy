@@ -33,4 +33,12 @@ class YifyTorrentsTest extends Specification{
             yifyTorrent != null
             assert yifyTorrent.getRottenTomatoesAudience != null
     }
+
+    def "Get torrents from page"(){
+        when:
+            //Torrents is loaded
+            List<YifyTorrent> torrents = yts.getTorrentsFromPage(1)
+        then:
+            torrents.size() != 0
+    }
 }

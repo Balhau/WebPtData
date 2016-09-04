@@ -6,22 +6,47 @@ import org.jsoup.select.Elements;
 import org.pub.data.sources.piratebay.domain.TorrentInfo;
 import org.pub.data.sources.yts.domain.TorrentLink;
 import org.pub.data.sources.yts.domain.YifyTorrent;
+import org.pub.global.base.ThreadedScrapper;
 import org.pub.global.utils.DomUtils;
 
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * This is a scrapper for the YIFY yts.ag torrents information
  * Created by vitorfernandes on 9/4/16.
  */
-public class YifyTorrents {
+public class YifyTorrents extends ThreadedScrapper{
+
+    class YifyTorrentCallable implements Callable<Optional<YifyTorrent>>{
+        private final TorrentLink tlink;
+
+        public YifyTorrentCallable(TorrentLink tlink){
+            this.tlink=tlink;
+        }
+        @Override
+        public Optional<YifyTorrent> call() throws Exception {
+            Optional<YifyTorrent> opt;
+            try{
+                opt=Optional.of(getTorrent(tlink));
+            }catch (Exception ex){
+                opt=Optional.empty();
+            }
+            return opt;
+        }
+    }
+
     private final String URL_BASE="https://yts.ag";
     private final String BROWSE_PATTERN="/browse-movies?page=%s";
 
     public YifyTorrents(){
-
+        super();
     }
 
     private String getPageURL(int page){
@@ -70,5 +95,22 @@ public class YifyTorrents {
      */
     public YifyTorrent getTorrent(TorrentLink link) throws Exception{
         return getTorrentFromURL(link.getUrl());
+    }
+
+    public List<YifyTorrent> getTorrentsFromPage(int page) throws Exception{
+        List<YifyTorrent> t = new ArrayList<>();
+        List<Future<Optional<YifyTorrent>>> futures=new ArrayList<>();
+        List<TorrentLink> tls = getTorrentURLs(page);
+        for(TorrentLink tl : tls){
+            futures.add(pool.submit(new YifyTorrentCallable(tl)));
+        }
+
+        for(Future<Optional<YifyTorrent>> f : futures){
+            if(f.get().isPresent()){
+                t.add(f.get().get());
+            }
+        }
+
+        return t;
     }
 }
