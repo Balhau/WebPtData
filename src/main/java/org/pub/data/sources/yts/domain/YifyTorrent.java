@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class YifyTorrent {
     private final String description;
-    private final List<String> torrentLinks;
+    private final List<TorrentMovieData> torrentLinks;
     private final String imdb;
     private final String rottenTomatoesCritics;
     private final String getRottenTomatoesAudience;
@@ -16,7 +16,7 @@ public class YifyTorrent {
     private final int year;
     private final String imageURL;
 
-    public YifyTorrent(String description,List<String> magnetLinks,String imdb,
+    public YifyTorrent(String description,List<TorrentMovieData> magnetLinks,String imdb,
                        String rtCritics,String rtAudience,int likes,int year,
                        String imageURL){
         this.description=description;this.torrentLinks=magnetLinks;
@@ -29,7 +29,7 @@ public class YifyTorrent {
         return description;
     }
 
-    public List<String> getTorrentLinks() {
+    public List<TorrentMovieData> getTorrentLinks() {
         return torrentLinks;
     }
 

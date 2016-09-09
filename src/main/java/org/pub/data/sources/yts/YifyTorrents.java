@@ -5,6 +5,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pub.data.sources.piratebay.domain.TorrentInfo;
 import org.pub.data.sources.yts.domain.TorrentLink;
+import org.pub.data.sources.yts.domain.TorrentMovieData;
 import org.pub.data.sources.yts.domain.YifyTorrent;
 import org.pub.global.base.ScraperPool;
 import org.pub.global.utils.DomUtils;
@@ -68,14 +69,16 @@ public class YifyTorrents extends AbstractDataSource {
      * @return
      */
     public YifyTorrent getTorrentFromURL(String url) throws Exception{
-        List<String> torrentLinks = new ArrayList<>();
+        List<TorrentMovieData> torrentLinks = new ArrayList<>();
         Document doc = DomUtils.get(url).get();
         Element movieInfo=doc.getElementById("movie-info");
         String name=movieInfo.getElementsByClass("hidden-xs").get(0).getElementsByTag("h1").text();
         int year = Integer.parseInt(movieInfo.getElementsByClass("hidden-xs").get(0).getElementsByTag("h2").get(0).text());
-        Elements tlinks = movieInfo.getElementsByTag("p");
+        Elements tlinks = movieInfo.getElementsByTag("p").get(0).getElementsByTag("a");
         for(Element tlink : tlinks){
-            torrentLinks.add(tlink.getElementsByTag("a").attr("href"));
+            torrentLinks.add(
+                    new TorrentMovieData(tlink.attr("href"),tlink.text())
+            );
         }
         Elements ratings = movieInfo.getElementsByClass("rating-row");
         int likes = Integer.parseInt(ratings.get(0).getElementById("movie-likes").text());
