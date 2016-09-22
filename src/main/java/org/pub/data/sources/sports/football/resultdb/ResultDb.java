@@ -5,6 +5,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pub.data.sources.sports.football.resultdb.domain.League;
+import org.pub.data.sources.sports.football.resultdb.domain.LeagueInfo;
 import org.pub.data.sources.sports.football.resultdb.domain.Result;
 import org.pub.data.sources.sports.football.resultdb.domain.Season;
 import org.pub.global.base.ScraperPool;
@@ -24,7 +25,7 @@ public class ResultDb {
 
     public class SeasonCallable implements Callable<Season>{
         private final String url;
-        public static final int MAX_RESULTS=380;
+        public static final int MAX_RESULTS=600;
         private final Map<String,String> postdata;
 
         public SeasonCallable(String url,int limit){
@@ -112,26 +113,41 @@ public class ResultDb {
         return seasonsUrls;
     }
 
-    private List<League> parseLeaguesFromDoc(Document doc) throws Exception{
-        List<League> leagues = new ArrayList<>();
+    private List<LeagueInfo> parseLeaguesInfoFromDoc(Document doc) throws Exception{
+        List<LeagueInfo> leagues = new ArrayList<>();
         Element leftDiv = doc.getElementById("left");
         Element box = leftDiv.getElementsByClass("box").get(0);
         Elements liels = box.getElementsByTag("li");
         for(Element li : liels){
             Element anchor = li.getElementsByTag("a").get(0);
             leagues.add(
-                    new League(anchor.text(),anchor.attr("href"),
-                            getSeasonsFromURLList(getLeagueSeasonsURL(HOSTNAME+anchor.attr("href")))
-                    )
+                    new LeagueInfo(anchor.text(),
+                            HOSTNAME+anchor.attr("href"))
             );
 
         }
         return leagues;
     }
 
-    public List<League> getAllLeagues() throws Exception{
+    public League getLeagueFromLeagueInfo(LeagueInfo info) throws  Exception{
+        return new League(info.getDescription(),info.getUrl(),getSeasonsFromURLList(getLeagueSeasonsURL(info.getUrl())));
+    }
+
+    public List<League> leaguesFromLeagueInfo(List<LeagueInfo> leagueInfos) throws Exception{
+        List<League>  leagues = new ArrayList<>();
+        for(LeagueInfo info : leagueInfos){
+            leagues.add(getLeagueFromLeagueInfo(info));
+        }
+        return leagues;
+    }
+
+    public List<LeagueInfo> getAllLeaguesInfo() throws Exception{
         Connection con = DomUtils.get(HOSTNAME);
         Document doc = con.get();
-        return parseLeaguesFromDoc(doc);
+        return parseLeaguesInfoFromDoc(doc);
+    }
+
+    public List<League> getAllLeagues() throws Exception{
+        return leaguesFromLeagueInfo(getAllLeaguesInfo());
     }
 }
