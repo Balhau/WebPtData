@@ -5,10 +5,22 @@ package org.pub.data.sources.sports.football.soccerway.domain;
  */
 public class Coach extends Person{
 
-    public Coach(
+    public class CoachBuilder extends PersonBuilder{
+        public CoachBuilder(){
+            super();
+        }
+
+        public Coach build(){
+            return new Coach(this.url,this.firstName,this.lastName,this.nacionality,
+                    this.dateOfBirth,this.age,this.birthCountry,this.birthPlace
+                    );
+        }
+    }
+
+    public Coach(String url,
             String firstName,String lastName,String nacionality,
             String dateOfBirth,int age,String birthCountry,String birthPlace){
-        super(firstName,lastName,nacionality,dateOfBirth,age,birthCountry,birthPlace);
+        super(url,firstName,lastName,nacionality,dateOfBirth,age,birthCountry,birthPlace);
 
     }
 }
