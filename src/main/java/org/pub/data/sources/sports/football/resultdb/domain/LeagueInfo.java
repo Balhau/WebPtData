@@ -12,6 +12,11 @@ public class LeagueInfo {
         this.url=url;
     }
 
+    public LeagueInfo(){
+        this.description=null;
+        this.url=null;
+    }
+
     public String getDescription() {
         return description;
     }
