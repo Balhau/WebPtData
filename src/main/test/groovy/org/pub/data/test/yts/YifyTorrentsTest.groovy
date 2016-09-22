@@ -1,6 +1,5 @@
 package groovy.org.pub.data.test.yts
 
-import org.pub.data.sources.piratebay.domain.TorrentInfo
 import org.pub.data.sources.yts.YifyTorrents
 import org.pub.data.sources.yts.domain.TorrentLink
 import org.pub.data.sources.yts.domain.YifyTorrent

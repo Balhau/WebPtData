@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
  * Created by vitorfernandes on 9/4/16.
  */
 public class ScraperPool {
-    public static final int THREAD_POOL_SIZE=20;
+    public static final int THREAD_POOL_SIZE=50;
 
     private static final ExecutorService pool;
 
