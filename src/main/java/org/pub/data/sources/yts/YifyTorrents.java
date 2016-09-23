@@ -4,6 +4,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pub.data.sources.piratebay.domain.TorrentInfo;
+import org.pub.data.sources.yts.domain.Ranking;
 import org.pub.data.sources.yts.domain.TorrentLink;
 import org.pub.data.sources.yts.domain.TorrentMovieData;
 import org.pub.data.sources.yts.domain.YifyTorrent;
@@ -70,6 +71,7 @@ public class YifyTorrents extends AbstractDataSource {
      */
     public YifyTorrent getTorrentFromURL(String url) throws Exception{
         List<TorrentMovieData> torrentLinks = new ArrayList<>();
+        Element a;
         Document doc = DomUtils.get(url).get();
         Element movieInfo=doc.getElementById("movie-info");
         String name=movieInfo.getElementsByClass("hidden-xs").get(0).getElementsByTag("h1").text();
@@ -82,9 +84,26 @@ public class YifyTorrents extends AbstractDataSource {
         }
         Elements ratings = movieInfo.getElementsByClass("rating-row");
         int likes = Integer.parseInt(ratings.get(0).getElementById("movie-likes").text());
-        String rtCritics = ratings.get(1).getElementsByTag("span").get(0).text();
-        String rtAudience = ratings.get(2).getElementsByTag("span").get(0).text();
-        String imdb = ratings.get(3).getElementsByTag("span").get(0).text();
+
+        a=ratings.get(1).getElementsByTag("a").get(0);
+        String rtCriticsValue = ratings.get(1).getElementsByTag("span").get(0).text();
+        String rtCriticsUrl = a.attr("href");
+        String rtCriticsDescription = a.attr("title");
+        Ranking rtCritics = new Ranking(rtCriticsDescription,rtCriticsUrl,rtCriticsValue);
+
+        a=ratings.get(2).getElementsByTag("a").get(0);
+        String rtAudienceValue = ratings.get(2).getElementsByTag("span").get(0).text();
+        String rtAudienceUrl = a.attr("href");
+        String rtAudienceDescription = a.attr("title");
+        Ranking rtAudience = new Ranking(rtAudienceDescription,rtAudienceUrl,rtAudienceValue);
+
+        a=ratings.get(3).getElementsByTag("a").get(0);
+        String imdbValue = ratings.get(3).getElementsByTag("span").get(0).text();
+        String imdbUrl = a.attr("href");
+        String imdbDescription = a.attr("title");
+        Ranking imdb = new Ranking(imdbDescription,imdbUrl,imdbValue);
+
+
         String imageUrl = doc.getElementById("movie-poster").getElementsByTag("img").get(0).attr("src");
         return new YifyTorrent(name,torrentLinks,imdb,rtCritics,rtAudience,likes,year,imageUrl);
     }

@@ -9,15 +9,15 @@ import java.util.List;
 public class YifyTorrent {
     private final String description;
     private final List<TorrentMovieData> torrentLinks;
-    private final String imdb;
-    private final String rottenTomatoesCritics;
-    private final String getRottenTomatoesAudience;
+    private final Ranking imdb;
+    private final Ranking rottenTomatoesCritics;
+    private final Ranking getRottenTomatoesAudience;
     private final int likes;
     private final int year;
     private final String imageURL;
 
-    public YifyTorrent(String description,List<TorrentMovieData> magnetLinks,String imdb,
-                       String rtCritics,String rtAudience,int likes,int year,
+    public YifyTorrent(String description,List<TorrentMovieData> magnetLinks,Ranking imdb,
+                       Ranking rtCritics,Ranking rtAudience,int likes,int year,
                        String imageURL){
         this.description=description;this.torrentLinks=magnetLinks;
         this.imdb=imdb;this.rottenTomatoesCritics=rtCritics;
@@ -33,15 +33,15 @@ public class YifyTorrent {
         return torrentLinks;
     }
 
-    public String getImdb() {
+    public Ranking getImdb() {
         return imdb;
     }
 
-    public String getRottenTomatoesCritics() {
+    public Ranking getRottenTomatoesCritics() {
         return rottenTomatoesCritics;
     }
 
-    public String getGetRottenTomatoesAudience() {
+    public Ranking getGetRottenTomatoesAudience() {
         return getRottenTomatoesAudience;
     }
 
