@@ -118,6 +118,11 @@ public class YifyTorrents extends AbstractDataSource {
         return getTorrentFromURL(link.getUrl());
     }
 
+    /**
+     * @param page
+     * @return
+     * @throws Exception
+     */
     public List<YifyTorrent> getTorrentsFromPage(int page) throws Exception{
         List<YifyTorrent> t = new ArrayList<>();
         List<Future<Optional<YifyTorrent>>> futures=new ArrayList<>();
