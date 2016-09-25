@@ -55,7 +55,7 @@ public class Anacom {
 
     private <T> List<T> processTable(String url,LineProcessor<T> processor) throws Exception{
         List<T> tarifas=new ArrayList<>();
-        Connection con= DomUtils.get(GlobalConfigs.USER_AGENT);
+        Connection con= DomUtils.get(url);
         Document doc=con.get();
         Elements lines=doc.getElementsByTag("tbody").get(0).getElementsByTag("tr");
 
