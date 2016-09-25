@@ -9,11 +9,11 @@
   <name>webPtData</name>
   <url>http://maven.apache.org</url>
 
-  <parent>
+  <!--<parent>
     <groupId>com.balhau.jproject</groupId>
     <artifactId>jproj</artifactId>
     <version>1.0-SNAPSHOT</version>
-  </parent>
+  </parent>-->
 
   <distributionManagement>
       <!-- use the following if you're not using a snapshot version. -->
