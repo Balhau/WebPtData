@@ -1,4 +1,11 @@
 image: maven:3-jdk-8
 
-build:
+clean:
+  script: "mvn clean -B"
+
+compile:
+  script: "mvn compile -B"
+
+install:
   script: "mvn install -B"
+
