@@ -76,7 +76,7 @@
       <groupId>org.codehaus.groovy</groupId>
       <artifactId>groovy-all</artifactId>
       <version>${groovy.version}</version>
-      <!--<scope>test</scope>-->
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
@@ -96,6 +96,8 @@
 		    <version>${surefire.version}</version>
             <configuration>
                 <includes>
+                    <include>**/*Test.java</include>
+                    <include>**/*Spec.java</include>
                     <include>**/*.groovy</include>
                 </includes>
             </configuration>
@@ -118,6 +120,7 @@
         <executions>
          <execution>
             <goals>
+              <!--<goal>addTestSources</goal>-->
               <goal>testCompile</goal>
             </goals>
             <configuration>
