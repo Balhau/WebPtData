@@ -72,21 +72,15 @@ public class Team {
     }
 
     public class TeamBuilder{
-        private List<Player> players;
-        private Coach coach;
+        private List<TeamSeason> teamSeasons;
         private TeamInfo teamInfo;
 
         public TeamBuilder(){
 
         }
 
-        public TeamBuilder Players(List<Player> players){
-            this.players=players;
-            return this;
-        }
-
-        public TeamBuilder Coach(Coach coach){
-            this.coach=coach;
+        public TeamBuilder TeamSeasons(List<TeamSeason> teamSeasons){
+            this.teamSeasons=teamSeasons;
             return this;
         }
 
@@ -96,7 +90,7 @@ public class Team {
         }
 
         public Team build(){
-            return new Team(players,coach,teamInfo);
+            return new Team(teamSeasons,teamInfo);
         }
     }
 
@@ -122,11 +116,10 @@ public class Team {
     }
 
 
-    private final List<Player> players;
-    private final Coach coach;
+    private final List<TeamSeason> teamSeasons;
     private final TeamInfo teamInfo;
 
-    public Team(List<Player> players,Coach coach,TeamInfo teamInfo){
-        this.players=players;this.coach=coach;this.teamInfo=teamInfo;
+    public Team(List<TeamSeason> teamSeasons,TeamInfo teamInfo){
+        this.teamSeasons=teamSeasons;this.teamInfo=teamInfo;
     }
 }

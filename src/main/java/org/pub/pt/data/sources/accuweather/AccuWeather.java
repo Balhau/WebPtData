@@ -101,21 +101,24 @@ public class AccuWeather extends AbstractDataSource {
 		Element statusInfo = doc.getElementsByClass("info").get(5);
 		Elements statisticInfo = doc.getElementsByClass("stats").get(0)
 				.getElementsByTag("li");
-		statisticInfo.get(0).text().split(":")[1].split("%")[0].trim();
+		//statisticInfo.get(0).text().split(":")[1].split("%")[0].trim();
 
 		Weather weather = new Weather();
-		weather.setHumidity(Integer.parseInt(statisticInfo.get(0).text()
+		weather.setHumidity(Integer.parseInt(statisticInfo.get(1).text()
 				.split(":")[1].split("%")[0].trim()));
-		weather.setPressure(Float.parseFloat(statisticInfo.get(1).text()
+		weather.setPressure(Float.parseFloat(statisticInfo.get(2).text()
 				.split(":")[1].split("mb")[0].trim()));
-		weather.setUvindex(Integer.parseInt(statisticInfo.get(2).text()
+		weather.setUvindex(Integer.parseInt(statisticInfo.get(3).text()
 				.split(":")[1].trim()));
 
-		weather.setCloudCover(Integer.parseInt(statisticInfo.get(3).text()
+		weather.setCloudCover(Integer.parseInt(statisticInfo.get(4).text()
 				.split(":")[1].split("%")[0].trim()));
 
-		weather.setCeiling(Integer.parseInt(statisticInfo.get(4).text()
+		weather.setCeiling(Integer.parseInt(statisticInfo.get(5).text()
 				.split(":")[1].split("m")[0].trim()));
+
+		weather.setVisibility(Integer.parseInt(statisticInfo.get(7).text()
+				.split(":")[1].split("km")[0].trim()));
 
 		weather.setStatus(statusInfo.getElementsByClass("cond").get(0).text());
 		weather.setTemperature(Integer.parseInt(statusInfo

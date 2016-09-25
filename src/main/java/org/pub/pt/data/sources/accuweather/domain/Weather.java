@@ -8,6 +8,8 @@ import org.pub.pt.data.sources.domain.AbstractData;
 public class Weather extends AbstractData{
 	
 	private int humidity;
+	private int wind;
+	private int visibility;
 	private float pressure;
 	private int uvindex;
 	private int cloudCover;
@@ -15,8 +17,24 @@ public class Weather extends AbstractData{
 	private int dewPoint;
 	private int temperature;
 	private String status;
-	
-	
+
+
+	public int getVisibility() {
+		return visibility;
+	}
+
+	public void setVisibility(int visibility) {
+		this.visibility = visibility;
+	}
+
+	public int getWind() {
+		return wind;
+	}
+
+	public void setWind(int wind) {
+		this.wind = wind;
+	}
+
 	public int getHumidity() {
 		return humidity;
 	}
