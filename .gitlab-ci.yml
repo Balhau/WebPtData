@@ -1,11 +1,7 @@
 image: maven:3-jdk-8
 
-clean:
-  script: "mvn clean -B"
+build:
+  script: "mvn install -DskipTests=true -B"
 
-compile:
-  script: "mvn compile -B"
-
-install:
-  script: "mvn install -B"
-
+test:
+  script: "mvn test -B"
