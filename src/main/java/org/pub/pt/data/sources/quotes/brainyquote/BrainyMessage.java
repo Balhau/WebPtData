@@ -29,7 +29,7 @@ public class BrainyMessage implements MessageService {
 
         Elements tables = doc.getElementsByTag("table");
 
-        tables.remove(0);tables.remove(0);
+        tables.remove(0);tables.remove(0);tables.remove(0);
 
         return getTopicsFromTables(tables);
     }

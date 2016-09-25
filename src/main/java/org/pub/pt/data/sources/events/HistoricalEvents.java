@@ -4,6 +4,7 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.pub.pt.data.sources.domain.MessageService;
 import org.pub.pt.data.sources.domain.Message;
 import org.pub.pt.data.sources.events.domain.HistoricalEvent;
@@ -82,12 +83,12 @@ public class HistoricalEvents implements MessageService{
     private List<HistoricalEvent> parseDocument(Connection con,int month,int day) throws Exception{
         List<HistoricalEvent> events=new ArrayList<>();
         Document doc=con.get();
-        String textToParse=doc.getElementById("main_text").getElementsByTag("p").get(1).html();
-        String[] eventsToParse=textToParse.split("<br />");
+        Elements eventsLi=doc.getElementsByClass("event-list__item");
 
-        for(String eventToParse : eventsToParse){
-            Optional<HistoricalEvent> event=parseLineEventToHistoricalEvent(eventToParse, month, day);
-            if(event.isPresent()) events.add(event.get());
+        for(Element event : eventsLi){
+            int year=Integer.parseInt(event.getElementsByTag("a").get(0).text().split("BC")[0].split("AC")[0].trim());
+            HistoricalEvent hevent=new HistoricalEvent(day,month,year,event.text());
+            events.add(hevent);
         }
 
         return events;

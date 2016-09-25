@@ -97,7 +97,7 @@ public class Ine extends AbstractDataSource {
 		Connection cn=DomUtils.get(urlData);
     	Document doc=cn.get();
     	String iUrl=doc.select("iframe").get(1).attr("src");
-    	cn=DomUtils.get(INE_BASE+iUrl);
+    	cn=DomUtils.get(iUrl);
     	cn.timeout(5000);
     	cn.header("Referer", urlData);
     	doc=cn.get();

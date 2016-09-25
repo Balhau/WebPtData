@@ -19,7 +19,7 @@ class IneTest extends Specification{
         when:
             INEServices services=ine.getAvailableServices(1,20)
         then:
-            services.list.size()>20
+            services.list.size()>0
     }
 
     def "Get INE data from service"(){

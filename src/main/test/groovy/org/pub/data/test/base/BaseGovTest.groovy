@@ -20,13 +20,13 @@ class BaseGovTest extends Specification{
         when:
             BaseQueryResponse response = base.getAllResults(0,10)
         then:
-            response.getItems().size() == 12
+            response.getItems().size() > 0
     }
 
     def "Get results by adjudicante"(){
         when:
-            BaseQueryResponse baseQuery= base.getAllResults(0,5);
-            BaseQueryResponse byAdjudicante=base.getByAdjudicante(0,5,baseQuery.getItems().get(0).adjudicante)
+            BaseQueryResponse baseQuery = base.getAllResults(0,5);
+            BaseQueryResponse byAdjudicante = base.getByAdjudicante(0,5,baseQuery.getItems().get(1).adjudicante)
         then:
             byAdjudicante.items.size() > 0
     }
