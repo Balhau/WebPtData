@@ -1,5 +1,7 @@
 package org.pub.data.sources.sports.football.soccerway.domain;
 
+import org.pub.pt.data.utilities.Builder;
+
 import java.util.Optional;
 
 /**
@@ -16,7 +18,7 @@ public abstract class Person {
     private final String birthCountry;
     private final String birthPlace;
 
-    public abstract class PersonBuilder{
+    public static abstract class PersonBuilder{
 
         protected String url;
         protected String firstName;
@@ -70,9 +72,6 @@ public abstract class Person {
             this.birthPlace=birthPlace;
             return this;
         }
-
-        public abstract Person build();
-
     }
 
     public Person(String url,

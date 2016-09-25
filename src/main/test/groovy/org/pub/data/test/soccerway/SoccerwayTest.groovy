@@ -21,14 +21,14 @@ class SoccerwayTest extends Specification {
 
     def "Get Coach info"() {
         when:
-            Coach coach = soccerway.getCoach("dummy")
+            Coach coach = soccerway.getCoach("http://pt.soccerway.com/coaches/rui-vitoria/141772/")
         then:
             coach != null
     }
 
     def "Get Player info"() {
         when:
-            Player player = soccerway.getPlayer("dummy")
+            Player player = soccerway.getPlayer("http://pt.soccerway.com/players/ezequiel-matias-schelotto/91348/")
         then:
             player != null
     }

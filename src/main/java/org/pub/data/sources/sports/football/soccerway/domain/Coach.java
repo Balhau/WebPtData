@@ -1,15 +1,18 @@
 package org.pub.data.sources.sports.football.soccerway.domain;
 
+import org.pub.pt.data.utilities.Builder;
+
 /**
  * Created by vitorfernandes on 9/22/16.
  */
 public class Coach extends Person{
 
-    public class CoachBuilder extends PersonBuilder{
+    public static class CoachBuilder extends PersonBuilder implements Builder<Coach> {
         public CoachBuilder(){
             super();
         }
 
+        @Override
         public Coach build(){
             return new Coach(this.url,this.firstName,this.lastName,this.nacionality,
                     this.dateOfBirth,this.age,this.birthCountry,this.birthPlace

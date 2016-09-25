@@ -1,9 +1,10 @@
 package org.pub.data.sources.sports.football.soccerway;
 
-import org.pub.data.sources.sports.football.soccerway.domain.Coach;
-import org.pub.data.sources.sports.football.soccerway.domain.DCompetition;
-import org.pub.data.sources.sports.football.soccerway.domain.Player;
-import org.pub.data.sources.sports.football.soccerway.domain.TeamSeason;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.pub.data.sources.sports.football.soccerway.domain.*;
+import org.pub.global.utils.DomUtils;
 
 import java.util.List;
 
@@ -34,8 +35,37 @@ public class Soccerway {
      * @param url
      * @return
      */
-    public Player getPlayer(String url){
-        return null;
+    public Player getPlayer(String url) throws Exception{
+        Document doc = DomUtils.get(url).get();
+        Elements data=doc.getElementsByClass("content").get(0).getElementsByClass("clearfix").get(1).getElementsByTag("dd");
+        String firstName = data.get(0).text();
+        String lastName = data.get(1).text();
+        String nacionality = data.get(2).text();
+        String bornDate = data.get(3).text();
+        int age = Integer.parseInt(data.get(4).text().trim());
+        String countryBirth = data.get(5).text();
+        String localBirth = data.get(6).text();
+        String position = data.get(7).text();
+        int height = Integer.parseInt(data.get(8).text().split("cm")[0].trim());
+        int weight = Integer.parseInt(data.get(9).text().split("kg")[0].trim());
+        PlayerFoot foot = PlayerFoot.fromDescription(data.get(10).text()).get();
+
+        return ((Player.PlayerBuilder) new Player.PlayerBuilder()
+                .Url(url)
+                .FirstName(firstName)
+                .LastName(lastName)
+                .Nacionality(nacionality)
+                .DateOfBirth(bornDate)
+                .Age(age)
+                .BirthCountry(countryBirth)
+                .BirthPlace(localBirth)
+        )
+                .Position(position)
+                .Height(height)
+                .Weight(weight)
+                .Foot(foot)
+                .build();
+
     }
 
     /**
@@ -43,8 +73,28 @@ public class Soccerway {
      * @param url
      * @return
      */
-    public Coach getCoach(String url){
-        return null;
+    public Coach getCoach(String url) throws Exception{
+
+        Document doc = DomUtils.get(url).get();
+        Elements data=doc.getElementsByClass("content").get(0).getElementsByClass("clearfix").get(1).getElementsByTag("dd");
+        String firstName = data.get(0).text();
+        String lastName = data.get(1).text();
+        String nacionality = data.get(2).text();
+        String bornDate = data.get(3).text();
+        int age = Integer.parseInt(data.get(4).text().trim());
+        String countryBirth = data.get(5).text();
+        String localBirth = data.get(6).text();
+
+        return ((Coach.CoachBuilder) new Coach.CoachBuilder()
+                .Url(url)
+                .FirstName(firstName)
+                .LastName(lastName)
+                .Nacionality(nacionality)
+                .DateOfBirth(bornDate)
+                .Age(age)
+                .BirthCountry(countryBirth)
+                .BirthPlace(localBirth)
+        ).build();
     }
 
     public TeamSeason getTeamSeason(int team, int season){
