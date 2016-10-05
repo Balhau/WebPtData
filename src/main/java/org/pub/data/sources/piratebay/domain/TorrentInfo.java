@@ -6,7 +6,8 @@ package org.pub.data.sources.piratebay.domain;
  */
 public class TorrentInfo {
 
-    private final String name;
+    private final String title;
+    private final String description;
     private final String magnetLink;
     private final String torrentLink;
     private final String date;
@@ -14,16 +15,20 @@ public class TorrentInfo {
     private final int leechers;
 
     public TorrentInfo(
-        String name,String magnetLink,String torrentLink,
+        String title,String description,String magnetLink,String torrentLink,
         String date,int seeders,int leechers
     ){
-        this.name=name;this.magnetLink=magnetLink;
+        this.title=title;this.description=description;this.magnetLink=magnetLink;
         this.torrentLink=torrentLink;this.date=date;
         this.seeders=seeders;this.leechers=leechers;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public String getMagnetLink() {
