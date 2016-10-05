@@ -8,6 +8,8 @@ import org.pub.global.base.ScraperPool;
 import org.pub.global.utils.DomUtils;
 import org.pub.data.sources.piratebay.domain.TorrentInfo;
 import org.pub.pt.data.sources.domain.AbstractDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -22,6 +24,8 @@ import java.util.concurrent.Future;
  */
 public class PirateBay extends AbstractDataSource {
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     class TorrentCallable implements Callable<TorrentInfo>{
         private final String torrentURL;
         public TorrentCallable(String torrentURL){
@@ -31,6 +35,7 @@ public class PirateBay extends AbstractDataSource {
         public TorrentInfo call() throws Exception {
             Document doc = DomUtils.get(torrentURL).get();
             Elements torrentInfo = doc.getElementsByTag("dl").get(1).getElementsByTag("dd");
+
             return new TorrentInfo(
                     doc.getElementsByClass("nfo").get(0).getElementsByTag("pre").text(),
                     doc.getElementsByClass("download").get(0).getElementsByTag("a").get(0).attr("href"),
@@ -83,7 +88,11 @@ public class PirateBay extends AbstractDataSource {
         }
 
         for(Future<TorrentInfo> t : torrentFutures){
-            torrents.add(t.get());
+            try{
+                torrents.add(t.get());
+            }catch (Exception ex){
+                logger.error(ex.getLocalizedMessage());
+            }
         }
 
         return torrents;
