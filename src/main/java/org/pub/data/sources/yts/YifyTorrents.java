@@ -11,6 +11,8 @@ import org.pub.data.sources.yts.domain.YifyTorrent;
 import org.pub.global.base.ScraperPool;
 import org.pub.global.utils.DomUtils;
 import org.pub.pt.data.sources.domain.AbstractDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ import java.util.concurrent.Future;
 public class YifyTorrents extends AbstractDataSource {
 
     class YifyTorrentCallable implements Callable<Optional<YifyTorrent>>{
+        private final Logger logger = LoggerFactory.getLogger(this.getClass());
         private final TorrentLink tlink;
 
         public YifyTorrentCallable(TorrentLink tlink){
@@ -37,6 +40,7 @@ public class YifyTorrents extends AbstractDataSource {
             try{
                 opt=Optional.of(getTorrent(tlink));
             }catch (Exception ex){
+                logger.error(ex.getLocalizedMessage());
                 opt=Optional.empty();
             }
             return opt;
