@@ -1,8 +1,9 @@
+![build status](https://travis-ci.org/Balhau/WebPtData.svg?branch=master)
 #Web PT Data
 
 This project has as a main purpose provide a clean way to get important data from public services of Portuguese government
 and other organizations with civic and public interest in general.
- 
+
 
 ## Open WEB Services for Portuguese public services data.
 
@@ -108,6 +109,3 @@ and other organizations with civic and public interest in general.
 	Here are defined the datatypes used by the SDMX protocol
 * [SDMX Validation Scheme](http://sdmx.org/docs/1_0/SDMXMessage.xsd)
 	Here is defined the structure of a SDMX XML file.
-	
-	
-
