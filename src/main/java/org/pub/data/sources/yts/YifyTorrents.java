@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 /**
  * This is a scrapper for the YIFY yts.ag torrents information
@@ -89,27 +90,23 @@ public class YifyTorrents extends AbstractDataSource {
         Elements ratings = movieInfo.getElementsByClass("rating-row");
         int likes = Integer.parseInt(ratings.get(0).getElementById("movie-likes").text());
 
-        a=ratings.get(1).getElementsByTag("a").get(0);
-        String rtCriticsValue = ratings.get(1).getElementsByTag("span").get(0).text();
-        String rtCriticsUrl = a.attr("href");
-        String rtCriticsDescription = a.attr("title");
-        Ranking rtCritics = new Ranking(rtCriticsDescription,rtCriticsUrl,rtCriticsValue);
-
-        a=ratings.get(2).getElementsByTag("a").get(0);
-        String rtAudienceValue = ratings.get(2).getElementsByTag("span").get(0).text();
-        String rtAudienceUrl = a.attr("href");
-        String rtAudienceDescription = a.attr("title");
-        Ranking rtAudience = new Ranking(rtAudienceDescription,rtAudienceUrl,rtAudienceValue);
-
-        a=ratings.get(3).getElementsByTag("a").get(0);
-        String imdbValue = ratings.get(3).getElementsByTag("span").get(0).text();
-        String imdbUrl = a.attr("href");
-        String imdbDescription = a.attr("title");
-        Ranking imdb = new Ranking(imdbDescription,imdbUrl,imdbValue);
+        List<Ranking> rankings = ratings.stream()
+                .skip(1)
+                .limit(3)
+                .map(this::parseRankingEntry)
+                .collect(Collectors.toList());
 
 
         String imageUrl = doc.getElementById("movie-poster").getElementsByTag("img").get(0).attr("src");
-        return new YifyTorrent(name,torrentLinks,imdb,rtCritics,rtAudience,likes,year,imageUrl);
+        return new YifyTorrent(name,torrentLinks,rankings.get(2),rankings.get(0),rankings.get(1),likes,year,imageUrl);
+    }
+
+    private Ranking parseRankingEntry(Element el){
+        Element a = el.getElementsByTag("a").get(0);
+        String value = el.getElementsByTag("span").get(0).text();
+        String url = a.attr("href");
+        String description = a.attr("title");
+        return new Ranking(value,url,description);
     }
 
     /**

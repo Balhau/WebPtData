@@ -1,4 +1,4 @@
-![build status](https://travis-ci.org/Balhau/WebPtData.svg?branch=master)
+![build status](https://travis-ci.org/Balhau/ereader.svg?branch=master)
 #Web PT Data
 
 This project has as a main purpose provide a clean way to get important data from public services of Portuguese government

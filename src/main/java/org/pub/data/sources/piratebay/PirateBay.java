@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 /**
  * This will scrape the piratebay website, in search for torrent files
@@ -115,14 +116,13 @@ public class PirateBay extends AbstractDataSource {
      */
     public static List<String> getPirateBayProxyList(){
         List<String> proxyList=new ArrayList<>();
-
         try {
             Connection con = DomUtils.get(PIRATEBAY_PROXY_LIST_URL);
             Document doc = con.get();
             Elements proxies = doc.getElementsByAttribute(PIRATEBAY_PROXY_DOM_ATTRIBUTE);
-            for(Element proxy : proxies){
-                proxyList.add(proxy.attr(PIRATEBAY_PROXY_DOM_ATTRIBUTE));
-            }
+            return proxies.stream()
+                    .map(p -> p.attr(PIRATEBAY_PROXY_DOM_ATTRIBUTE))
+                    .collect(Collectors.toList());
         }catch (Exception ex){}
 
         return proxyList;
