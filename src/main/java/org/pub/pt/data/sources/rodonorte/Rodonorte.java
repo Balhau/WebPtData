@@ -3,29 +3,33 @@ package org.pub.pt.data.sources.rodonorte;
 
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
-import com.sun.corba.se.impl.protocol.RequestCanceledException;
 import org.jsoup.Connection;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.pub.global.utils.DomUtils;
-import org.pub.global.utils.ReflectionUtils;
 import org.pub.pt.data.sources.rodonorte.domain.Destination;
 import org.pub.pt.data.sources.rodonorte.domain.Ride;
-import sun.net.www.protocol.http.HttpURLConnection;
 
-import javax.print.Doc;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toSet;
 
 /**
  * This will return the scheduling of bus of a northern portuguese company
  */
 public class Rodonorte {
     private static final String RODONORTE_URL="http://www.rodonorte.pt/";
+    private static final String HORARIOS_PATH="pt/horarios/";
+    private static final String DESTINATION_PATH="plugins/ximyticket/xiMyticket.ajax.php";
+    private static final String DESTINATION_METHOD_NAME="GetStopsRest";
+    private static final String DESTINATION_REST_FLAG="true";
+    private static final String DESTINATION_REST_PARAM="isRest";
+    private static final String RPC_METHOD_PARAM="method";
+    private static final String ORIGIN_PARAM = "origem";
+    private static final String DESTINY_PARAM= "destino";
+
 
     public List<String> getOriginList() throws Exception{
         Connection con = DomUtils.get(RODONORTE_URL+"pt");
@@ -39,27 +43,13 @@ public class Rodonorte {
                 .collect(toList());
     }
 
-    private void hackIntoRestrictedHeaders() throws Exception{
-
-        Field[] fields = HttpURLConnection.class.getDeclaredFields();
-        List<Field> f=Arrays.stream(fields)
-                .filter(fi -> fi.getName() == "restrictedHeaders" || fi.getName() == "restrictedHeaderSet")
-                .collect(toList());
-
-        ReflectionUtils.setStaticValue(f.get(0),new HashSet<>());
-        ReflectionUtils.setStaticValue(f.get(1),new String[]{});
-    }
-
     public List<Destination> getDestinations(String origin) throws Exception {
-        hackIntoRestrictedHeaders();
-        Connection con  = DomUtils.get(RODONORTE_URL+"pt");
-        Connection.Response r = con.execute();
-        con = DomUtils.get(RODONORTE_URL+"plugins/ximyticket/xiMyticket.ajax.php");
+        Connection con = DomUtils.get(RODONORTE_URL+DESTINATION_PATH);
         con.ignoreContentType(true);
-        con.header("Origin","http://www.rodonorte.pt");
-        con.header("X-Requested-With","XMLHttpRequest");
-        con.header("Referer","http://www.rodonorte.pt/pt/");
-        con.data("method","GetStopsRest","isRest","true");
+        con.data(
+                RPC_METHOD_PARAM,DESTINATION_METHOD_NAME,
+                DESTINATION_REST_PARAM,DESTINATION_REST_FLAG
+        );
         Document doc = con.post();
         Map jsonData = new Gson().fromJson(doc.body().text(),Map.class);
         return ((ArrayList<LinkedTreeMap<String,String>>) jsonData.get("data"))
@@ -68,8 +58,34 @@ public class Rodonorte {
                 .collect(toList());
     }
 
+    public List<Ride> getRides(String origin, Destination destination) throws Exception {
+        Connection con = DomUtils.get(RODONORTE_URL+HORARIOS_PATH);
+        con.data(
+                ORIGIN_PARAM,origin,
+                DESTINY_PARAM,destination.getName()
+        );
+        Document doc = con.post();
+        return doc.getElementsByTag("table")
+                .stream()
+                .skip(1)
+                .limit(doc.getElementsByTag("table").size()-2)
+                .map(e -> parseRidesFromTableRow(e,origin,destination))
+                .collect(Collectors.toList());
+    }
+
     private Destination parseDestination(LinkedTreeMap treeMap){
         Destination newDestination=new Destination((Double)treeMap.get("Id"),(String)treeMap.get("Name"));
         return newDestination;
+    }
+
+    private Ride parseRidesFromTableRow(Element row,String origin,Destination destination) {
+        Elements cells = row.getElementsByTag("tr").get(0).getElementsByTag("td");
+        return new Ride(
+                origin,
+                destination.getName(),
+                cells.get(1).text(),
+                cells.get(3).text(),
+                Float.parseFloat(cells.get(5).text().split("€")[1].replace(",","."))
+                );
     }
 }

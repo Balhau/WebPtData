@@ -61,4 +61,24 @@ public class Ride {
         this.dateOrigin=dateOrigin;this.dateArrival=dateArrival;
         this.price=price;
     }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public String getDateOrigin() {
+        return dateOrigin;
+    }
+
+    public String getDateArrival() {
+        return dateArrival;
+    }
+
+    public float getPrice() {
+        return price;
+    }
 }

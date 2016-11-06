@@ -21,6 +21,12 @@ import jdk.nashorn.api.scripting.*;
  *
  */
 public class DomUtils {
+
+	private static final String RESTRICTED_HEADERS_ALLOW="sun.net.http.allowRestrictedHeaders";
+
+	static{
+		System.setProperty(RESTRICTED_HEADERS_ALLOW, "true");
+	}
 	
 	/**
 	 * Convert a table dom element into a {@link TableData} domain object
