@@ -1,4 +1,6 @@
 .settings/
+*log
+.idea/
 .project
 .classpath
 /target
