@@ -8,7 +8,7 @@ import spock.lang.Specification
 /**
  * Created by vitorfernandes on 12/24/16.
  */
-class FedbizOppsTest extends Specification{
+class FedbizOppsTest extends Specification {
     private FedbizOpps fedbizOpps;
 
     def setup(){

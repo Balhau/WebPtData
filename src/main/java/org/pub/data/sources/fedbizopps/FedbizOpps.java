@@ -1,13 +1,11 @@
 package org.pub.data.sources.fedbizopps;
 
-import jdk.nashorn.internal.codegen.CompilerConstants;
 import org.jsoup.Connection;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pub.data.sources.fedbizopps.domain.Opportunity;
 import org.pub.data.sources.fedbizopps.domain.OpportunityDetails;
-import org.pub.global.base.ScraperPool;
 import org.pub.global.utils.DomUtils;
 import org.pub.global.utils.PredicateDictionary;
 
@@ -44,6 +42,8 @@ public class FedbizOpps {
 
         @Override
         public OpportunityDetails call() throws Exception {
+            Connection con = DomUtils.get(url);
+            Document doc = con.get();
 
             return null;
         }
@@ -109,6 +109,7 @@ public class FedbizOpps {
             String agency = row.getElementsByTag("td").get(1).text();
             String type = row.getElementsByTag("td").get(2).text();
             String date = row.getElementsByTag("td").get(3).text();
+
             return new OpportunityFuture(
                     new Opportunity.OpportunityBuilder()
                     .Id(url)
