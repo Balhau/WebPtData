@@ -25,19 +25,23 @@ public class FedbizOpps {
     public static final String INDEX_SEARCH_PATTERN = "index?s=opportunity&mode=list&tab=list&pageID=%s";
     private final ExecutorService pool;
 
-    private final Function<Future<Opportunity>,Opportunity>
-            opportunityFromFuture= (Future<Opportunity> o)
-                    -> {try{o.get();}
-                        catch (Exception ex){return (Opportunity)null;}
-                        return null;
-                        };
+    private final Function<Future<Opportunity>, Opportunity>
+            opportunityFromFuture = (Future<Opportunity> o) -> {
+                Opportunity opportunity;
+                try {
+                    opportunity=o.get();
+                } catch (Exception ex) {
+                    return (Opportunity) null;
+                }
+                return opportunity;
+        };
 
-    class DetailsCallable implements Callable<OpportunityDetails>{
+    class DetailsCallable implements Callable<OpportunityDetails> {
 
         private final String url;
 
-        public DetailsCallable(String url){
-            this.url=url;
+        public DetailsCallable(String url) {
+            this.url = url;
         }
 
         @Override
@@ -49,13 +53,13 @@ public class FedbizOpps {
         }
     }
 
-    class OpportunityFuture implements Future<Opportunity>{
+    class OpportunityFuture implements Future<Opportunity> {
         private final Future<OpportunityDetails> detailsFuture;
         private final Opportunity opportunity;
 
-        public OpportunityFuture(Opportunity opportunity,Future<OpportunityDetails> detailsFuture){
-            this.detailsFuture=detailsFuture;
-            this.opportunity=opportunity;
+        public OpportunityFuture(Opportunity opportunity, Future<OpportunityDetails> detailsFuture) {
+            this.detailsFuture = detailsFuture;
+            this.opportunity = opportunity;
         }
 
         @Override
@@ -90,34 +94,34 @@ public class FedbizOpps {
         }
     }
 
-    public FedbizOpps(ExecutorService pool){
-        this.pool=pool;
+    public FedbizOpps(ExecutorService pool) {
+        this.pool = pool;
     }
 
-    private String buildIndexSearchString(int page){
-        return String.format(FED_BIZ_OPPS_URL+INDEX_SEARCH_PATTERN,page);
+    private String buildIndexSearchString(int page) {
+        return String.format(FED_BIZ_OPPS_URL + INDEX_SEARCH_PATTERN, page);
     }
 
     private Future<Opportunity> parseIndexSearchRowDetails(String urldetails) {
         return null;
     }
 
-    private Future<Opportunity> parseIndexSearchRow(Element row){
-        try{
+    private Future<Opportunity> parseIndexSearchRow(Element row) {
+        try {
             row.getElementsByTag("td").get(0).getElementsByTag("a");
-            String url = FED_BIZ_OPPS_URL+row.getElementsByTag("td").get(0).getElementsByTag("a").attr("href");
+            String url = FED_BIZ_OPPS_URL + row.getElementsByTag("td").get(0).getElementsByTag("a").attr("href");
             String agency = row.getElementsByTag("td").get(1).text();
             String type = row.getElementsByTag("td").get(2).text();
             String date = row.getElementsByTag("td").get(3).text();
 
             return new OpportunityFuture(
                     new Opportunity.OpportunityBuilder()
-                    .Id(url)
-                    .Agency(agency)
-                    .Type(type)
-                    .Date(date).build(), pool.submit(new DetailsCallable(url))
+                            .Id(url)
+                            .Agency(agency)
+                            .Type(type)
+                            .Date(date).build(), pool.submit(new DetailsCallable(url))
             );
-        } catch (Exception ex){
+        } catch (Exception ex) {
             return null;
         }
     }
@@ -125,7 +129,7 @@ public class FedbizOpps {
     private List<Opportunity> parseIndexSearchResults(Document doc) throws Exception {
         List<Opportunity> searchList = new ArrayList<>();
         Elements els = doc.getElementsByClass("list").get(0).getElementsByTag("tr");
-        List<Element> rows =els.subList(1,els.size());
+        List<Element> rows = els.subList(1, els.size());
 
         List<Future<Opportunity>> futures = rows.stream()
                 .map(this::parseIndexSearchRow)
@@ -144,6 +148,7 @@ public class FedbizOpps {
     /**
      * Given a page number this method will return a {@link List} of {@link Opportunity} objects with a bunch of
      * structured information
+     *
      * @param page
      * @return
      * @throws Exception
