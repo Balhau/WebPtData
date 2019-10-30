@@ -19,9 +19,9 @@ import java.util.List;
  */
 public class ChuckNorris extends AbstractDataSource implements MessageService {
 
-    private final String CHUCK_URL_BASE="http://www.chucknorrisfacts.com";
+    private final String CHUCK_URL_BASE="https://chucknorrisfacts.net";
     private final String SEARCH_PATH=CHUCK_URL_BASE+"/search/node/%s%s";
-    private final String PAGINATED_PATH=CHUCK_URL_BASE+"/all-chuck-norris-facts%s";
+    private final String PAGINATED_PATH=CHUCK_URL_BASE+"/facts.php%s";
 
     public ChuckNorris(){
 
@@ -35,9 +35,10 @@ public class ChuckNorris extends AbstractDataSource implements MessageService {
         List<Message> facts=new ArrayList<>();
         Connection cn= DomUtils.get(getPaginatedPath(number));
         Document doc=cn.get();
-        Elements items=doc.getElementsByClass("item-list").get(0).getElementsByTag("a");
+        Elements items = doc.getElementById("content").getElementsByAttributeValueContaining("style","border-top: 1px solid");
         for(Element el : items){
-            facts.add(new Message(el.text(),"Chuck Norris Fact"));
+            String chuckMessage = el.children().get(0).text();
+            facts.add(new Message(chuckMessage,"Chuck Norris Fact"));
         }
         return facts;
     }

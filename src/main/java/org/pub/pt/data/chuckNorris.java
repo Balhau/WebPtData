@@ -9,7 +9,7 @@ import org.pub.pt.data.utilities.Functionals;
 public class chuckNorris {
     public static void main(String[] args) throws Exception{
         ChuckNorris chuckNorris=new ChuckNorris();
-        Functionals.call(chuckNorris.getFacts(1), (a) -> {
+        Functionals.call(chuckNorris.getFacts(2), (a) -> {
             System.out.println(a);
         });
     }
