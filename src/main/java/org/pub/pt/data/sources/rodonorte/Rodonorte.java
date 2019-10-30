@@ -20,7 +20,7 @@ import static java.util.stream.Collectors.toList;
  * This will return the scheduling of bus of a northern portuguese company
  */
 public class Rodonorte {
-    private static final String RODONORTE_URL="http://www.rodonorte.pt/";
+    private static final String RODONORTE_URL="https://www.rodonorte.pt/";
     private static final String HORARIOS_PATH="pt/horarios/";
     private static final String DESTINATION_PATH="plugins/ximyticket/xiMyticket.ajax.php";
     private static final String DESTINATION_METHOD_NAME="GetStopsRest";

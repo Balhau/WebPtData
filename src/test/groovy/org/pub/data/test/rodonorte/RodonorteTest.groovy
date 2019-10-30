@@ -8,7 +8,7 @@ import spock.lang.Specification
 /**
  * Created by vitorfernandes on 11/5/16.
  */
-class RodonorteTest extends Specification{
+class RodonorteTest extends Specification {
     private Rodonorte rodonorte;
 
     def setup(){
