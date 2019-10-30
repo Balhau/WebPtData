@@ -10,7 +10,6 @@ import org.pub.data.sources.piratebay.domain.TorrentInfo;
 import org.pub.pt.data.sources.domain.AbstractDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.net.www.protocol.http.HttpURLConnection;
 
 import java.util.ArrayList;
 import java.util.HashSet;

@@ -8,11 +8,11 @@ import org.pub.pt.data.sources.anacom.domain.TarifaFixo;
 import org.pub.pt.data.sources.anacom.domain.TarifaInternet;
 import org.pub.pt.data.sources.anacom.domain.TarifaMovel;
 import org.pub.pt.data.sources.anacom.domain.TarifaTelevisao;
-import org.pub.global.configs.GlobalConfigs;
 import org.pub.global.utils.DomUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This class will retrieve relevant information from Anacom. <a href="http://www.anacom.pt">Anacom</a> is a portuguese
@@ -25,7 +25,7 @@ public class Anacom {
         T processLine(Element line);
     }
 
-    public static String ANACOM_BASE="http://www.anacom.pt";
+    public static String ANACOM_BASE="https://www.anacom.pt";
     public static String TARIFARIOS_INTERNET=ANACOM_BASE+"/tarifarios/InternetResultadosConsultaTodos.do";
     public static String TARIFARIOS_TELEVISAO=ANACOM_BASE+"/tarifarios/TelevisaoResultadosConsultaTodos.do";
     public static String TARIFARIOS_MOVEL=ANACOM_BASE+"/tarifarios/MovelResultadosConsultaTodos.do";
@@ -60,10 +60,21 @@ public class Anacom {
         Elements lines=doc.getElementsByTag("tbody").get(0).getElementsByTag("tr");
 
         for(Element line : lines){
-            tarifas.add(processor.processLine(line));
+            Optional<T> lineResult;
+
+            try {
+                lineResult = Optional.of(processor.processLine(line));
+            }catch (Exception ex){
+                lineResult=Optional.empty();
+            }
+
+            if(lineResult.isPresent()){
+                tarifas.add(lineResult.get());
+            }
         }
         return tarifas;
     }
+
 
     private TarifaTelevisao getTarifaTelevisao(Element element){
         Elements cells=element.getElementsByTag("td");

@@ -49,7 +49,7 @@ import org.pub.global.utils.DomUtils;
  */
 public class AccuWeather extends AbstractDataSource {
 
-	public static final String SEARCH_WEATHER_URL = "http://www.accuweather.com/en/search-locations";
+	public static final String SEARCH_WEATHER_URL = "https://www.accuweather.com/en/browse-locations";
 
 	/**
 	 * Method that returns a WeatherLocation object. This holds a list of
@@ -63,7 +63,8 @@ public class AccuWeather extends AbstractDataSource {
 	public WeatherLocationList getLocations(String searchPattern)
 			throws Exception {
 		Connection cn = DomUtils.get(SEARCH_WEATHER_URL);
-
+		//Document d = cn.get();
+		//Connection cn = DomUtils.get("https://www.accuweather.com/en/ad/canillo/1113496/weather-forecast/1113496");
 		Document d = cn.data("s", searchPattern, "rn", "3day").post();
 		Elements els = d.getElementsByClass("articles").get(0)
 				.getElementsByTag("h6");
