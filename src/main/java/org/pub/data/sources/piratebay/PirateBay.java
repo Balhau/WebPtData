@@ -36,7 +36,7 @@ public class PirateBay extends AbstractDataSource {
         }
         @Override
         public TorrentInfo call() throws Exception {
-            Document doc = DomUtils.get(torrentURL).get();
+            Document doc = DomUtils.getHTML(torrentURL).get();
             Elements torrentInfo = doc.getElementsByTag("dl").get(1).getElementsByTag("dd");
 
             return new TorrentInfo(title,
@@ -67,7 +67,7 @@ public class PirateBay extends AbstractDataSource {
     }
 
     public List<TorrentInfo> searchTorrents(String query,int page,String order) throws Exception{
-        Connection con = DomUtils.get(buildSearchString(query, page, order));
+        Connection con = DomUtils.getHTML(buildSearchString(query, page, order));
         Document doc = con.get();
         return parseTorrents(doc);
     }
@@ -117,7 +117,7 @@ public class PirateBay extends AbstractDataSource {
     public static List<String> getPirateBayProxyList(){
         List<String> proxyList=new ArrayList<>();
         try {
-            Connection con = DomUtils.get(PIRATEBAY_PROXY_LIST_URL);
+            Connection con = DomUtils.getHTML(PIRATEBAY_PROXY_LIST_URL);
             Document doc = con.get();
             Elements proxies = doc.getElementsByAttribute(PIRATEBAY_PROXY_DOM_ATTRIBUTE);
             return proxies.stream()

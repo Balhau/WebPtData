@@ -32,7 +32,7 @@ public class Rodonorte {
 
 
     public List<String> getOriginList() throws Exception{
-        Connection con = DomUtils.get(RODONORTE_URL+"pt");
+        Connection con = DomUtils.getHTML(RODONORTE_URL+"pt");
         Document page = con.get();
         return page.getElementsByTag("select")
                 .get(2)
@@ -44,7 +44,7 @@ public class Rodonorte {
     }
 
     public List<Destination> getDestinations(String origin) throws Exception {
-        Connection con = DomUtils.get(RODONORTE_URL+DESTINATION_PATH);
+        Connection con = DomUtils.getHTML(RODONORTE_URL+DESTINATION_PATH);
         con.ignoreContentType(true);
         con.data(
                 RPC_METHOD_PARAM,DESTINATION_METHOD_NAME,
@@ -59,7 +59,7 @@ public class Rodonorte {
     }
 
     public List<Ride> getRides(String origin, Destination destination) throws Exception {
-        Connection con = DomUtils.get(RODONORTE_URL+HORARIOS_PATH);
+        Connection con = DomUtils.getHTML(RODONORTE_URL+HORARIOS_PATH);
         con.data(
                 ORIGIN_PARAM,origin,
                 DESTINY_PARAM,destination.getName()

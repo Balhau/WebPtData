@@ -61,7 +61,7 @@ public class YifyTorrents extends AbstractDataSource {
 
     public List<TorrentLink> getTorrentURLs(int page) throws Exception {
         List<TorrentLink> torrentLinks = new ArrayList<>();
-        Document doc= DomUtils.get(getPageURL(page)).get();
+        Document doc= DomUtils.getHTML(getPageURL(page)).get();
         Elements links = doc.getElementsByClass("browse-movie-title");
         for(Element link : links){
             torrentLinks.add(new TorrentLink(link.attr("href"),link.text()));
@@ -77,7 +77,7 @@ public class YifyTorrents extends AbstractDataSource {
     public YifyTorrent getTorrentFromURL(String url) throws Exception{
         List<TorrentMovieData> torrentLinks = new ArrayList<>();
         Element a;
-        Document doc = DomUtils.get(url).get();
+        Document doc = DomUtils.getHTML(url).get();
         Element movieInfo=doc.getElementById("movie-info");
         String name=movieInfo.getElementsByClass("hidden-xs").get(0).getElementsByTag("h1").text();
         int year = Integer.parseInt(movieInfo.getElementsByClass("hidden-xs").get(0).getElementsByTag("h2").get(0).text());

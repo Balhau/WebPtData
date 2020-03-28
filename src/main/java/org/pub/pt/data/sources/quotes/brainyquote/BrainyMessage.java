@@ -24,7 +24,7 @@ public class BrainyMessage implements MessageService {
     public static String BRAINY_AUTHORS=BRAINY_QUOTE_BASE+"/quotes/favorites.html";
 
     public List<Topic> getTopics() throws Exception{
-        Connection con= DomUtils.get(BRAINY_TOPICS);
+        Connection con= DomUtils.getHTML(BRAINY_TOPICS);
         Document doc=con.get();
 
         Elements tables = doc.getElementsByTag("table");
@@ -36,7 +36,7 @@ public class BrainyMessage implements MessageService {
 
     public List<Author> getAuthors() throws Exception{
         List<Author> authors=new ArrayList<>();
-        Connection con = DomUtils.get(BRAINY_AUTHORS);
+        Connection con = DomUtils.getHTML(BRAINY_AUTHORS);
         Document doc = con.get();
         Elements eAuthors=doc.getElementsByClass("bqLn");
         for(Element eauth : eAuthors){
@@ -58,7 +58,7 @@ public class BrainyMessage implements MessageService {
         List<Topic> topics=getTopics();
         String url=buildTopicPageURL(topics, topic, page);
         System.out.println(url);
-        Connection con = DomUtils.get(url);
+        Connection con = DomUtils.getHTML(url);
         Document doc = con.get();
         Elements entries=doc.getElementsByClass("boxyPaddingBig");
         for(Element entry : entries){

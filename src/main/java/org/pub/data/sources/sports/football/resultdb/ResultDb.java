@@ -48,7 +48,7 @@ public class ResultDb {
             String homeResult;
             String awayResult;
             String[] split;
-            Document doc = DomUtils.get(url).data(postdata).post();
+            Document doc = DomUtils.getHTML(url).data(postdata).post();
             Element tblResults = doc.getElementsByClass("results").get(0);
             Elements raux = tblResults.getElementsByTag("tr");
             List<Element> rows = raux.subList(1,raux.size());
@@ -103,7 +103,7 @@ public class ResultDb {
 
     private List<String> getLeagueSeasonsURL(String url) throws Exception{
         List<String> seasonsUrls = new ArrayList<>();
-        Document doc = DomUtils.get(url).get();
+        Document doc = DomUtils.getHTML(url).get();
         Element tblResults = doc.getElementsByClass("results").get(0);
         Elements rows = tblResults.getElementsByTag("tr");
         List<Element> lRows = rows.subList(1,rows.size());
@@ -142,7 +142,7 @@ public class ResultDb {
     }
 
     public List<LeagueInfo> getAllLeaguesInfo() throws Exception{
-        Connection con = DomUtils.get(HOSTNAME);
+        Connection con = DomUtils.getHTML(HOSTNAME);
         Document doc = con.get();
         return parseLeaguesInfoFromDoc(doc);
     }

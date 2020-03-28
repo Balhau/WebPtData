@@ -25,7 +25,7 @@ public class AceStream {
      * @throws Exception
      */
     public List<AceFeed> getAceStopFeeds() throws Exception {
-        Document doc = DomUtils.get(ACE_STOP_BASE).get();
+        Document doc = DomUtils.getHTML(ACE_STOP_BASE).get();
         Elements domFeeds = doc.getElementsByTag("a");
         return domFeeds.stream()
                 .filter(el -> el.attr("href").startsWith("acestream://"))
@@ -35,7 +35,7 @@ public class AceStream {
 
     public List<AceSportsFeed> getAceSportsFeeds() throws Exception {
 
-        Document doc = DomUtils.get(ACE_SPORTS).get();
+        Document doc = DomUtils.getHTML(ACE_SPORTS).get();
         Elements domFeeds = doc.getElementsByTag("tr");
 
         return domFeeds.stream()

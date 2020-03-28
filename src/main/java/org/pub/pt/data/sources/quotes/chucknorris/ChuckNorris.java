@@ -33,7 +33,7 @@ public class ChuckNorris extends AbstractDataSource implements MessageService {
      */
     public List<Message> getFacts(int number) throws Exception{
         List<Message> facts=new ArrayList<>();
-        Connection cn= DomUtils.get(getPaginatedPath(number));
+        Connection cn= DomUtils.getHTML(getPaginatedPath(number));
         Document doc=cn.get();
         Elements items = doc.getElementById("content").getElementsByAttributeValueContaining("style","border-top: 1px solid");
         for(Element el : items){

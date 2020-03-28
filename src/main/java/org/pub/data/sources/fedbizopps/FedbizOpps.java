@@ -46,7 +46,7 @@ public class FedbizOpps {
 
         @Override
         public OpportunityDetails call() throws Exception {
-            Connection con = DomUtils.get(url);
+            Connection con = DomUtils.getHTML(url);
             Document doc = con.get();
 
             return null;
@@ -154,7 +154,7 @@ public class FedbizOpps {
      * @throws Exception
      */
     public List<Opportunity> getOpportunitiesPage(int page) throws Exception {
-        Connection con = DomUtils.get(buildIndexSearchString(page));
+        Connection con = DomUtils.getHTML(buildIndexSearchString(page));
         return parseIndexSearchResults(con.get());
 
     }

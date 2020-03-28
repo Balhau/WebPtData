@@ -49,7 +49,7 @@ public class HistoricalEvents implements MessageService{
      * @return List of historical events
      */
     public List<HistoricalEvent> getEventsByDay(int month,int day) throws Exception{
-        Connection con = DomUtils.get(
+        Connection con = DomUtils.getHTML(
                 String.format(EVENTS_BY_DAY_PATTERN,MONTHS[month-1],day)
         );
 
@@ -67,14 +67,14 @@ public class HistoricalEvents implements MessageService{
     }
 
     public List<HistoricalEvent> getDeathsByDay(int month,int day) throws Exception{
-        Connection con = DomUtils.get(
+        Connection con = DomUtils.getHTML(
                 String.format(DEATHS_BY_DAY_PATTERN,MONTHS[month-1],day)
         );
         return parseDocument(con,month,day);
     }
 
     public List<HistoricalEvent> getBirthdaysByDay(int month,int day) throws Exception{
-        Connection con = DomUtils.get(
+        Connection con = DomUtils.getHTML(
                 String.format(BIRTHDAY_BY_DAY_PATTERN,MONTHS[month-1],day)
         );
         return parseDocument(con,month,day);

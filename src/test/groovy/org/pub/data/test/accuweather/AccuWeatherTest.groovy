@@ -26,6 +26,6 @@ class AccuWeatherTest extends Specification{
 			WeatherLocationList weatherList = weather.getLocations("porto")
 			WeatherLocation loc = weatherList.getWeatherLocationList().get(0);
 		then:
-			weather.getLocation(loc.getLocation()) != null
+			weather.getLocation(loc) != null
 	}
 }

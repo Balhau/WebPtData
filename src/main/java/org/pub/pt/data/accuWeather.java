@@ -23,7 +23,7 @@ public class accuWeather {
 		for(final WeatherLocation wl:weatherList.getWeatherLocationList()){
 			weathers.add(ScraperPool.getPool().submit(new Callable<Weather>() {
 				public Weather call() throws Exception {
-					return accW.getLocation(wl.getLocation());
+					return accW.getLocation(wl);
 				}
 			}));
 		}

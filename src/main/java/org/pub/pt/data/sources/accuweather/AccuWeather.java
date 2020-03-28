@@ -2,13 +2,16 @@ package org.pub.pt.data.sources.accuweather;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 import org.jsoup.Connection;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.pub.pt.data.sources.accuweather.domain.Temperature;
 import org.pub.pt.data.sources.domain.AbstractDataSource;
 import org.pub.pt.data.sources.accuweather.domain.Weather;
 import org.pub.pt.data.sources.accuweather.domain.WeatherLocation;
@@ -49,7 +52,7 @@ import org.pub.global.utils.DomUtils;
  */
 public class AccuWeather extends AbstractDataSource {
 
-	public static final String SEARCH_WEATHER_URL = "https://www.accuweather.com/en/browse-locations";
+	public static final String SEARCH_WEATHER_URL_PATTERN = "http://www.accuweather.com/web-api/autocomplete?query=%s&language=en-us";
 
 	/**
 	 * Method that returns a WeatherLocation object. This holds a list of
@@ -62,27 +65,10 @@ public class AccuWeather extends AbstractDataSource {
 	 */
 	public WeatherLocationList getLocations(String searchPattern)
 			throws Exception {
-		Connection cn = DomUtils.get(SEARCH_WEATHER_URL);
-		//Document d = cn.get();
-		//Connection cn = DomUtils.get("https://www.accuweather.com/en/ad/canillo/1113496/weather-forecast/1113496");
-		Document d = cn.data("s", searchPattern, "rn", "3day").post();
-		Elements els = d.getElementsByClass("articles").get(0)
-				.getElementsByTag("h6");
-
+		String url = String.format(SEARCH_WEATHER_URL_PATTERN,searchPattern);
+		String data = DomUtils.getRawString(url);
 		WeatherLocationList wlist = new WeatherLocationList();
-		ArrayList<WeatherLocation> weatherList = new ArrayList<WeatherLocation>(
-				els.size());
-		WeatherLocation location;
-
-		for (Element el : els) {
-			location = new WeatherLocation(el.getElementsByTag("a").get(0)
-					.attr("href")
-					.replaceAll("weather-forecast", "current-weather"), el
-					.getElementsByTag("em").get(0).text());
-			weatherList.add(location);
-		}
-
-		wlist.setWeatherLocationList(weatherList);
+		wlist.setWeatherLocationList(WeatherLocation.fromJSON(data));
 		return wlist;
 	}
 
@@ -91,41 +77,70 @@ public class AccuWeather extends AbstractDataSource {
 	 * a specific geographic Location. You can find geographic locations by
 	 * invoking the getLocations method
 	 * 
-	 * @param location
+	 * @param WeatherLocation
 	 *            {@link String} Location of the weather to be retrieved
 	 * @return {@link Weather} Domain object representing weather
 	 * @throws Exception Scrapping problems
 	 */
-	public Weather getLocation(String location) throws Exception {
-		Connection cn = DomUtils.get(location);
+	public Weather getLocation(WeatherLocation weatherLocation) throws Exception {
+		String currentWeatherURL = "https://www.accuweather.com/pt/pt/"
+				+weatherLocation.getName()
+				+"/"+weatherLocation.getKey()
+				+"/current-weather/"+weatherLocation.getKey();
+
+		Connection cn = DomUtils.getHTML(currentWeatherURL);
 		Document doc = cn.get();
-		Element statusInfo = doc.getElementsByClass("info").get(5);
-		Elements statisticInfo = doc.getElementsByClass("stats").get(0)
-				.getElementsByTag("li");
-		//statisticInfo.get(0).text().split(":")[1].split("%")[0].trim();
+		List<String> elements = doc.getElementsByClass("details-card card panel").get(0).getElementsByTag("p").stream().map(el -> el.text()).collect(Collectors.toList());
 
 		Weather weather = new Weather();
-		weather.setHumidity(Integer.parseInt(statisticInfo.get(1).text()
+		weather.setHumidity(Integer.parseInt(elements.get(3)
 				.split(":")[1].split("%")[0].trim()));
-		weather.setPressure(Float.parseFloat(statisticInfo.get(2).text()
-				.split(":")[1].split("mb")[0].trim()));
-		weather.setUvindex(Integer.parseInt(statisticInfo.get(3).text()
-				.split(":")[1].trim()));
+		weather.setPressure(Float.parseFloat(elements.get(3)
+				.split(":")[1].split("mb")[0]
+				.split("%")[0]
+				.trim()));
+		weather.setUvindex(Integer.parseInt(
+				elements.get(0)
+						.split(":")[1]
+						.trim()
+						.split(" ")[0]
+						.trim()
+		));
 
-		weather.setCloudCover(Integer.parseInt(statisticInfo.get(4).text()
+		weather.setCloudCover(Integer.parseInt(elements.get(6)
 				.split(":")[1].split("%")[0].trim()));
 
-		weather.setCeiling(Integer.parseInt(statisticInfo.get(5).text()
+		weather.setCeiling(Integer.parseInt(elements.get(8)
 				.split(":")[1].split("m")[0].trim()));
 
-		weather.setVisibility(Integer.parseInt(statisticInfo.get(7).text()
+		weather.setVisibility(Integer.parseInt(elements.get(7)
 				.split(":")[1].split("km")[0].trim()));
 
-		weather.setStatus(statusInfo.getElementsByClass("cond").get(0).text());
-		weather.setTemperature(Integer.parseInt(statusInfo
-				.getElementsByClass("temp").get(0).text().split("°")[0]));
+		weather.setStatus(doc.getElementsByClass("phrase")
+				.get(0)
+				.text()
+		);
+
+		Elements temps = doc.getElementsByClass("temperatures")
+				.get(0)
+				.getElementsByTag("p");
+
+		weather.setTemperature(new Temperature(
+				Float.parseFloat(temps.get(0).text().substring(0,temps.get(0).text().length()-1)),
+				Float.parseFloat(temps.get(1).text().split(" ")[1].substring(0,temps.get(1).text().split(" ")[1].length()-1)),
+				Float.parseFloat(temps.get(2).text().split(" ")[2].substring(0,temps.get(2).text().split(" ")[2].length()-1))
+		));
+
+		//weather.setTemperature(Integer.parseInt(statusInfo//
+				//.getElementsByClass("temp").get(0).text().split("°")[0]));//
 
 		return weather;
 
+	}
+
+	private String buildLocationUrl(WeatherLocation weatherLocation){
+		return "https://www.accuweather.com/pt/pt/"+weatherLocation.getName()
+				+"/"+weatherLocation.getKey()
+				+"/weather-forecast/"+weatherLocation.getKey();
 	}
 }

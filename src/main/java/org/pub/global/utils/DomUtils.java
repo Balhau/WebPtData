@@ -1,9 +1,17 @@
 package org.pub.global.utils;
 
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpHeaders;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -14,6 +22,10 @@ import org.pub.global.domain.TableData;
 import org.pub.global.domain.TableRow;
 
 import jdk.nashorn.api.scripting.*;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 /**
  * Utility class with a bunch of DOM utility methods 
@@ -26,6 +38,34 @@ public class DomUtils {
 
 	static{
 		System.setProperty(RESTRICTED_HEADERS_ALLOW, "true");
+	}
+
+	public static SSLContext getSSLIgnoreCertificatesContext() throws RuntimeException {
+		SSLContext sc;
+		try {
+			// Create a trust manager that does not validate certificate chains
+			TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+				public X509Certificate[] getAcceptedIssuers() {
+					return null;
+				}
+
+				public void checkClientTrusted(X509Certificate[] certs,
+											   String authType) {
+				}
+
+				public void checkServerTrusted(X509Certificate[] certs,
+											   String authType) {
+				}
+			}};
+
+			// Install the all-trusting trust manager
+			sc = SSLContext.getInstance("SSL");
+			sc.init(null, trustAllCerts, new java.security.SecureRandom());
+		}catch (Exception ex){
+			throw new RuntimeException("Error while initializing SSLContext");
+		}
+
+		return sc;
 	}
 	
 	/**
@@ -48,14 +88,50 @@ public class DomUtils {
 		return tb;
 	}
 
+
+	public static String getRawString(String path) throws RuntimeException {
+		try {
+			CloseableHttpClient httpClient = HttpClients.createDefault();
+			try {
+				HttpGet request = new HttpGet( path);
+				// add request headers
+				request.addHeader(HttpHeaders.USER_AGENT, GlobalConfigs.USER_AGENT);
+				request.addHeader(HttpHeaders.ACCEPT,"*/*");
+
+				CloseableHttpResponse response = httpClient.execute(request);
+
+				try {
+					HttpEntity entity = response.getEntity();
+					String data=null;
+					if (entity != null) {
+						data = EntityUtils.toString(entity);
+					}
+					return data;
+
+				} finally {
+					response.close();
+				}
+			} finally {
+				httpClient.close();
+			}
+
+		}catch (Exception ex){
+			throw new RuntimeException("Error getting page",ex);
+		}
+	}
+
 	/**
 	 * Default way to establish a http connection
 	 * @param url
 	 * @return
 	 * @throws Exception
      */
-	public static Connection get(String url) throws Exception {
-		return Jsoup.connect(url).userAgent(GlobalConfigs.USER_AGENT).timeout(GlobalConfigs.CONNECTION_TIMEOUT);
+	public static Connection getHTML(String url) throws Exception {
+		return Jsoup.connect(url)
+				.userAgent(GlobalConfigs.USER_AGENT)
+				.header("accept-content","application/json")
+				.sslSocketFactory(getSSLIgnoreCertificatesContext().getSocketFactory())
+				.timeout(GlobalConfigs.CONNECTION_TIMEOUT);
 	}
 	
 	/**

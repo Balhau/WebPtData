@@ -93,7 +93,7 @@ public class BancoPortugal extends AbstractDataSource{
 	 * @throws Exception in case error is found while parsing data
 	 */
 	public TableData getCategories() throws Exception{
-		Connection cn= DomUtils.get(CATEGORIES_URL);
+		Connection cn= DomUtils.getHTML(CATEGORIES_URL);
 		TableData cl=new TableData();
 		TableRow categorie;
 		Document doc=cn.get();
@@ -146,7 +146,7 @@ public class BancoPortugal extends AbstractDataSource{
 		TableData data=new TableData();
 		TableRow row;
 		String url=buildSeriesDataURL(seriesList, endDate);
-		Connection cn=DomUtils.get(url);
+		Connection cn=DomUtils.getHTML(url);
 		cn.timeout(HTTP_TIMEOUT);
 		Document doc=cn.get();
 		Elements series=doc.getElementsByTag("serie");
@@ -186,7 +186,7 @@ public class BancoPortugal extends AbstractDataSource{
 	public TableData getSeriesForCategorie(String categorieID) throws Exception{
 		TableData data=new TableData();
 		String url=FILTRO_SERIES+categorieID;
-		Connection cn = DomUtils.get(url);
+		Connection cn = DomUtils.getHTML(url);
 		Document doc=cn.get();
 		Elements scripts = doc.getElementsByTag(HtmlTag.SCRIPT);
 		Element scriptData=scripts.get(getSeriesScriptIndex(scripts));

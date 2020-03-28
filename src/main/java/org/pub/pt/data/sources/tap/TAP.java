@@ -68,7 +68,7 @@ public class TAP {
     }
 
     public List<Destination> findPossibleDestinations(String departureCode) throws Exception{
-        Connection con = DomUtils.get(String.format(TAP_SEARCH_DESTINATIONS,departureCode))
+        Connection con = DomUtils.getHTML(String.format(TAP_SEARCH_DESTINATIONS,departureCode))
                 .userAgent(GlobalConfigs.USER_AGENT)
                 .timeout(GlobalConfigs.CONNECTION_TIMEOUT);
 
@@ -105,7 +105,7 @@ public class TAP {
                                          String adults) throws Exception{
         Map<String,List<FlightDetail>> flightWithReturn=new HashMap<>();
         String url=buildSearchPath(origin, destination, departDate, returnDate, adults);
-        Connection con = DomUtils.get(url);
+        Connection con = DomUtils.getHTML(url);
 
         Document doc=con.get();
 

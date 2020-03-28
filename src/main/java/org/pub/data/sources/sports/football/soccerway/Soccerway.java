@@ -1,7 +1,6 @@
 package org.pub.data.sources.sports.football.soccerway;
 
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.pub.data.sources.sports.football.soccerway.domain.*;
 import org.pub.global.utils.DomUtils;
@@ -36,7 +35,7 @@ public class Soccerway {
      * @return
      */
     public Player getPlayer(String url) throws Exception{
-        Document doc = DomUtils.get(url).get();
+        Document doc = DomUtils.getHTML(url).get();
         Elements data=doc.getElementsByClass("content").get(0).getElementsByClass("clearfix").get(1).getElementsByTag("dd");
         String firstName = data.get(0).text();
         String lastName = data.get(1).text();
@@ -75,7 +74,7 @@ public class Soccerway {
      */
     public Coach getCoach(String url) throws Exception{
 
-        Document doc = DomUtils.get(url).get();
+        Document doc = DomUtils.getHTML(url).get();
         Elements data=doc.getElementsByClass("content").get(0).getElementsByClass("clearfix").get(1).getElementsByTag("dd");
         String firstName = data.get(0).text();
         String lastName = data.get(1).text();

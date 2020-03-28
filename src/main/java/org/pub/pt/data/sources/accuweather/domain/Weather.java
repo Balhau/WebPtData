@@ -15,7 +15,7 @@ public class Weather extends AbstractData{
 	private int cloudCover;
 	private int ceiling;
 	private int dewPoint;
-	private int temperature;
+	private Temperature temperature;
 	private String status;
 
 
@@ -71,10 +71,10 @@ public class Weather extends AbstractData{
 	public void setDewPoint(int dewPoint) {
 		this.dewPoint = dewPoint;
 	}
-	public int getTemperature() {
+	public Temperature getTemperature() {
 		return temperature;
 	}
-	public void setTemperature(int temperature) {
+	public void setTemperature(Temperature temperature) {
 		this.temperature = temperature;
 	}
 	public String getStatus() {

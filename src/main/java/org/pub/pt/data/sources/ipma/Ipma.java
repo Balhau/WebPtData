@@ -69,7 +69,7 @@ public class Ipma {
 	 */
 	public List<GeoWeather<?>> getForecastDay(int dayNumber) throws Exception{
 		List<GeoWeather<?>> forecast = new ArrayList<GeoWeather<?>>();
-		Connection seac=DomUtils.get(String.format(FORECAST_DAY_PATTERN,dayNumber));
+		Connection seac=DomUtils.getHTML(String.format(FORECAST_DAY_PATTERN,dayNumber));
 		Document doc=seac
 				.header("Referer", REFERER_SWF_HOST)
 				.get();
@@ -90,7 +90,7 @@ public class Ipma {
 	 */
 	public List<TableData> getSeismicActivity(Date date) throws Exception{
 		List<TableData> seismic=new ArrayList<TableData>();
-		Connection con=DomUtils.get(SYSMOLOGY_URL);
+		Connection con=DomUtils.getHTML(SYSMOLOGY_URL);
 		Calendar cal=Calendar.getInstance();
 		cal.setTime(date);
 		Document doc=con.data(
@@ -118,7 +118,7 @@ public class Ipma {
 	 * @throws Exception if error found while parsing data
 	 */
 	public List<BeachEntry> getBeachEntries() throws Exception{
-		Connection con=DomUtils.get(SEA_STATUS);
+		Connection con=DomUtils.getHTML(SEA_STATUS);
 		Document doc=con.header("Referer",REFERER_SWF_HOST).get();
 		return parseBeachEntries(doc.getElementById("selLocal"));
 	}
@@ -132,7 +132,7 @@ public class Ipma {
 	 */
 	public List<TableData> getBeachInfo(int idBeach) throws Exception{
 		List<TableData> beachInfoList = new ArrayList<TableData>();
-		Connection con=DomUtils.get(BEACH_URL_PATTERN.replaceAll("ID", ""+idBeach));
+		Connection con=DomUtils.getHTML(BEACH_URL_PATTERN.replaceAll("ID", ""+idBeach));
 		Document doc=con.get();
 		Elements tables=doc.getElementsByTag(HtmlTag.TABLE);
 		for(Element table : tables){

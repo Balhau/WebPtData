@@ -10,8 +10,6 @@ import org.pub.data.sources.vimeo.domain.VimeoVideo;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**
@@ -31,7 +29,7 @@ public class Vimeo extends AbstractDataSource{
 
 		@Override
 		public List<String> call() throws Exception {
-			Connection con = DomUtils.get(this.url);
+			Connection con = DomUtils.getHTML(this.url);
 			Document doc = con.get();
 			String description=doc.getElementsByTag("meta").get(7).attr("content");
 			return Arrays.asList(description);
@@ -47,7 +45,7 @@ public class Vimeo extends AbstractDataSource{
 
 		@Override
 		public List<String> call() throws Exception {
-			Connection con = DomUtils.get(this.url);
+			Connection con = DomUtils.getHTML(this.url);
 			Document doc = con.get();
 
 			//Scrapped from htmlpage

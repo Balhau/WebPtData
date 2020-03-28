@@ -57,7 +57,7 @@ public class Ine extends AbstractDataSource {
 	 */
 	public INEServices getAvailableServices(int pageNumber,int itemPerpage) throws Exception{
 		String sURL="http://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_base_dados&bdpagenumber="+pageNumber+"&bdind_por_pagina="+itemPerpage;
-		Connection cn= DomUtils.get(sURL);
+		Connection cn= DomUtils.getHTML(sURL);
 		Document doc=cn.get();
 		return parseTBodyServices(doc.select("table").get(1).select("tbody").get(0));
 	}
@@ -94,10 +94,10 @@ public class Ine extends AbstractDataSource {
 	 * @throws IOException in the case of error while parsing data
 	 */
 	public INEResultData getDataFromService(String urlData) throws Exception{
-		Connection cn=DomUtils.get(urlData);
+		Connection cn=DomUtils.getHTML(urlData);
     	Document doc=cn.get();
     	String iUrl=doc.select("iframe").get(1).attr("src");
-    	cn=DomUtils.get(iUrl);
+    	cn=DomUtils.getHTML(iUrl);
     	cn.timeout(5000);
     	cn.header("Referer", urlData);
     	doc=cn.get();

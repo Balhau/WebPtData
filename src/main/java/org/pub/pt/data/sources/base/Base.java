@@ -58,7 +58,7 @@ public class Base implements MessageService{
 	
 	private BaseQueryResponse getResultsByQuery(int startOffset,int endOffset,String query) throws Exception{
 		List<BaseEntry> entries=new ArrayList<BaseEntry>();
-		Connection con=DomUtils.get(query);
+		Connection con=DomUtils.getHTML(query);
 		con.timeout(GlobalConfigs.CONNECTION_TIMEOUT);
 		Document doc=con.get();
 		int totalElements=Integer.parseInt(doc.getElementsByTag("span").get(2).text());
@@ -71,7 +71,7 @@ public class Base implements MessageService{
 	
 	public List<TableData> getEntryInformationByContractoId(int idEntry) throws Exception{
 		List<TableData> data=new ArrayList<TableData>();
-		Connection con=DomUtils.get(BaseQueryUtils.QUERY_PATTERN_CONTRACT+idEntry);
+		Connection con=DomUtils.getHTML(BaseQueryUtils.QUERY_PATTERN_CONTRACT+idEntry);
 		Document doc=con.get();
 		
 		data.add(DomUtils.tableElementToTableData(doc.getElementsByTag(HtmlTag.TABLE).get(0)));
