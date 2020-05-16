@@ -50,13 +50,24 @@
         <balhau.snapshot>1.0-SNAPSHOT</balhau.snapshot>
         <surefire.version>2.18.1</surefire.version>
         <http.client.version>4.5.10</http.client.version>
+        <pdfbox.version>2.0.19</pdfbox.version>
+        <jackson.version>2.11.0</jackson.version>
     </properties>
 
 
     <dependencies>
-
         <dependency>
-            <!-- jsoup HTML parser library @ http://jsoup.org/ -->
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>${pdfbox.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+        <!-- jsoup HTML parser library @ http://jsoup.org/ -->
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>${jsoup.version}</version>

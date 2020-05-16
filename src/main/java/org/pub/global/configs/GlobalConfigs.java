@@ -7,5 +7,5 @@ package org.pub.global.configs;
  */
 public class GlobalConfigs {
 	public static final String USER_AGENT="MrV";
-	public static final int CONNECTION_TIMEOUT=2*1000;
+	public static final int CONNECTION_TIMEOUT=15*1000;
 }
