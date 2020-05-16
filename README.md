@@ -128,5 +128,5 @@ python --version
 
 ### BaseGov 
 
-A small python script was developed as a first iteration which will help you scrape over [BaseGov.pt][http://www.base.gov.pt] data
+A small python script was developed as a first iteration which will help you scrape over [BaseGov.pt](http://www.base.gov.pt)g data
 
