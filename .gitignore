@@ -7,3 +7,7 @@
 /bin/
 push
 *.iml
+# Ignore csv data files
+*.csv
+# Ignore python .venv directories
+.venv/

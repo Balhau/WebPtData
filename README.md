@@ -109,3 +109,24 @@ and other organizations with civic and public interest in general.
 	Here are defined the datatypes used by the SDMX protocol
 * [SDMX Validation Scheme](http://sdmx.org/docs/1_0/SDMXMessage.xsd)
 	Here is defined the structure of a SDMX XML file.
+
+
+## Scrapper Scripts
+
+Sometimes an api is a bit overkill if you just to tinker quickly with the data. With this in mind was created a new folder called [scripts](scripts) which will hold miscelaneous scripts to help ease the process of scrapping data. 
+
+For those scrips in which is used python you'll need to ensure that python3 is being used. It is also advised to use the traditional
+
+```shell
+virtualenv .venv; source .venv/bin/activate
+```
+
+And ensure that everything is working by validating python version with
+```shell
+python --version
+```
+
+### BaseGov 
+
+A small python script was developed as a first iteration which will help you scrape over [BaseGov.pt](http://www.base.gov.pt) data
+
