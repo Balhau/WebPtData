@@ -103,6 +103,11 @@ public class YifyTorrents extends AbstractDataSource {
         return buildYifyTorrent(name, torrentLinks, rankings, likes, year, imageUrl);
     }
 
+    /**
+     * YiFy ratings are dynamic. In some cases only one others two or even three types of ratings are provided
+     * This switch statement deals with the dynamic nature of ratings
+     * @return
+     */
     private YifyTorrent buildYifyTorrent(String name, List<TorrentMovieData> links, List<Ranking> rankings,
                                          int likes, int year, String imageUrl) {
         switch (rankings.size()) {
