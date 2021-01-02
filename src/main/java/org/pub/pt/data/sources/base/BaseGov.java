@@ -24,9 +24,9 @@ import org.pub.global.utils.DomUtils;
  * @author balhau
  *
  */
-public class Base implements MessageService{
+public class BaseGov implements MessageService{
 	
-	public Base(){
+	public BaseGov(){
 		
 	}
 
@@ -50,6 +50,8 @@ public class Base implements MessageService{
 	}
 	
 	public BaseQueryResponse getByAjudicatario(int startOffset,int endOffset,String adjudicatario) throws Exception{
+		System.out.println(BaseQueryUtils.getByAdjudicario(startOffset, endOffset,
+				adjudicatario));
 		return getResultsByQuery(startOffset, endOffset, 
 				BaseQueryUtils.getByAdjudicario(startOffset, endOffset, 
 						adjudicatario)
@@ -59,7 +61,6 @@ public class Base implements MessageService{
 	private BaseQueryResponse getResultsByQuery(int startOffset,int endOffset,String query) throws Exception{
 		List<BaseEntry> entries=new ArrayList<BaseEntry>();
 		Connection con=DomUtils.getHTML(query);
-		con.timeout(GlobalConfigs.CONNECTION_TIMEOUT);
 		Document doc=con.get();
 		int totalElements=Integer.parseInt(doc.getElementsByTag("span").get(2).text());
 		Elements results=doc.getElementById("resultadosContractos").getElementsByTag(HtmlTag.TR);
@@ -87,7 +88,6 @@ public class Base implements MessageService{
 		if(cells.size()==0){
 			return be;
 		}
-		
 		be.setDescription(cells.get(0).text());
 		be.setPrice(Float.parseFloat(
 				cells.get(1).text().replace(".", "").replace("€","").replace(",", ".").trim())

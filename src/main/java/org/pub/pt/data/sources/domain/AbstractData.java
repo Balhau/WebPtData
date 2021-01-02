@@ -32,7 +32,7 @@ public class AbstractData implements IData{
 	@Override
 	public String toString(){
 		try{
-			return this.toXML();
+			return this.toJSON();
 		}catch(Exception ex){
 			return ex.getMessage();
 		}

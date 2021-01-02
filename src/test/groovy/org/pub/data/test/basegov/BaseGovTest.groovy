@@ -1,6 +1,6 @@
-package org.pub.data.test.base
+package org.pub.data.test.basegov
 
-import org.pub.pt.data.sources.base.Base
+import org.pub.pt.data.sources.base.BaseGov
 import org.pub.pt.data.sources.base.domain.BaseQueryResponse
 import org.pub.pt.data.sources.domain.Message
 import org.pub.global.domain.TableData
@@ -10,46 +10,46 @@ import spock.lang.Specification
  * Created by vitorfernandes on 10/24/15.
  */
 class BaseGovTest extends Specification{
-    private Base base
+    private BaseGov baseGov
 
     def setup(){
-        base=new Base()
+        baseGov=new BaseGov()
     }
 
     def "Get all paged results"(){
         when:
-            BaseQueryResponse response = base.getAllResults(0,10)
+            BaseQueryResponse response = baseGov.getAllResults(0,10)
         then:
             response.getItems().size() > 0
     }
 
     def "Get results by adjudicante"(){
         when:
-            BaseQueryResponse baseQuery = base.getAllResults(0,5);
-            BaseQueryResponse byAdjudicante = base.getByAdjudicante(0,5,baseQuery.getItems().get(1).adjudicante)
+            BaseQueryResponse baseQuery = baseGov.getAllResults(0,5);
+            BaseQueryResponse byAdjudicante = baseGov.getByAdjudicante(0,5,baseQuery.getItems().get(0).adjudicante)
         then:
             byAdjudicante.items.size() > 0
     }
 
     def "Get results by adjudicatario"(){
         when:
-            BaseQueryResponse baseQuery = base.getAllResults(0,5);
-            BaseQueryResponse byAdjudicatario = base.getByAjudicatario(0,5,baseQuery.getItems().get(0).adjudicatario)
+            BaseQueryResponse baseQuery = baseGov.getAllResults(0,5);
+            BaseQueryResponse byAdjudicatario = baseGov.getByAjudicatario(0,5,baseQuery.getItems().get(0).adjudicatario)
         then:
             byAdjudicatario.items.size() > 0
     }
 
     def "Get contract information"(){
         when:
-            BaseQueryResponse baseQuery = base.getAllResults(0,5);
-            List<TableData> contractInfo=base.getEntryInformationByContractoId(baseQuery.items.get(0).id)
+            BaseQueryResponse baseQuery = baseGov.getAllResults(0,5);
+            List<TableData> contractInfo=baseGov.getEntryInformationByContractoId(baseQuery.items.get(0).id)
         then:
             contractInfo.size() > 0
     }
 
     def "Get message service text"(){
         when:
-            Message message=base.getMessage();
+            Message message=baseGov.getMessage();
         then:
             message!=null
             message.message!=null && message.source!=null
