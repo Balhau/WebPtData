@@ -30,7 +30,7 @@ class YifyTorrentsTest extends Specification {
         then:
         //The torrent should have information
         yifyTorrent != null
-        assert yifyTorrent.getRottenTomatoesAudience != null
+        assert yifyTorrent.getImdb() != null
     }
 
     def "Get torrents from page"() {
