@@ -9,12 +9,12 @@ public class AceSportsFeed {
     private String language;
     private List<AceFeed> feeds;
 
-    public AceSportsFeed(List<AceFeed> feeds,String name,String date,String channel,String language){
-        this.channel=channel;
-        this.name=name;
-        this.date=date;
-        this.feeds=feeds;
-        this.language=language;
+    public AceSportsFeed(List<AceFeed> feeds, String name, String date, String channel, String language) {
+        this.channel = channel;
+        this.name = name;
+        this.date = date;
+        this.feeds = feeds;
+        this.language = language;
     }
 
     public String getName() {

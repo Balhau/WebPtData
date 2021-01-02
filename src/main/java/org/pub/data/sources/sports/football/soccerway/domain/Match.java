@@ -5,7 +5,7 @@ import org.pub.data.sources.sports.football.soccerway.domain.events.MatchEvent;
 import java.util.List;
 
 /**
- * Created by vitorfernandes on 9/24/16.
+ * Created by balhau on 9/24/16.
  */
 public class Match {
     private final Team home;
@@ -14,10 +14,12 @@ public class Match {
     private final int homeScore;
     private final int awayScore;
 
-    public Match(Team home,Team away,List<MatchEvent> events,int homeScore,int awayScore){
-        this.home=home;this.away=away;
-        this.events=events;this.homeScore=homeScore;
-        this.awayScore=awayScore;
+    public Match(Team home, Team away, List<MatchEvent> events, int homeScore, int awayScore) {
+        this.home = home;
+        this.away = away;
+        this.events = events;
+        this.homeScore = homeScore;
+        this.awayScore = awayScore;
     }
 
     public Team getHome() {

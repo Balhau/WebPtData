@@ -2,7 +2,7 @@ package org.pub.data.sources.sports.football.resultdb.domain;
 
 /**
  * Football match result domain object
- * Created by vitorfernandes on 9/21/16.
+ * Created by balhau on 9/21/16.
  */
 public class Result {
     private final String date;
@@ -11,12 +11,12 @@ public class Result {
     private final int pointAway;
     private final int pointHome;
 
-    public Result(String date,String homeTeam,String awayTeam,int pointHome,int pointAway){
-        this.date=date;
-        this.awayTeam=awayTeam;
-        this.homeTeam=homeTeam;
-        this.pointAway=pointAway;
-        this.pointHome=pointHome;
+    public Result(String date, String homeTeam, String awayTeam, int pointHome, int pointAway) {
+        this.date = date;
+        this.awayTeam = awayTeam;
+        this.homeTeam = homeTeam;
+        this.pointAway = pointAway;
+        this.pointHome = pointHome;
     }
 
     public int getPointHome() {

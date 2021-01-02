@@ -3,12 +3,11 @@ package org.pub.data.sources.sports.football.soccerway.domain;
 import java.util.List;
 
 /**
- *
- * Created by vitorfernandes on 9/22/16.
+ * Created by balhau on 9/22/16.
  */
 public class Team {
 
-    public class TeamInfoBuilder{
+    public class TeamInfoBuilder {
         private int founded;
         private String address;
         private String country;
@@ -18,83 +17,83 @@ public class Team {
         private String city;
         private int stadiumCapacity;
 
-        public TeamInfoBuilder(){
+        public TeamInfoBuilder() {
 
         }
 
-        public TeamInfoBuilder Founded(int founded){
-            this.founded=founded;
+        public TeamInfoBuilder Founded(int founded) {
+            this.founded = founded;
             return this;
         }
 
-        public TeamInfoBuilder Address(String address){
-            this.address=address;
+        public TeamInfoBuilder Address(String address) {
+            this.address = address;
             return this;
         }
 
-        public TeamInfoBuilder Country(String country){
-            this.country=country;
+        public TeamInfoBuilder Country(String country) {
+            this.country = country;
             return this;
         }
 
-        public TeamInfoBuilder Phone(String phone){
-            this.phone=phone;
+        public TeamInfoBuilder Phone(String phone) {
+            this.phone = phone;
             return this;
         }
 
-        public TeamInfoBuilder Fax(String fax){
-            this.fax=fax;
+        public TeamInfoBuilder Fax(String fax) {
+            this.fax = fax;
             return this;
         }
 
-        public TeamInfoBuilder Email(String email){
-            this.email=email;
+        public TeamInfoBuilder Email(String email) {
+            this.email = email;
             return this;
         }
 
-        public TeamInfoBuilder City(String city){
-            this.city=city;
+        public TeamInfoBuilder City(String city) {
+            this.city = city;
             return this;
         }
 
-        public TeamInfoBuilder StadiumCapacity(int stadiumCapacity){
-            this.stadiumCapacity=stadiumCapacity;
+        public TeamInfoBuilder StadiumCapacity(int stadiumCapacity) {
+            this.stadiumCapacity = stadiumCapacity;
             return this;
         }
 
-        public TeamInfo build(){
+        public TeamInfo build() {
             return new TeamInfo(
-                    founded,address,country,phone,
-                    fax,email,city,stadiumCapacity
+                    founded, address, country, phone,
+                    fax, email, city, stadiumCapacity
             );
         }
 
     }
 
-    public class TeamBuilder{
+    public class TeamBuilder {
         private List<TeamSeason> teamSeasons;
         private TeamInfo teamInfo;
 
-        public TeamBuilder(){
+        public TeamBuilder() {
 
         }
 
-        public TeamBuilder TeamSeasons(List<TeamSeason> teamSeasons){
-            this.teamSeasons=teamSeasons;
+        public TeamBuilder TeamSeasons(List<TeamSeason> teamSeasons) {
+            this.teamSeasons = teamSeasons;
             return this;
         }
 
-        public TeamBuilder TeamInfo(TeamInfo teamInfo){
-            this.teamInfo=teamInfo;
+        public TeamBuilder TeamInfo(TeamInfo teamInfo) {
+            this.teamInfo = teamInfo;
             return this;
         }
 
-        public Team build(){
-            return new Team(teamSeasons,teamInfo);
+        public Team build() {
+            return new Team(teamSeasons, teamInfo);
         }
     }
 
-    public class TeamInfo{
+    public class TeamInfo {
         private final int founded;
         private final String address;
         private final String country;
@@ -105,13 +104,17 @@ public class Team {
         private final int stadiumCapacity;
 
         public TeamInfo(
-                int founded,String address,String country,String phone,
-                String fax,String email,String city,int stadiumCapacity
-        ){
-            this.founded=founded;this.address=address;
-            this.country=country;this.phone=phone;
-            this.fax=fax;this.email=email;this.city=city;
-            this.stadiumCapacity=stadiumCapacity;
+                int founded, String address, String country, String phone,
+                String fax, String email, String city, int stadiumCapacity
+        ) {
+            this.founded = founded;
+            this.address = address;
+            this.country = country;
+            this.phone = phone;
+            this.fax = fax;
+            this.email = email;
+            this.city = city;
+            this.stadiumCapacity = stadiumCapacity;
         }
     }
 
@@ -119,7 +122,8 @@ public class Team {
     private final List<TeamSeason> teamSeasons;
     private final TeamInfo teamInfo;
 
-    public Team(List<TeamSeason> teamSeasons,TeamInfo teamInfo){
-        this.teamSeasons=teamSeasons;this.teamInfo=teamInfo;
+    public Team(List<TeamSeason> teamSeasons, TeamInfo teamInfo) {
+        this.teamSeasons = teamSeasons;
+        this.teamInfo = teamInfo;
     }
 }

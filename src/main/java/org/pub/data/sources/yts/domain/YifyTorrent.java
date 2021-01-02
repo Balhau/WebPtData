@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * Domain object for the YIFY torrent data information
- * Created by vitorfernandes on 9/4/16.
+ * Created by balhau on 9/4/16.
  */
 public class YifyTorrent {
     private final String description;
@@ -16,13 +16,17 @@ public class YifyTorrent {
     private final int year;
     private final String imageURL;
 
-    public YifyTorrent(String description,List<TorrentMovieData> magnetLinks,Ranking imdb,
-                       Ranking rtCritics,Ranking rtAudience,int likes,int year,
-                       String imageURL){
-        this.description=description;this.torrentLinks=magnetLinks;
-        this.imdb=imdb;this.rottenTomatoesCritics=rtCritics;
-        this.getRottenTomatoesAudience=rtAudience;this.likes=likes;
-        this.year=year;this.imageURL=imageURL;
+    public YifyTorrent(String description, List<TorrentMovieData> magnetLinks, Ranking imdb,
+                       Ranking rtCritics, Ranking rtAudience, int likes, int year,
+                       String imageURL) {
+        this.description = description;
+        this.torrentLinks = magnetLinks;
+        this.imdb = imdb;
+        this.rottenTomatoesCritics = rtCritics;
+        this.getRottenTomatoesAudience = rtAudience;
+        this.likes = likes;
+        this.year = year;
+        this.imageURL = imageURL;
     }
 
     public String getDescription() {

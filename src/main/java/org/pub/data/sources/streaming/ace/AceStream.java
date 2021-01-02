@@ -14,13 +14,15 @@ import java.util.stream.Collectors;
  * This class will give us a set of calls to retrieve acestream links
  */
 public class AceStream {
-    public static final String ACE_STOP_BASE="https://acesoplisting.in/";
+    public static final String ACE_STOP_BASE = "https://acesoplisting.in/";
     public static final String ACE_SPORTS = "http://acesports.tk/";
 
-    public AceStream(){}
+    public AceStream() {
+    }
 
     /**
      * This call will retrieve all the feeds presented in the ACE_STOP_BASE feed
+     *
      * @return List of {@link AceFeed} elements
      * @throws Exception
      */
@@ -29,7 +31,7 @@ public class AceStream {
         Elements domFeeds = doc.getElementsByTag("a");
         return domFeeds.stream()
                 .filter(el -> el.attr("href").startsWith("acestream://"))
-                .map( el -> new AceFeed(el.attr("href"),el.attr("title")))
+                .map(el -> new AceFeed(el.attr("href"), el.attr("title")))
                 .collect(Collectors.toList());
     }
 
@@ -39,12 +41,12 @@ public class AceStream {
         Elements domFeeds = doc.getElementsByTag("tr");
 
         return domFeeds.stream()
-                .filter(element -> element.getElementsByTag("td").size()==5)
+                .filter(element -> element.getElementsByTag("td").size() == 5)
                 .map(this::sportAceFeedFromRow)
                 .collect(Collectors.toList());
     }
 
-    private  AceSportsFeed sportAceFeedFromRow(Element row){
+    private AceSportsFeed sportAceFeedFromRow(Element row) {
 
         Elements elements = row.getElementsByTag("td");
         String name = elements.get(0).text();
@@ -54,11 +56,11 @@ public class AceStream {
         Elements domFeeds = elements.get(4).getElementsByTag("a");
 
         List<AceFeed> feeds = domFeeds.stream()
-                .map(el -> new AceFeed(el.attr("href"),el.text()))
+                .map(el -> new AceFeed(el.attr("href"), el.text()))
                 .collect(Collectors.toList());
 
         return new AceSportsFeed(
-                feeds,name,date,channel,language
+                feeds, name, date, channel, language
         );
     }
 }

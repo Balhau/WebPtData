@@ -7,9 +7,9 @@ public class AceFeed {
     private final String url;
     private final String description;
 
-    public AceFeed(String url,String description){
-        this.description=description;
-        this.url=url;
+    public AceFeed(String url, String description) {
+        this.description = description;
+        this.url = url;
     }
 
     public String getUrl() {

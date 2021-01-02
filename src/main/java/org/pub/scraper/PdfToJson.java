@@ -20,20 +20,21 @@ import java.util.stream.Collectors;
 public class PdfToJson {
     private static final String FILE_NAME = "/Users/vitorfernandes/Documents/corona.pdf";
 
-    public static class PdfLine{
+    public static class PdfLine {
         public String line;
-        public PdfLine(String line){
-            this.line=line;
+
+        public PdfLine(String line) {
+            this.line = line;
         }
     }
 
-    public static class PdfContent{
+    public static class PdfContent {
         public List<PdfLine> lines;
-        public PdfContent(List<PdfLine> lines){
-            this.lines=lines;
+
+        public PdfContent(List<PdfLine> lines) {
+            this.lines = lines;
         }
     }
-
 
 
     public static void main(String[] args) throws Exception {
@@ -56,7 +57,7 @@ public class PdfToJson {
                         .map(l -> new PdfLine(l)).collect(Collectors.toList())
         );
 
-        ObjectMapper mapper =  new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper();
         System.out.println(mapper.writeValueAsString(content));
 
     }

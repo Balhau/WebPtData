@@ -11,7 +11,12 @@ import org.pub.global.utils.PredicateDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Callable;
+import java.util.concurrent.TimeoutException;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -27,14 +32,14 @@ public class FedbizOpps {
 
     private final Function<Future<Opportunity>, Opportunity>
             opportunityFromFuture = (Future<Opportunity> o) -> {
-                Opportunity opportunity;
-                try {
-                    opportunity=o.get();
-                } catch (Exception ex) {
-                    return (Opportunity) null;
-                }
-                return opportunity;
-        };
+        Opportunity opportunity;
+        try {
+            opportunity = o.get();
+        } catch (Exception ex) {
+            return (Opportunity) null;
+        }
+        return opportunity;
+    };
 
     class DetailsCallable implements Callable<OpportunityDetails> {
 
