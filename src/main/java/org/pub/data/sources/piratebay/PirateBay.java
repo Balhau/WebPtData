@@ -49,8 +49,7 @@ public class PirateBay extends AbstractDataSource {
     /**
      * This site will retrieve a list of possible pirateBay proxies
      */
-    private static final String PIRATEBAY_PROXY_LIST_URL="https://thepiratebay-proxylist.org/";
-    private static final String PIRATEBAY_PROXY_DOM_ATTRIBUTE="data-domain";
+    private static final String PIRATEBAY_PROXY_LIST_URL="https://thepiratebayproxylist.se/";
     private static final String PIRATEBAY_SEARCH_PATH="/s/?q=%s&page=%s&orderby=%s";
 
     public static final String UNORDERED="99";
@@ -63,7 +62,7 @@ public class PirateBay extends AbstractDataSource {
     }
 
     public PirateBay(){
-        this.url="https://"+PIRATEBAY_PROXY_LIST.get((int)Math.floor(Math.random()*PIRATEBAY_PROXY_LIST.size()));
+        this.url=PIRATEBAY_PROXY_LIST.get((int)Math.floor(Math.random()*PIRATEBAY_PROXY_LIST.size()));
     }
 
     public List<TorrentInfo> searchTorrents(String query,int page,String order) throws Exception{
@@ -119,9 +118,10 @@ public class PirateBay extends AbstractDataSource {
         try {
             Connection con = DomUtils.getHTML(PIRATEBAY_PROXY_LIST_URL);
             Document doc = con.get();
-            Elements proxies = doc.getElementsByAttribute(PIRATEBAY_PROXY_DOM_ATTRIBUTE);
+            Elements proxies = doc.getElementsByTag("tbody").get(0).getElementsByAttribute("href");
             return proxies.stream()
-                    .map(p -> p.attr(PIRATEBAY_PROXY_DOM_ATTRIBUTE))
+                    .map(p -> p.attr("href"))
+                    .skip(1)
                     .collect(Collectors.toList());
         }catch (Exception ex){
             return proxyList;

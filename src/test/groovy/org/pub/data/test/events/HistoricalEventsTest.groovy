@@ -6,51 +6,51 @@ import org.pub.pt.data.sources.events.domain.HistoricalEvent
 import spock.lang.Specification
 
 /**
- * Created by vitorfernandes on 11/7/15.
+ * Created by balhau on 11/7/15.
  */
-class HistoricalEventsTest extends Specification{
+class HistoricalEventsTest extends Specification {
     private HistoricalEvents historicalEvents;
 
-    def setup(){
-        historicalEvents=new HistoricalEvents();
+    def setup() {
+        historicalEvents = new HistoricalEvents();
     }
 
-    def "Get Events for 1 January"(){
+    def "Get Events for 1 January"() {
         when:
-            List<HistoricalEvent> events=historicalEvents.getEventsByDay(1,1)
+        List<HistoricalEvent> events = historicalEvents.getEventsByDay(1, 1)
         then:
-            events.size() > 0
+        events.size() > 0
     }
 
-    def "Get Birthdays for 1 December"(){
+    def "Get Birthdays for 1 December"() {
         when:
-            List<HistoricalEvent> birthdays=historicalEvents.getBirthdaysByDay(12,1);
+        List<HistoricalEvent> birthdays = historicalEvents.getBirthdaysByDay(12, 1);
         then:
-            birthdays.size() > 0
+        birthdays.size() > 0
     }
 
-    def "Get event message"(){
+    def "Get event message"() {
         when:
-            Message historicalMessage = historicalEvents.getMessage()
+        Message historicalMessage = historicalEvents.getMessage()
         then:
-            historicalMessage!=null
-            historicalMessage.message!=null
-            historicalMessage.source!=null
+        historicalMessage != null
+        historicalMessage.message != null
+        historicalMessage.source != null
 
     }
 
-    def "Get deaths for 5 of november"(){
+    def "Get deaths for 5 of november"() {
         when:
-            List<HistoricalEvent> deaths= historicalEvents.getDeathsByDay(11,5)
+        List<HistoricalEvent> deaths = historicalEvents.getDeathsByDay(11, 5)
         then:
-            deaths.size()>0
+        deaths.size() > 0
     }
 
-    def "Get today events"(){
+    def "Get today events"() {
         when:
-            List<HistoricalEvent> eventsToday=historicalEvents.getTodayEvents();
+        List<HistoricalEvent> eventsToday = historicalEvents.getTodayEvents();
         then:
-            eventsToday.size()>0
+        eventsToday.size() > 0
     }
 
 }

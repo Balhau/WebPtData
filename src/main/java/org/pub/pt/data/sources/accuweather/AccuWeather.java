@@ -141,9 +141,6 @@ public class AccuWeather extends AbstractDataSource {
                         ))
         ));
 
-        //weather.setTemperature(Integer.parseInt(statusInfo//
-        //.getElementsByClass("temp").get(0).text().split("°")[0]));//
-
         return weather;
 
     }

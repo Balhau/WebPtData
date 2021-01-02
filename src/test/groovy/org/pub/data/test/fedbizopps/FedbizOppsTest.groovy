@@ -6,20 +6,20 @@ import org.pub.global.base.ScraperPool
 import spock.lang.Specification
 
 /**
- * Created by vitorfernandes on 12/24/16.
+ * Created by balhau on 12/24/16.
  */
 class FedbizOppsTest extends Specification {
     private FedbizOpps fedbizOpps;
 
-    def setup(){
+    def setup() {
         fedbizOpps = new FedbizOpps(ScraperPool.getPool());
     }
 
-    def "Get page 1 of search results"(){
+    def "Get page 1 of search results"() {
         int page = 1
         when:
-            List<Opportunity> opportunities = fedbizOpps.getOpportunitiesPage(page);
+        List<Opportunity> opportunities = fedbizOpps.getOpportunitiesPage(page);
         then:
-            opportunities.size()!=0
+        opportunities.size() != 0
     }
 }

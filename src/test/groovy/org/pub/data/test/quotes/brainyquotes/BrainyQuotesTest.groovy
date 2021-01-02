@@ -7,44 +7,44 @@ import org.pub.pt.data.sources.quotes.brainyquote.domain.Topic
 import spock.lang.Specification
 
 /**
- * Created by vitorfernandes on 10/25/15.
+ * Created by balhau on 10/25/15.
  */
-class BrainyQuotesTest extends Specification{
+class BrainyQuotesTest extends Specification {
 
     private BrainyMessage brainyQuote
 
-    def setup(){
-        brainyQuote=new BrainyMessage()
+    def setup() {
+        brainyQuote = new BrainyMessage()
     }
 
-    def "Get brainyquote topics"(){
+    def "Get brainyquote topics"() {
         when:
-            List<Topic> topics = brainyQuote.getTopics()
+        List<Topic> topics = brainyQuote.getTopics()
         then:
-            topics!=null && topics.size()>0
+        topics != null && topics.size() > 0
     }
 
-    def "Get brainyquote quotes from topic"(){
+    def "Get brainyquote quotes from topic"() {
         when:
-            List<Topic> topics = brainyQuote.getTopics()
-            List<Message> quotes=brainyQuote.getQuotes(topics.get(0).name,1)
+        List<Topic> topics = brainyQuote.getTopics()
+        List<Message> quotes = brainyQuote.getQuotes(topics.get(0).name, 1)
         then:
-            quotes!=null && quotes.size()>0
+        quotes != null && quotes.size() > 0
     }
 
-    def "Get brainyquote quotes and throw exception when invalid page is provided"(){
+    def "Get brainyquote quotes and throw exception when invalid page is provided"() {
         when:
-            List<Topic> topics = brainyQuote.getTopics()
-            List<Message> quotes=brainyQuote.getQuotes(topics.get(0),-1)
+        List<Topic> topics = brainyQuote.getTopics()
+        List<Message> quotes = brainyQuote.getQuotes(topics.get(0), -1)
         then:
-            def e = thrown(Exception)
-            e!=null
+        def e = thrown(Exception)
+        e != null
     }
 
-    def "Get brainyquote author list"(){
+    def "Get brainyquote author list"() {
         when:
-            List<Author> authors = brainyQuote.getAuthors()
+        List<Author> authors = brainyQuote.getAuthors()
         then:
-            authors != null && authors.size() > 0
+        authors != null && authors.size() > 0
     }
 }

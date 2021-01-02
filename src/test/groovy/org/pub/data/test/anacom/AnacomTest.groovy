@@ -9,41 +9,41 @@ import spock.lang.Specification
 
 /**
  * Tests to the anacom services
- * Created by vitorfernandes on 10/24/15.
+ * Created by balhau on 10/24/15.
  */
-class AnacomTest extends Specification{
+class AnacomTest extends Specification {
     private Anacom anacom
 
     def setup() {
         anacom = new Anacom()
     }
 
-    def "Retrieve the internet services"(){
+    def "Retrieve the internet services"() {
         when:
-            List<TarifaInternet> internet=anacom.getTarifariosInternet()
+        List<TarifaInternet> internet = anacom.getTarifariosInternet()
         then:
-            internet.size() > 0
+        internet.size() > 0
     }
 
-    def "Retrieve the mobile services"(){
+    def "Retrieve the mobile services"() {
         when:
-            List<TarifaMovel> movel = anacom.getTarifariosMovel()
+        List<TarifaMovel> movel = anacom.getTarifariosMovel()
         then:
-            movel.size() > 0
+        movel.size() > 0
     }
 
-    def "Retrieve the not so mobile services"(){
+    def "Retrieve the not so mobile services"() {
         when:
-            List<TarifaFixo> fixo = anacom.getTarifariosFixo()
+        List<TarifaFixo> fixo = anacom.getTarifariosFixo()
         then:
-            fixo.size() > 0
+        fixo.size() > 0
     }
 
-    def "Retrive television services"(){
+    def "Retrive television services"() {
         when:
-            List<TarifaTelevisao> televisao = anacom.getTarifariosTelevisao()
+        List<TarifaTelevisao> televisao = anacom.getTarifariosTelevisao()
         then:
-            televisao.size() > 0
+        televisao.size() > 0
     }
 
 }

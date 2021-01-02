@@ -6,34 +6,34 @@ import org.pub.data.sources.sports.football.resultdb.domain.LeagueInfo
 import spock.lang.Specification
 
 /**
- * Created by vitorfernandes on 9/21/16.
+ * Created by balhau on 9/21/16.
  */
-class ResultDbTest extends Specification{
+class ResultDbTest extends Specification {
     private ResultDb resultDb;
 
-    def setup(){
-        resultDb=new ResultDb()
+    def setup() {
+        resultDb = new ResultDb()
     }
 
-    def "Get Leagues info"(){
+    def "Get Leagues info"() {
         when:
-            List<LeagueInfo> leagueInfo = resultDb.getAllLeaguesInfo()
+        List<LeagueInfo> leagueInfo = resultDb.getAllLeaguesInfo()
         then:
-            leagueInfo != null && leagueInfo.size()>0
+        leagueInfo != null && leagueInfo.size() > 0
     }
 
-    def "Get League from LeagueInfo"(){
+    def "Get League from LeagueInfo"() {
         when:
-            List<LeagueInfo> leagueInfo = resultDb.getAllLeaguesInfo()
-            League league = resultDb.getLeagueFromLeagueInfo(leagueInfo.get(0))
+        List<LeagueInfo> leagueInfo = resultDb.getAllLeaguesInfo()
+        League league = resultDb.getLeagueFromLeagueInfo(leagueInfo.get(0))
         then:
-            league != null
+        league != null
     }
 
-    def "Get Leagues"(){
+    def "Get Leagues"() {
         when:
-            List<League> leagues = resultDb.getAllLeagues()
+        List<League> leagues = resultDb.getAllLeagues()
         then:
-            leagues!=null && leagues.size()>0
+        leagues != null && leagues.size() > 0
     }
 }

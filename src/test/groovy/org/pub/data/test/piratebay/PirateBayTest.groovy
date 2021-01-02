@@ -6,7 +6,7 @@ import spock.lang.Specification
 
 /**
  * Tests for the Piratebay service
- * Created by vitorfernandes on 10/25/15.
+ * Created by balhau on 10/25/15.
  */
 class PirateBayTest extends Specification {
 
@@ -18,15 +18,15 @@ class PirateBayTest extends Specification {
 
     def "Check piratebay proxy list"() {
         when:
-            "When the app starts"
+        "When the app starts"
         then:
-            PirateBay.PIRATEBAY_PROXY_LIST.size() > 0
+        PirateBay.PIRATEBAY_PROXY_LIST.size() > 0
     }
 
-    def "Get results from torrents search"(){
+    def "Get results from torrents search"() {
         when:
-            List<TorrentInfo> torrents = pirateBay.searchTorrents("Vuelta 2016",0,PirateBay.UNORDERED)
+        List<TorrentInfo> torrents = pirateBay.searchTorrents("giro", 0, PirateBay.UNORDERED)
         then:
-            torrents.size() > 0
+        torrents.size() > 0
     }
 }
