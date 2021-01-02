@@ -5,7 +5,7 @@ package org.pub.pt.data.sources.domain;
  * @author balhau
  *
  */
-public interface IDataSource {
+public interface DataSource {
 	//Now we cannot identify the methods that should be implemented.
 	//TODO find needed methods 
 }

@@ -17,16 +17,16 @@ public enum DataSources {
 	}
 	
 	/**
-	 * Create, through reflection the respective instance of {@link IDataSource}
+	 * Create, through reflection the respective instance of {@link DataSource}
 	 * @return IDataSource
 	 * @throws ClassNotFoundException Classloading problems
 	 * @throws InstantiationException Instatiation problems
 	 * @throws IllegalAccessException Invocation problems
 	 */
-	public IDataSource buildInstance() throws ClassNotFoundException, InstantiationException, IllegalAccessException{
+	public DataSource buildInstance() throws ClassNotFoundException, InstantiationException, IllegalAccessException{
 		@SuppressWarnings("unchecked")
-		Class<IDataSource> cls=(Class<IDataSource>)Class.forName(this.className);
-		IDataSource ds=cls.newInstance();
+		Class<DataSource> cls=(Class<DataSource>)Class.forName(this.className);
+		DataSource ds=cls.newInstance();
 		return ds;
 	}
 }

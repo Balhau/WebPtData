@@ -24,7 +24,7 @@ public class bancoPortugal {
 		List<String> idSerie=new ArrayList<String>();
 		idSerie.add("2031463");
 		idSerie.add("2027392");
-		List<TableData> seriesDataO=bp.getDataForSeries(idSerie, new Date());
+		List<TableData> seriesDataO=null;
 		TableData metadataForSeries=seriesDataO.get(0);
 		TableData seriesData=seriesDataO.get(1);
 		System.out.println(metadataForSeries.toJSON());
