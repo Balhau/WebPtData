@@ -50,8 +50,6 @@ public class BaseGov implements MessageService {
     }
 
     public BaseQueryResponse getByAjudicatario(int startOffset, int endOffset, String adjudicatario) throws Exception {
-        System.out.println(BaseQueryUtils.getByAdjudicario(startOffset, endOffset,
-                adjudicatario));
         return getResultsByQuery(startOffset, endOffset,
                 BaseQueryUtils.getByAdjudicario(startOffset, endOffset,
                         adjudicatario)
