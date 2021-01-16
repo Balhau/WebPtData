@@ -1,7 +1,7 @@
 package org.pub.pt.data.sources.domain;
 
 /**
- * Created by vitorfernandes on 10/25/15.
+ * Created by balhau on 10/25/15.
  */
 public class Message {
     private final String message;

@@ -77,7 +77,7 @@ class BancoPortugalTest extends Specification {
     }
 
 
-    def "Get datapoints for series"() {
+    def "Get data points for series"() {
         when:
         List<BdpDomain> bdpDomainList = bdp.getDomains()
         List<BdpHierarchy> bdpHierarchyList = bdp.getDomainHierarchies(bdpDomainList.get(0))
