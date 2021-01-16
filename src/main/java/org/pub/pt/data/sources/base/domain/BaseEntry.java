@@ -1,107 +1,107 @@
 package org.pub.pt.data.sources.base.domain;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.pub.pt.data.sources.domain.AbstractData;
+
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * This class represents an row on a response of base query.
- * @author balhau
  *
+ * @author balhau
  */
 @XmlRootElement
-public class BaseEntry extends AbstractData{
-	
-	private String description;
-	private float price;
-	private String publication;
-	private String adjudicante;
-	private String adjudicatario;
-	private String url;
-	private int id;
-	
-	
-	public BaseEntry(){
-		
-	}
-	
-	public BaseEntry(
-			String description,float price,
-			String publication,String adjudicante,String adjudicatario,
-			String url,
-			int id
-			){
-		this.description=description;
-		this.price=price;
-		this.publication=publication;
-		this.adjudicante=adjudicante;
-		this.adjudicatario=adjudicatario;
-		this.url=url;
-		this.id=id;
-	}
+public class BaseEntry extends AbstractData {
+
+    private String description;
+    private float price;
+    private String publication;
+    private String adjudicante;
+    private String adjudicatario;
+    private String url;
+    private int id;
 
 
-	public String getDescription() {
-		return description;
-	}
+    public BaseEntry() {
+
+    }
+
+    public BaseEntry(
+            String description, float price,
+            String publication, String adjudicante, String adjudicatario,
+            String url,
+            int id
+    ) {
+        this.description = description;
+        this.price = price;
+        this.publication = publication;
+        this.adjudicante = adjudicante;
+        this.adjudicatario = adjudicatario;
+        this.url = url;
+        this.id = id;
+    }
 
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public float getPrice() {
-		return price;
-	}
+    public String getDescription() {
+        return description;
+    }
 
 
-	public void setPrice(float price) {
-		this.price = price;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public float getPrice() {
+        return price;
+    }
 
 
-	public String getPublication() {
-		return publication;
-	}
+    public void setPrice(float price) {
+        this.price = price;
+    }
 
 
-	public void setPublication(String publication) {
-		this.publication = publication;
-	}
+    public String getPublication() {
+        return publication;
+    }
 
 
-	public String getAdjudicante() {
-		return adjudicante;
-	}
+    public void setPublication(String publication) {
+        this.publication = publication;
+    }
 
 
-	public void setAdjudicante(String adjudicante) {
-		this.adjudicante = adjudicante;
-	}
+    public String getAdjudicante() {
+        return adjudicante;
+    }
 
 
-	public String getAdjudicatario() {
-		return adjudicatario;
-	}
+    public void setAdjudicante(String adjudicante) {
+        this.adjudicante = adjudicante;
+    }
 
 
-	public void setAdjudicatario(String adjudicatario) {
-		this.adjudicatario = adjudicatario;
-	}
+    public String getAdjudicatario() {
+        return adjudicatario;
+    }
 
-	public int getId() {
-		return id;
-	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setAdjudicatario(String adjudicatario) {
+        this.adjudicatario = adjudicatario;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

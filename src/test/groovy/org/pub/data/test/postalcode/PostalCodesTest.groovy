@@ -1,10 +1,8 @@
-package org.pub.data.test.postalcode;
+package org.pub.data.test.postalcode
 
-import org.pub.pt.data.sources.postalcode.PostalCodes;
-import org.pub.pt.data.sources.postalcode.domain.PostalCode;
-import spock.lang.Specification;
-
-import java.util.List;
+import org.pub.pt.data.sources.postalcode.PostalCodes
+import org.pub.pt.data.sources.postalcode.domain.PostalCode
+import spock.lang.Specification
 
 class PostalCodesTest extends Specification {
 
@@ -22,7 +20,7 @@ class PostalCodesTest extends Specification {
         List<PostalCode> codes = postalCodes.getPostalCodesByLocal(null, location)
         then:
         "Then a not empty list of PostalCode objects should be returned"
-        codes!=null && codes.size() > 0
+        codes != null && codes.size() > 0
     }
 
     def "Get postal code by street"() {
@@ -33,7 +31,7 @@ class PostalCodesTest extends Specification {
         List<PostalCode> codes = postalCodes.getPostalCodesByLocal(street, null)
         then:
         "Then a not empty list of PostalCode objects should be returned"
-        codes!=null && codes.size() > 0
+        codes != null && codes.size() > 0
     }
 
     def "Get postal code by major code"() {
@@ -48,7 +46,7 @@ class PostalCodesTest extends Specification {
         codes != null && codes.size() > 0
     }
 
-    def "Get postal code by major and minor codes"(){
+    def "Get postal code by major and minor codes"() {
         when:
         "We have a major and a minor postal codes"
         String major = "4410"
@@ -57,10 +55,10 @@ class PostalCodesTest extends Specification {
         List<PostalCode> codes = postalCodes.getPostalCodesByCode(major, minor)
         then:
         "Then a not empty list of PostalCode objects should be returned"
-        codes!=null && codes.size() > 0
+        codes != null && codes.size() > 0
     }
 
-    def "Exception should be thrown when invalid codes are provided"(){
+    def "Exception should be thrown when invalid codes are provided"() {
         when:
         "We have a major and a minor postal codes"
         String major = "491"
@@ -72,23 +70,23 @@ class PostalCodesTest extends Specification {
         thrown(IndexOutOfBoundsException)
     }
 
-    def "Exception should be thrown when location is invalid"(){
+    def "Exception should be thrown when location is invalid"() {
         when:
         "We have a major and a minor postal codes"
-        String invalidLocation="invalidLocation"
+        String invalidLocation = "invalidLocation"
         "And get post codes by them"
-        List<PostalCode> codes = postalCodes.getPostalCodesByLocal(null,invalidLocation);
+        List<PostalCode> codes = postalCodes.getPostalCodesByLocal(null, invalidLocation);
         then:
         "Then an IndexOutOfBoundsException should be thrown"
         thrown(IndexOutOfBoundsException)
     }
 
-    def "Exception should be thrown when street is invalid"(){
+    def "Exception should be thrown when street is invalid"() {
         when:
         "We have a major and a minor postal codes"
-        String invalidStreet="invalidStreet"
+        String invalidStreet = "invalidStreet"
         "And get post codes by them"
-        List<PostalCode> codes = postalCodes.getPostalCodesByLocal(invalidStreet,null);
+        List<PostalCode> codes = postalCodes.getPostalCodesByLocal(invalidStreet, null);
         then:
         "Then an IndexOutOfBoundsException should be thrown"
         thrown(IndexOutOfBoundsException)
