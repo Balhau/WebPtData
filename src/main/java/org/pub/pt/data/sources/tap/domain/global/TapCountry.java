@@ -1,4 +1,4 @@
-package org.pub.pt.data.sources.tap.domain;
+package org.pub.pt.data.sources.tap.domain.global;
 
 public enum TapCountry {
     PT("PT");
