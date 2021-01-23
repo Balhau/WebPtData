@@ -7,12 +7,20 @@ public class TapGlobalInfo {
     private final List<Country> Countries;
     private final List<String> MarketList;
     private final List<State> States;
+    private final List<Airport> MarketAirports;
 
-    public TapGlobalInfo(List<Airport> airports, List<Country> countries, List<String> marketList, List<State> states) {
+    public TapGlobalInfo(
+            final List<Airport> airports,
+            final List<Country> countries,
+            final List<String> marketList,
+            final List<State> states,
+            final List<Airport> marketAirports
+    ) {
         this.Airports = airports;
         this.Countries = countries;
         this.MarketList = marketList;
         this.States = states;
+        this.MarketAirports = marketAirports;
     }
 
     public List<Airport> getAirports() {

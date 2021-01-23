@@ -15,7 +15,7 @@ public class Airport {
     private final boolean MilesAndCash;
     private final boolean YoungAdults;
     private final boolean OnlyDestination;
-    private final boolean IsAllAirportsOfCityOpen;
+    private final boolean IsAllAirportsOfCityOption;
 
     public Airport(String iataCode, String tag, String market, String city, String destinationId, List<String> connections, List<String> connectionsVictoria, List<String> connectionsTap, List<String> connectionsStopover, boolean milesAndCash, boolean youngAdults, boolean onlyDestination, boolean isAllAirportsOfCityOpen) {
         this.IATACode = iataCode;
@@ -30,7 +30,7 @@ public class Airport {
         this.MilesAndCash = milesAndCash;
         this.YoungAdults = youngAdults;
         this.OnlyDestination = onlyDestination;
-        this.IsAllAirportsOfCityOpen = isAllAirportsOfCityOpen;
+        this.IsAllAirportsOfCityOption = isAllAirportsOfCityOpen;
     }
 
     public String getIATACode() {
@@ -81,7 +81,7 @@ public class Airport {
         return OnlyDestination;
     }
 
-    public boolean isAllAirportsOfCityOpen() {
-        return IsAllAirportsOfCityOpen;
+    public boolean isAllAirportsOfCityOption() {
+        return IsAllAirportsOfCityOption;
     }
 }

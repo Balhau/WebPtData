@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
  * cpu when the beans are instantiated
  */
 public class ScraperPool {
-    public static final int THREAD_POOL_SIZE = 50;
+    public static final int THREAD_POOL_SIZE = 20;
 
     private static final ExecutorService pool;
 

@@ -1,91 +1,89 @@
 package org.pub.pt.data.sources.rodonorte;
 
 
-import com.google.gson.Gson;
-import com.google.gson.internal.LinkedTreeMap;
 import org.jsoup.Connection;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.pub.global.utils.DomUtils;
-import org.pub.pt.data.sources.rodonorte.domain.Destination;
-import org.pub.pt.data.sources.rodonorte.domain.Ride;
+import org.pub.pt.data.sources.rodonorte.callable.FetchCalendar;
+import org.pub.pt.data.sources.rodonorte.domain.CalendarEntry;
+import org.pub.pt.data.sources.rodonorte.domain.RodonorteCalendar;
 
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toList;
 
 /**
  * This will return the scheduling of bus of a northern portuguese company
  */
 public class Rodonorte {
-    private static final String RODONORTE_URL="https://www.rodonorte.pt/";
-    private static final String HORARIOS_PATH="pt/horarios/";
-    private static final String DESTINATION_PATH="plugins/ximyticket/xiMyticket.ajax.php";
-    private static final String DESTINATION_METHOD_NAME="GetStopsRest";
-    private static final String DESTINATION_REST_FLAG="true";
-    private static final String DESTINATION_REST_PARAM="isRest";
-    private static final String RPC_METHOD_PARAM="method";
-    private static final String ORIGIN_PARAM = "origem";
-    private static final String DESTINY_PARAM= "destino";
+    private static final String RODONORTE_CALENDAR_HOST = "http://beware.pt";
+    private static final String CALLENDAR_LIST_PATTERN = "/IP/MotorBusca/rodonorte/Horarios.aspx?g=%s";
+    private static final String CALLENDAR_PATTERN = "/IP/MotorBusca/rodonorte/Horario.aspx?id=%s";
 
+    public static int NUMBER_OF_CALENDARS=19;
 
-    public List<String> getOriginList() throws Exception{
-        Connection con = DomUtils.getHTML(RODONORTE_URL+"pt");
-        Document page = con.get();
-        return page.getElementsByTag("select")
-                .get(2)
-                .getElementsByTag("option")
-                .stream()
-                .skip(1)
-                .map( o -> o.text())
-                .collect(toList());
+    private ExecutorService executorService;
+
+    public Rodonorte(final ExecutorService executorService) {
+        this.executorService = executorService;
     }
 
-    public List<Destination> getDestinations(String origin) throws Exception {
-        Connection con = DomUtils.getHTML(RODONORTE_URL+DESTINATION_PATH);
-        con.ignoreContentType(true);
-        con.data(
-                RPC_METHOD_PARAM,DESTINATION_METHOD_NAME,
-                DESTINATION_REST_PARAM,DESTINATION_REST_FLAG
-        );
-        Document doc = con.post();
-        Map jsonData = new Gson().fromJson(doc.body().text(),Map.class);
-        return ((ArrayList<LinkedTreeMap<String,String>>) jsonData.get("data"))
-                .stream()
-                .map(this::parseDestination)
-                .collect(toList());
-    }
+    public List<RodonorteCalendar> getCalendars(int page) throws Exception {
+        if(page>NUMBER_OF_CALENDARS){
+            throw new Exception("Illegal callendar page, max: "+NUMBER_OF_CALENDARS);
+        }
+        List<CalendarEntry> calendarEntries = getCalendarIds(page);
 
-    public List<Ride> getRides(String origin, Destination destination) throws Exception {
-        Connection con = DomUtils.getHTML(RODONORTE_URL+HORARIOS_PATH);
-        con.data(
-                ORIGIN_PARAM,origin,
-                DESTINY_PARAM,destination.getName()
-        );
-        Document doc = con.post();
-        return doc.getElementsByTag("table")
-                .stream()
-                .skip(1)
-                .limit(doc.getElementsByTag("table").size()-2)
-                .map(e -> parseRidesFromTableRow(e,origin,destination))
+        //First fetch all futures
+        List<Future<RodonorteCalendar>> futureCalendars = calendarEntries.stream()
+                .map(this::getCalendarFuture)
+                .collect(Collectors.toList());
+
+        //Now wait for all the futures
+        //This double iteration is needed to avoid submit/get cycles that
+        //would defeat the all purpose of concurrency calls
+        return futureCalendars.stream()
+                .map(this::getOrNull)
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
-    private Destination parseDestination(LinkedTreeMap treeMap){
-        Destination newDestination=new Destination((Double)treeMap.get("Id"),(String)treeMap.get("Name"));
-        return newDestination;
+    private Future<RodonorteCalendar> getCalendarFuture(final CalendarEntry calendarEntry){
+        String calendarURL = String.format(RODONORTE_CALENDAR_HOST + CALLENDAR_PATTERN, calendarEntry.getId());
+        return executorService.submit(new FetchCalendar(calendarEntry.getDescription(),calendarURL));
     }
 
-    private Ride parseRidesFromTableRow(Element row,String origin,Destination destination) {
-        Elements cells = row.getElementsByTag("tr").get(0).getElementsByTag("td");
-        return new Ride(
-                origin,
-                destination.getName(),
-                cells.get(1).text(),
-                cells.get(3).text(),
-                Float.parseFloat(cells.get(5).text().split("€")[1].replace(",","."))
-                );
+    private <T> T getOrNull(Future<T> future){
+        try{
+            return future.get();
+        }catch (Exception ex){
+            return null;
+        }
+    }
+
+    private List<CalendarEntry> getCalendarIds(final int page) throws Exception {
+        String calendarsPageURL = String.format(RODONORTE_CALENDAR_HOST + CALLENDAR_LIST_PATTERN, page);
+        Connection cn = DomUtils.getHTML(calendarsPageURL);
+        Document doc = cn.get();
+
+        return doc.getElementsByTag("tr")
+                .stream()
+                .map(this::toCalendarEntry)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+    }
+
+    private CalendarEntry toCalendarEntry(final Element line) {
+        if (line.attr("onclick").isBlank()) {
+            return null;
+        }
+
+        int id = Integer.parseInt(line.attr("onclick").split("\\?id=")[1].split("';")[0]);
+        String desc = line.text();
+        return new CalendarEntry(desc, id);
     }
 }
