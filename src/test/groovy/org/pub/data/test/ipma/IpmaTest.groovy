@@ -3,7 +3,11 @@ package org.pub.data.test.ipma
 import org.pub.global.domain.TableData
 import org.pub.pt.data.sources.ipma.Ipma
 import org.pub.pt.data.sources.ipma.domain.BeachEntry
-import org.pub.pt.data.sources.ipma.domain.GeoWeather
+import org.pub.pt.data.sources.ipma.domain.api.District
+import org.pub.pt.data.sources.ipma.domain.api.ForecastInfo
+import org.pub.pt.data.sources.ipma.domain.api.ForecastLocation
+import org.pub.pt.data.sources.ipma.domain.api.LocaleLabel
+import org.pub.pt.data.sources.ipma.domain.api.Warnings
 import spock.lang.Specification
 
 /**
@@ -31,17 +35,56 @@ class IpmaTest extends Specification {
         beachInfo.size() > 0
     }
 
-    def "Get land, uv and sea weather for today"() {
+    def "Get IPMA weather types"(){
         when:
-        List<GeoWeather> weather = ipma.getForecastDay(1)
+        Map<String, LocaleLabel> weatherTypes = ipma.getWeatherTypes()
         then:
-        weather.size() > 0
+        !weatherTypes.isEmpty() && weatherTypes.size()>0
     }
 
-    def "Get seismic activity for today"() {
+    def "Get IPMA wind types"(){
         when:
-        List<TableData> seismicData = ipma.getSeismicActivity(new Date())
+        Map<String, LocaleLabel> windTypes = ipma.getWindTypes()
         then:
-        seismicData.size() > 0
+        !windTypes.isEmpty() && windTypes.size()>0
     }
+
+    def "Get IPMA rain types"(){
+        when:
+        Map<String, LocaleLabel> rainTypes = ipma.getRainTypes()
+        then:
+        !rainTypes.isEmpty() && rainTypes.size()>0
+    }
+
+    def "Get IPMA districts"(){
+        when:
+        List<District> districtsList = ipma.getDistricts()
+        then:
+        !districtsList.isEmpty() && districtsList.size()>0
+    }
+
+    def "Get IPMA warnings"(){
+        when:
+        Warnings warnings = ipma.getWarnings()
+        then:
+        warnings!=null && warnings.data!=null && warnings.data.size()>0
+    }
+
+    def "Get IPMA forecast locations"(){
+        when:
+        List< ForecastLocation> forecastLocations = ipma.getForecastLocations()
+        then:
+        forecastLocations!=null && forecastLocations.size()>0
+    }
+
+    def "Get forecast for location"(){
+        when:
+        List<ForecastLocation> forecastLocations = ipma.getForecastLocations()
+        List<ForecastInfo> forecastInfoList = ipma.getForecastForLocation(forecastLocations.get(0))
+        then:
+        forecastLocations!=null && forecastLocations.size()>0 &&
+                forecastInfoList!=null && forecastInfoList.size()>0
+
+    }
+
 }

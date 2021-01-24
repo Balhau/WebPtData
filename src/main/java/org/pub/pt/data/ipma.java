@@ -11,7 +11,6 @@ public class ipma {
 		
 		Calendar c=Calendar.getInstance();
 		c.set(2000, 1, 1);
-		System.out.println(new Ipma().getSeismicActivity(c.getTime()));
 	
 		/**Ipma ipm=new Ipma();
 		List<GeoWeather<?>> sdata=ipm.getForecastDayZero();
