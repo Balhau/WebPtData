@@ -10,13 +10,22 @@ import java.util.concurrent.Executors;
 public class ScraperPool {
     public static final int THREAD_POOL_SIZE = 20;
 
-    private static final ExecutorService pool;
+    private final ExecutorService pool;
+    private static Object singletonLock=new Object();
+    private static ScraperPool INSTANCE;
 
-    static {
-        pool = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+    private ScraperPool(final int poolSize){
+        this.pool=Executors.newFixedThreadPool(poolSize);
     }
 
     public static ExecutorService getPool() {
-        return pool;
+        if(INSTANCE==null){
+            synchronized (singletonLock){
+                if(INSTANCE==null){
+                    INSTANCE=new ScraperPool(THREAD_POOL_SIZE);
+                }
+            }
+        }
+        return INSTANCE.pool;
     }
 }
