@@ -27,7 +27,7 @@ class BrainyQuotesTest extends Specification {
     def "Get brainyquote quotes from topic"() {
         when:
         List<Topic> topics = brainyQuote.getTopics()
-        List<Message> quotes = brainyQuote.getQuotes(topics.get(0).name, 1)
+        List<Message> quotes = brainyQuote.getQuotes(topics.get(0), 1)
         then:
         quotes != null && quotes.size() > 0
     }

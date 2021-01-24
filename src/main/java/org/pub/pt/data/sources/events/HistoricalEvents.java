@@ -88,26 +88,16 @@ public class HistoricalEvents implements MessageService {
         Elements eventsLi = doc.getElementsByClass("event-list");
 
         for (Element event : eventsLi) {
-            int year = Integer.parseInt(event.getElementsByTag("a").get(0).text().split("BC")[0].split("AC")[0].trim());
-            HistoricalEvent hevent = new HistoricalEvent(day, month, year, event.text());
-            events.add(hevent);
+            safeParse(events,event,month,day);
         }
-
         return events;
     }
 
-    private Optional<HistoricalEvent> parseLineEventToHistoricalEvent(String line, int month, int day) {
-        Element body = Jsoup.parseBodyFragment(line).body();
-        String[] fields = body.text().split("-", 2);
-        int year;
+    private void safeParse(List<HistoricalEvent> events,Element event,int month, int day){
         try {
-            year = fields[0].contains("BC") ? -Integer.valueOf(fields[0].split("BC")[0].trim()) : Integer.valueOf(fields[0].trim());
-        } catch (Exception ex) {
-            return Optional.empty();
-        }
-
-        String event = fields[1];
-
-        return Optional.of(new HistoricalEvent(day, month, year, event));
+            int year = Integer.parseInt(event.getElementsByTag("a").get(0).text().split("BC")[0].split("AC")[0].trim());
+            HistoricalEvent hevent = new HistoricalEvent(day, month, year, event.text());
+            events.add(hevent);
+        }catch (Exception ex){}
     }
 }
