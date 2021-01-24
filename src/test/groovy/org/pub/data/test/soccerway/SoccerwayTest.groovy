@@ -1,5 +1,7 @@
 package org.pub.data.test.soccerway
 
+import org.pub.data.sources.sports.football.soccerway.Soccerway
+import org.pub.data.sources.sports.football.soccerway.domain.HostDomain
 import spock.lang.Specification
 
 /**
@@ -9,7 +11,7 @@ class SoccerwayTest extends Specification {
     private Soccerway soccerway
 
     def setup() {
-        soccerway = new Soccerway()
+        soccerway = new Soccerway(HostDomain.PORTUGAL)
     }
 
     def "Get Coach info"() {

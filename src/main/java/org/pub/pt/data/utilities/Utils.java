@@ -1,11 +1,9 @@
 package org.pub.pt.data.utilities;
 
-import org.pub.data.sources.sports.football.soccerway.domain.PlayerPosition;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Class with utility methods
