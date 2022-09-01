@@ -44,7 +44,7 @@
         <spock.version>1.0-groovy-2.4</spock.version>
         <gson.version>2.2.4</gson.version>
         <jaxb.version>2.0</jaxb.version>
-        <jsoup.version>1.13.1</jsoup.version>
+        <jsoup.version>1.15.3</jsoup.version>
         <groovy.version>2.4.7</groovy.version>
         <maven.compiler.plugin>2.3.1</maven.compiler.plugin>
         <balhau.snapshot>1.0-SNAPSHOT</balhau.snapshot>
