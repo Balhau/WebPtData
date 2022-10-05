@@ -51,7 +51,7 @@
         <surefire.version>2.18.1</surefire.version>
         <http.client.version>4.5.10</http.client.version>
         <pdfbox.version>2.0.19</pdfbox.version>
-        <jackson.version>2.11.0</jackson.version>
+        <jackson.version>2.12.6.1</jackson.version>
     </properties>
 
 
